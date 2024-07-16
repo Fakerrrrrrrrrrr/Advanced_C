@@ -62,14 +62,14 @@ void TinhToan(int *a,int *b,void (*phepToan)(int *, int *)){
 int main(){
     int a = 7;
     int b = 5;
-    void (*phepToan[])(int *, int *) = {tong, hieu, tich, thuong};
+    void (*phepToan[])(int *, int *) = {tong, hieu, &tich, &thuong};
 
     phepToan[0](&a,&b);  //Tong 7 va 5 = 12
     phepToan[1](&a,&b);  //Hieu 7 va 5 = 2
     phepToan[2](&a,&b);  //Tich 7 va 5 = 35
     phepToan[3](&a,&b);  //Thuong 7 va 5 = 1.400
 
-    TinhToan(&a,&b,Thuong);  //Thuong 7 va 5 = 1.400
+    TinhToan(&a,&b,&thuong);  //Thuong 7 va 5 = 1.400
 }
 ```
 ## 3. Void Pointer
