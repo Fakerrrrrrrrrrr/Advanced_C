@@ -30,9 +30,10 @@ Ví dụ 3 kết quả dưới đều tương đương nhau:
 *(&a) = 10
 ```
 ## 2. Function Pointer
-- Con trỏ hàm (Function Pointer) là một biến có thể lưu địa chỉ của hàm.
+**- Con trỏ hàm (Function Pointer) là một biến có thể lưu địa chỉ của hàm.**
 > Cú pháp: <kiểu_dữ_liệu_trả_về> (*<tên_con_trỏ>)(<các_tham_số>) = <tên_hàm>;
 
+**Ngoài ra con trỏ hàm cũng có thể làm tham số của 1.**
 Ví dụ: 
 ```
 #include <stdio.h>
