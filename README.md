@@ -140,11 +140,26 @@ myPointer = &z;
 
 intPointer = (int*)myPointer;
 ```
-## 3. Pointer to Constant
+## 4. Pointer to Constant
 
-Con trỏ hằng (Pointer to Constant) là
+Con trỏ hằng (Pointer to Constant) là không thể sử dụng con trỏ để thay đổi giá trị mà nó trỏ .
 
+Có 3 đặc điểm c ủa con trỏ hằng:
+1. Không thể sử dụng con trỏ để thay đổi giá trị mà nó trỏ đến (vì đó là hằng số).
+2. Có thể gán địa chỉ của một biến có thể thay đổi cho con trỏ, nhưng không thể thay đổi giá trị của biến đó thông qua con trỏ.
+3. Có thể gán địa chỉ của một hằng số cho con trỏ.
 
+```
+int x = 10;
+const int *p = &x; // Gán địa chỉ của x cho con trỏ p, nhưng không thể thay đổi giá trị của x thông qua p
+
+*p = 20; // Lỗi, không thể thay đổi giá trị mà p trỏ đến vì đó là hằng số
+
+const int y = 30;
+p = &y; // Hợp lệ, có thể thay đổi địa chỉ mà p trỏ đến
+```
+
+## 5. Null Pointer
 
 
 
