@@ -1,4 +1,48 @@
 # **Bài 3: Pointer**
+## Bài tập về nhà
+> Kích thước của con trỏ
+
+Kích thước của con trỏ phụ thuộc vào kiến trúc máy tính (32-bit hay 64-bit) và kiểu dữ liệu mà con trỏ đang trỏ đến.
+
+Hầu hết ở các kiểu dữ liệu thì kích cỡ của con trỏ thường là 4 bytes (32 bit) trên hệ thống 32-bit và 8 bytes (64 bit) trên hệ thống 64-bit.
+
+Tuy nhiên ở kiểu dữ liệu **double** là 8 bytes (64 bit), kiểu dữ liệu **long long** là 8 bytes (64 bit), kiểu dữ liệu **bool** là 1 bytes (8 bit) trên cả hệ thống 32-bit và 64-bit.
+
+Input
+```
+#include <stdio.h>
+
+int main() {
+    printf("%zu bytes\n", sizeof(int *));
+    printf("%zu bytes\n", sizeof(char *));
+    printf("%zu bytes\n", sizeof(float *));
+    printf("%zu bytes\n", sizeof(double *));
+    printf("%zu bytes\n", sizeof(long *));
+    printf("%zu bytes\n", sizeof(short *));
+    printf("%zu bytes\n", sizeof(long long *));
+    printf("%zu bytes\n", sizeof(bool *));
+    printf("%zu bytes\n", sizeof(struct *));
+    printf("%zu bytes\n", sizeof(union *));
+    printf("%zu bytes\n", sizeof(enum *));
+
+    return 0;
+}
+```
+Output
+```
+4 bytes
+4 bytes
+4 bytes
+8 bytes
+4 bytes
+4 bytes
+8 bytes
+1 bytes
+4 bytes
+4 bytes
+4 bytes
+```
+
 ## 1. Pointer
 - Con trỏ (Pointer) là một biến lưu lại địa chỉ ô nhớ trong bộ nhớ máy tính.
 > Cú pháp: <kiểu_dữ_liệu> *<tên_biến>;
@@ -96,8 +140,9 @@ myPointer = &z;
 
 intPointer = (int*)myPointer;
 ```
+## 3. Pointer to Constant
 
-
+Con trỏ hằng (Pointer to Constant) là
 
 
 
