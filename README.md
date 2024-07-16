@@ -143,6 +143,8 @@ intPointer = (int*)myPointer;
 ## 4. Pointer to Constant
 
 Con trỏ hằng (Pointer to Constant) là không thể sử dụng con trỏ để thay đổi giá trị mà nó trỏ .
+> Cú pháp: <kiểu_dữ_liệu> const *<tên_con_trỏ>;
+>          const <kiểu_dữ_liệu> *<tên_con_trỏ>;
 
 Có 3 đặc điểm c ủa con trỏ hằng:
 1. Không thể sử dụng con trỏ để thay đổi giá trị mà nó trỏ đến (vì đó là hằng số).
@@ -160,6 +162,7 @@ p = &y; // Hợp lệ, có thể thay đổi địa chỉ mà p trỏ đến
 ```
 
 ## 5. Null Pointer
-
+Con trỏ Null (Null Pointer) là một con trỏ không trỏ đến bất kỳ vùng nhớ nào và có giá trị bằng 0.
+Khi chúng ta khai báo bất kỳ
 
 
