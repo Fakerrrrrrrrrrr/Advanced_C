@@ -78,7 +78,7 @@ Con trỏ void (void pointer) là một loại con trỏ đặc biệt, có th�
 
 Có 3 đặc điểm của con trỏ void:
 1. Có thể trỏ đến bất kỳ kiểu dữ liệu nào, không phụ thuộc vào kiểu.
-2. Không thể trực tiếp truy cập/thay đổi giá trị mà nó trỏ đến, vì không biết kiểu dữ liệu.
+2. Không thể trực tiếp truy cập/thay đổi giá trị mà nó trỏ đến, vì không xác định được kiểu dữ liệu.
 3. Trước khi sử dụng, cần phải ép kiểu con trỏ void về kiểu dữ liệu đúng.
 
 Ví dụ:
