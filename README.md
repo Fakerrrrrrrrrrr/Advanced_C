@@ -172,7 +172,8 @@ Ví dụ:
 //Việc sử dụng null pointer có thể gây ra lỗi chương trình.
 1. Khởi tạo: Khởi tạo một con trỏ null bằng cách gán giá trị 0 hoặc NULL cho nó:
 int *ptr = NULL;
-2. Kiểm tra: Trước khi sử dụng một con trỏ, nên kiểm tra xem nó có phải là null pointer không bằng cách so sánh nó với NULL
+2. Kiểm tra: Trước khi sử dụng một con trỏ, nên kiểm tra xem nó có phải là null pointer
+không bằng cách so sánh nó với NULL
 if (ptr != NULL) {
     // Sử dụng con trỏ
 } else {
