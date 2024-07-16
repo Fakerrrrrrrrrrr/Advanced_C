@@ -13,3 +13,9 @@ Ví dụ:
 int a = 10;
 int *ptr = &a;
 ```
+Đối với 1 mảng để lấy địa chỉ của 1 mảng thì ta chỉ cần nhập tên của mảng đó
+Ví dụ: 
+```
+int array[] = {1,2,3,4,5};
+int *ptr = array;
+```
