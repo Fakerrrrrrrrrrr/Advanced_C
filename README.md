@@ -72,9 +72,30 @@ int main(){
     TinhToan(&a,&b,Thuong);  //Thuong 7 va 5 = 1.400
 }
 ```
+## 3. Void Pointer
+Con trỏ void (void pointer) là một loại con trỏ đặc biệt, có thể trỏ đến bất kỳ kiểu dữ liệu nào, bao gồm cả các kiểu do người dùng định nghĩa.
+> Cú pháp: void *<tên_con_trỏ>;
 
+Có 3 đặc điểm của con trỏ void:
+1. Có thể trỏ đến bất kỳ kiểu dữ liệu nào, không phụ thuộc vào kiểu.
+2. Không thể trực tiếp truy cập/thay đổi giá trị mà nó trỏ đến, vì không biết kiểu dữ liệu.
+3. Trước khi sử dụng, cần phải ép kiểu con trỏ void về kiểu dữ liệu đúng.
 
+Ví dụ:
+```
+int x = 10;
+double y = 10.5;
+char z = 'A';
 
+void *myPointer;
+int *intPointer;
+
+myPointer = &x;
+myPointer = &y;
+myPointer = &z;
+
+intPointer = (int*)myPointer;
+```
 
 
 
