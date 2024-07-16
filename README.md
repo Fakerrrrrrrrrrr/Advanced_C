@@ -30,10 +30,11 @@ Ví dụ 3 kết quả dưới đều tương đương nhau:
 *(&a) = 10
 ```
 ## 2. Function Pointer
-**- Con trỏ hàm (Function Pointer) là một biến có thể lưu địa chỉ của hàm.**
+- Con trỏ hàm (Function Pointer) là một biến có thể lưu địa chỉ của hàm.
 > Cú pháp: <kiểu_dữ_liệu_trả_về> (*<tên_con_trỏ>)(<các_tham_số>) = <tên_hàm>;
 
-**Ngoài ra con trỏ hàm cũng có thể làm tham số của 1.**
+Ngoài ra con trỏ hàm cũng có thể làm tham số của 1.
+
 Ví dụ: 
 ```
 #include <stdio.h>
@@ -54,6 +55,10 @@ void thuong(int *a, int *b){
     printf("Thuong %d va %d = %.3f\n", *a, *b, *a/(float)(*b));
 }
 
+void TinhToan(int *a,int *b,void (*phepToan)(int *, int *)){
+    phepToan(a,b);
+}
+
 int main(){
     int a = 7;
     int b = 5;
@@ -63,5 +68,17 @@ int main(){
     phepToan[1](&a,&b);  //Hieu 7 va 5 = 2
     phepToan[2](&a,&b);  //Tich 7 va 5 = 35
     phepToan[3](&a,&b);  //Thuong 7 va 5 = 1.400
+
+    TinhToan(&a,&b,Thuong);  //Thuong 7 va 5 = 1.400
 }
 ```
+
+
+
+
+
+
+
+
+
+
