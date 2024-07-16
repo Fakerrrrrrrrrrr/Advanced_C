@@ -143,9 +143,8 @@ intPointer = (int*)myPointer;
 ## 4. Pointer to Constant
 
 Con trỏ hằng (Pointer to Constant) là không thể sử dụng con trỏ để thay đổi giá trị mà nó trỏ .
-> Cú pháp: <kiểu_dữ_liệu> const *<tên_con_trỏ>;
-
->          const <kiểu_dữ_liệu> *<tên_con_trỏ>;
+> Cú pháp: <kiểu_dữ_liệu> const *<tên_con_trỏ>;<br>
+           const <kiểu_dữ_liệu> *<tên_con_trỏ>;
 
 Có 3 đặc điểm c ủa con trỏ hằng:
 1. Không thể sử dụng con trỏ để thay đổi giá trị mà nó trỏ đến (vì đó là hằng số).
