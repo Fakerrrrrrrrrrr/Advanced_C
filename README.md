@@ -7,3 +7,9 @@ Ví dụ:
 ```
 int *ptr = 0x01;
 ```
+Để lấy được địa chỉ của biến được khai báo bình thường thì dùng toán tử &
+Ví dụ: 
+```
+int a = 10;
+int *ptr = &a;
+```
