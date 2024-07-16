@@ -4,11 +4,11 @@
 
 Kích thước của con trỏ phụ thuộc vào kiến trúc máy tính (32-bit hay 64-bit) và kiểu dữ liệu mà con trỏ đang trỏ đến.
 
-Hầu hết ở các kiểu dữ liệu thì kích cỡ của con trỏ thường là 4 bytes (32 bit) trên hệ thống 32-bit và 8 bytes (64 bit) trên hệ thống 64-bit.
+Hầu hết ở các kiểu dữ liệu thì kích cỡ của con trỏ thường là **4** bytes (32 bit) trên hệ thống 32-bit và **8** bytes (64 bit) trên hệ thống 64-bit.
 
-Tuy nhiên ở kiểu dữ liệu **double** là 8 bytes (64 bit), kiểu dữ liệu **long long** là 8 bytes (64 bit), kiểu dữ liệu **bool** là 1 bytes (8 bit) trên cả hệ thống 32-bit và 64-bit.
+Tuy nhiên ở kiểu dữ liệu **double** là **8** bytes (64 bit), kiểu dữ liệu **long long** là **8** bytes (64 bit), kiểu dữ liệu **bool** là **1** bytes (8 bit) trên cả hệ thống 32-bit và 64-bit.
 
-Input
+**Input**
 ```
 #include <stdio.h>
 
@@ -28,7 +28,7 @@ int main() {
     return 0;
 }
 ```
-Output
+**Output**
 ```
 4 bytes
 4 bytes
