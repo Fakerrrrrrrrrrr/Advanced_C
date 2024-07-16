@@ -163,5 +163,19 @@ p = &y; // Hợp lệ, có thể thay đổi địa chỉ mà p trỏ đến
 ## 5. Null Pointer
 Con trỏ Null (Null Pointer) là một con trỏ không trỏ đến bất kỳ vùng nhớ nào và có giá trị bằng 0.
 Khi chúng ta khai báo bất kỳ
+> Cú pháp: <kiểu_dữ_liệu> *<tên_con_trỏ> = NULL;
 
+Khi khai báo 1 con trỏ bất kỳ nhưng không gán giá trị cho nó thì sẽ xảy ra trường hợp con trỏ được cấp phát vùng nhớ ngẫu nhiên. <br> Vì vậy nên gán biến con trỏ đó thành con trỏ NULL nếu chưa sử dụng ngay biến con trỏ đó.
 
+Ví dụ:
+```
+//Việc sử dụng null pointer có thể gây ra lỗi chương trình.
+1. Khởi tạo: Khởi tạo một con trỏ null bằng cách gán giá trị 0 hoặc NULL cho nó:
+int *ptr = NULL;
+2. Kiểm tra: Trước khi sử dụng một con trỏ, nên kiểm tra xem nó có phải là null pointer không bằng cách so sánh nó với NULL
+if (ptr != NULL) {
+    // Sử dụng con trỏ
+} else {
+    // Xử lý trường hợp con trỏ null
+}
+```
