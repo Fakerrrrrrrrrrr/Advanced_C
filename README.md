@@ -19,16 +19,47 @@ Các ưu điểm chính của việc sử dụng trình biên dịch bao gồm:
 - Kiểm tra và phát hiện lỗi trong quá trình biên dịch.
 - Tối ưu hóa mã nguồn.
 - Trình biên dịch là một thành phần cơ bản và quan trọng trong quá trình phát triển phần mềm, đặc biệt là đối với các ngôn ngữ lập trình cấp cao.
+## 2. Macro
+Macro là một tính năng trong lập trình cho phép người lập trình định nghĩa một tập hợp các lệnh hoặc quy tắc được đặt tên và có thể được sử dụng nhiều lần trong chương trình.
 
+Khi gặp một macro trong chương trình, trình biên dịch sẽ thay thế macro bằng đoạn mã tương ứng trước khi chuyển đổi chương trình sang mã máy. Macro xảy ra ở giai đoạn tiền xử lý.
 
+Macro có thể được sử dụng để:
 
+1. Thay thế văn bản: Thay thế một đoạn văn bản bằng một đoạn khác.
+2. Thực hiện tính toán: Thực hiện các phép tính toán tại thời điểm biên dịch.
+3. Tạo mã lập trình động: Tạo ra các đoạn mã mới dựa trên các tham số đầu vào.
+4. Tái sử dụng mã: Tái sử dụng các đoạn mã thường xuyên được sử dụng.
 
+Định nghĩa Macro function nối bằng dấu \.
+```
+#include <stdio.h>
 
+#define CREATE(name,cmd)    \
+void name(){                \
+    printf(cmd);            \
+}
 
+CREATE (test1, "OK")
 
+int main(){
+    test1(); //OK
+    return 0;
+}
+```
+So sánh Macro với Function:
+- Đối với Macro thì tốc độ xử lý nhanh hơn so với function bởi vì khi gọi function thì máy tính phải cấp 1 bộ nhớ tạm thời cho function ở thanh ghi trong khi đó Macro thì không cần thực hiện hành động này giúp tiết kiệm thời gian.
+- Tuy nhiên, nhược điểm của Marco đó chính phần vùng nhớ cố định sẽ được cấp cho Macro nên kích thước của chương trình sẽ lớn hơn khi dùng Macro so với function.
 
+Ứng dụng nối chuỗi tên biến trong Macro:
+```
+#define CREATE(name)    \
+int int_##name;         \
+double double_##name;   \
+char char_##char;
 
-
+CREATE(test) //int int_test; double double_test; char char_test;
+```
 
 
 
