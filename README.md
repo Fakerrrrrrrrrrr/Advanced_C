@@ -60,28 +60,71 @@ char char_##char;
 
 CREATE(test) //int int_test; double double_test; char char_test;
 ```
+Chuyển hóa đoạn văn bản thành chuỗi
+```
+#include <stdio.h>
+#define CREATE(cmd) printf(#cmd);
+int main(){
+    CREATE(okdesu) //okdesu
+    return 0;
+}
+```
+Trong trường hợp không biết số lượng tham số không xác định trước ở Macro thì chúng ta dùng Variadic Macro.
+```
+#Define PRINT_MENU_ITEM(number,item) printf("%d,%s\n",number,item);
+#Define PRINT_MENU(...)                        \
+    const char* item[] = {_VA_ARGS_};          \
+    int n = sizeof(items)/sizeof(items[0]);    \
+    for (int i = 0; i < n; i++ ) {             \
+        PRINT_MENU_ITEM(i+1,items[i])          \
+    }
+```
+Giải thích:
+%d là một specifier(định dạng) dùng để in ra một số nguyên.<br>
+%f là một specifier dùng để in ra một số thực trong dạng dấu phẩy động.<br>
+%s sẽ được thya thế b ởi giá trị của biến/ biểu thức chuỗi ký tự tương ứng.<br>
+_VA_ARGS_ đại diện cho tất cả các tham số được truyền vào khi Macro được gọi.
 
+Để bỏ định nghĩa Macro để định nghĩa lại lần nữa vì trong source code không được định nghĩa Macro lần thứ 2:
+> #undef <tên_Macro>
 
+Để kiểm tra xem Macro đã được định nghĩa hay chưa nếu chưa thì đoạn code được sử dụng ta dùng if not define.<br>
+Điều này rất quan trọng để tạo ra những thư viện.
+```
+#ifndef _LIB_MACO_
+#define _LIB_MACO_
+    {code}
+#endif
+```
+Ví dụ về ứng dụng ifndef:
+```
+#Define STM32 0
+#Define PFC 1
+#Define ATMEGA 2
 
+#Define MCU STM32
+typedef enum{
+    PIN0,
+    PIN1,
+    PIN2,
+    PIN3,
+    PIN4,
+    PIN5,
+    PIN6,
+    PIN7
+}Pins;
 
+typedef enum{
+    LOW,
+    HIGH
+} Status;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#ifndef MCU == STM32
+    {code}
+#elif MCU == ATMEGA
+    {code}
+#endif
+```
 
 # **Bài 3: Pointer**
 ## Bài tập về nhà
