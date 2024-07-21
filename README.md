@@ -1,6 +1,24 @@
 # **Bài 1: Compiler - Marco**
+## 1. Compiler
+Compiler (trình biên dịch) là một phần mềm được sử dụng để chuyển đổi một ngôn ngữ lập trình cấp cao (high-level programming language) như C, C++, Java, Python, v.v. thành mã máy (machine code) có thể được thực thi trực tiếp bởi bộ xử lý (CPU) của máy tính.
 
+![Compiler Image](https://drive.google.com/file/d/15eM8bXStSlOnp4xzn4qr0QsEg92EcD08/view?usp=drive_link)
 
+Quá trình biên dịch thường bao gồm các bước sau:
+
+1. Quét mã nguồn (Lexical Analysis): Trình biên dịch sẽ đọc mã nguồn, phân tích các từ khóa, toán tử, tên biến, hằng số, v.v. và tạo ra một chuỗi các token.
+2. Phân tích cú pháp (Syntax Analysis): Trình biên dịch sẽ kiểm tra tính hợp lệ của các token theo quy tắc cú pháp của ngôn ngữ lập trình và tạo ra cây cú pháp (parse tree).
+3. Phân tích ngữ nghĩa (Semantic Analysis): Trình biên dịch sẽ kiểm tra tính hợp lệ về ngữ nghĩa của chương trình, chẳng hạn như kiểu dữ liệu, phạm vi biến, v.v.
+4. Tối ưu hóa (Optimization): Trình biên dịch sẽ tối ưu hóa mã nguồn để tạo ra mã máy hiệu quả hơn.
+5. Tạo mã (Code Generation): Cuối cùng, trình biên dịch sẽ tạo ra mã máy tương ứng với chương trình nguồn.
+
+Các ưu điểm chính của việc sử dụng trình biên dịch bao gồm:
+
+- Tăng tốc độ thực thi chương trình.
+- Tạo ra mã máy có thể được thực thi trực tiếp trên phần cứng.
+- Kiểm tra và phát hiện lỗi trong quá trình biên dịch.
+- Tối ưu hóa mã nguồn.
+- Trình biên dịch là một thành phần cơ bản và quan trọng trong quá trình phát triển phần mềm, đặc biệt là đối với các ngôn ngữ lập trình cấp cao.
 
 
 
