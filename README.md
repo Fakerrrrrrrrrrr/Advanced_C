@@ -2,7 +2,7 @@
 ## 1. Compiler
 Compiler (trình biên dịch) là một phần mềm được sử dụng để chuyển đổi một ngôn ngữ lập trình cấp cao (high-level programming language) như C, C++, Java, Python, v.v. thành mã máy (machine code) có thể được thực thi trực tiếp bởi bộ xử lý (CPU) của máy tính.
 
-![Compiler Image](https://drive.google.com/file/d/15eM8bXStSlOnp4xzn4qr0QsEg92EcD08/view?usp=drive_link)
+![Compiler Image](https://github.com/Fakerrrrrrrrrrr/Advanced_C/blob/main/Images/Complier.png)
 
 Quá trình biên dịch thường bao gồm các bước sau:
 
