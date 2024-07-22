@@ -383,7 +383,7 @@ intPointer = (int*)myPointer;
 Con trỏ hằng (Pointer to Constant) là không thể sử dụng con trỏ để thay đổi giá trị mà nó trỏ .
 > Cú pháp: <kiểu_dữ_liệu> const *<tên_con_trỏ>;<br>           const <kiểu_dữ_liệu> *<tên_con_trỏ>;
 
-Có 3 đặc điểm c ủa con trỏ hằng:
+Có 3 đặc điểm của con trỏ hằng:
 1. Không thể sử dụng con trỏ để thay đổi giá trị mà nó trỏ đến (vì đó là hằng số).
 2. Có thể gán địa chỉ của một biến có thể thay đổi cho con trỏ, nhưng không thể thay đổi giá trị của biến đó thông qua con trỏ.
 3. Có thể gán địa chỉ của một hằng số cho con trỏ.
@@ -418,3 +418,226 @@ if (ptr != NULL) {
     // Xử lý trường hợp con trỏ null
 }
 ```
+
+# Bài 4: Goto - setjmp.h
+## 1. Goto
+Goto có khá nhiều ứng dụng, khi code không khuyến khích sử dụng Goto vì nó thay đổi luồng chạy của chương trình chỉ dành cho những người Master ngôn ngữ lập trình mới kiểm soát luồng chạy của nó.
+Khi viết chương trình có rất rất nhiều phức tạp thì chúng ta không thể Break hết tất cả hoặc chương trình bị lỗi ta không thể thoát ngay lập tức thì chúng ta sử dụng Goto.
+> Syntax: goto label; //label là tên được sử dụng để xác định vị trí mà goto sẽ nhảy đến -> label:
+
+Cách hoạt động: 
+- Khi gặp lệnh goto label; chương trình sẽ ngay lập tức chuyển đến vị trí (trỏ tới vị trí) được xác định bởi label và tiếp tục thực hiện các câu lệnh tại đó. 
+- Label cso thể được định nghĩa bất kỳ đâu trong chương trình, miễn là nó nằm trong cùng phạm vị với lệnh goto sử dụng nó.
+
+```
+#include <stdio.h>
+
+int main() {
+    int x = 5;
+
+    if (x > 0) {
+        goto positive;
+    } else {
+        goto negative;
+    }
+
+positive:
+    printf("x is positive\n");
+    return 0;
+
+negative:
+    printf("x is negative\n");
+    return 0;
+}
+```
+Lưu ý:
+- Việc sử dụng goto quá mức có thể dẫn đến mã nguồn trở nên khó đọc, khó bảo trì và khó tái sử dụng.
+- Thay vì sử dụng goto, nên sử dụng các cấu trúc điều khiển như if-else, switch-case, while, for, do-while để đạt được cùng mục đích.
+- Tuy nhiên, trong một số trường hợp đặc biệt, việc sử dụng goto vẫn có thể được chấp nhận, ví dụ như thoát khỏi vòng lặp khi gặp lỗi hoặc chuyển đến các khối xử lý lỗi.
+
+**Con led Matrix**<br>
+Quy tắc thiết kế led Matrix (Nếu muốn tạo led Matrix mà nối mỗi con led 1 chân thì rất nhiều chân) quét từng hàng mỗi hàng theo vòng lặp For i,j quét mỗi hàng xong tắt, nhưng vì mắt con người có kỹ thuật lưu ảnh trên giác mạt nên mới có thể nhìn thấy dù những con led này đã tắt, tốc độ rất là nhanh tầm 10ms
+
+Trong chương trình thì sử dụng vòng lặp while -> tới switch -> tới for -> tới if -> Rồi mới tới for i,j để thoát ra thì phải break xong phải tạo điều kiện để vòng lặp trước đó break có rất nhiều và phức tạp. Bây giờ ta sẽ dùng Goto để thoát ra đến vị trí mình mong muốn.
+```
+#include <stdio.h>
+
+void delay()
+{
+    double start;
+    while (start < 60000000)
+    {
+        start++;
+    }
+}
+
+char letter = 'A';
+
+char first_sentence[] = "HELLO";
+char second_sentence[] = "FASHION SUIT";
+char third_sentence[] = "SUITABLE PRICE";
+
+int letter_A[8][8] = {  {0,0,1,0,0,0,0,0},
+                        {0,1,0,1,0,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,1,1,1,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},  };
+
+int letter_H[8][8] = {  {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,1,1,1,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},
+                        {1,0,0,0,1,0,0,0},  };
+
+int letter_L[8][8] = {  {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,0,0,0,0,0,0,0},
+                        {1,1,1,1,1,0,0,0},  };
+
+
+/*
+H, e, l,o, F, a, ....
+*/
+
+int button = 0;
+
+typedef enum
+{
+    FIRST,
+    SECOND,
+    THIRD
+}   Sentence;
+
+int main() {
+    Sentence sentence = FIRST;
+    while(1)
+    {
+        switch (sentence)
+        {
+        case FIRST:
+            for (int index = 0; index < sizeof(first_sentence); index++)
+            {
+                if (first_sentence[index] == 'H')
+                {
+                    for (int i = 0; i < 8; i++) 
+                    {    
+                        for (int j = 0; j < 8; j++) 
+                        {
+                            if (letter_H[i][j] == 1) 
+                            {
+                                printf("Turn on led at [%d][%d]\n", i,j);
+                                if (button == 1)
+                                {
+                                   goto exit_loops;
+                                }
+                                
+                            }
+                        }
+                        // tat den
+                    }
+                }
+                if (first_sentence[index] == 'e')
+                {
+                    // in ra chu e
+                }
+            }
+            printf("first sentence is done\n");
+            delay();
+            goto logic;
+        case SECOND:
+            for (int index = 0; index < sizeof(second_sentence); index++)
+            {
+                if (second_sentence[index] == 'A')
+                {
+                    for (int i = 0; i < 8; i++) 
+                    {    
+                        for (int j = 0; j < 8; j++) 
+                        {
+                            if (letter_A[i][j] == 1) 
+                            {
+                                printf("Turn on led at [%d][%d]\n", i,j);
+                                if (button == 1)
+                                {
+                                   goto exit_loops;
+                                }
+                                
+                            }
+                        }
+                        // tat den led
+                    }
+                }
+                if (second_sentence[index] == 'F')
+                {
+                    // in ra chu F
+                }
+            }
+            printf("second sentence is done\n");
+            delay();
+            goto logic;
+        case THIRD:
+            for (int index = 0; index < sizeof(third_sentence); index++)
+            {
+                if (third_sentence[index] == 'L')
+                {
+                    for (int i = 0; i < 8; i++) 
+                    {    
+                        for (int j = 0; j < 8; j++) 
+                        {
+                            if (letter_L[i][j] == 1) 
+                            {
+                                printf("Turn on led at [%d][%d]\n", i,j);
+                                if (button == 1)
+                                {
+                                   goto exit_loops;
+                                }
+                                
+                            }
+                        }
+                        // tat den led
+                    }
+                }
+                if (third_sentence[index] == 'E')
+                {
+                    // in ra chu H
+                }
+            }
+            printf("third sentence is done\n");
+            delay();
+            //button = 1;
+            goto logic;
+        }
+        logic:
+            if (sentence == FIRST)
+            {
+                sentence = SECOND;
+            }
+            else if (sentence == SECOND)
+            {
+                sentence = THIRD;
+            }
+            else if (sentence == THIRD)
+            {
+                sentence = FIRST;
+            }
+            goto exit;
+        exit_loops:
+            printf("Stop!\n");
+            break;
+        exit:;      
+    }
+    return 0;
+}
+
+```
+
+
