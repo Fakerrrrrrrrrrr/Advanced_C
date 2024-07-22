@@ -141,13 +141,13 @@ typedef enum{
 
 # Bài 2: STDARG - ASSERT
 ## 1. STDARG
-Thư viện stdarg trong C là một thư viện tiêu chuẩn được sử dụng để xử lý các tham số không xác định số lượng của các hàm. Thư viện này cung cấp một số macro và hàm cho phép xử lý các tham số không xác định số lượng.
+Thư viện stdarg trong C là một thư viện tiêu chuẩn được sử dụng để xử lý các tham số không xác định số lượng (tham số đầu vào) của các hàm. Thư viện này cung cấp một số macro và hàm cho phép xử lý các tham số không xác định số lượng.
 
 Các macro và hàm chính trong thư viện stdarg bao gồm:
 
-1. va_list: Đây là một kiểu dữ liệu được sử dụng để lưu trữ thông tin về các tham số không xác định số lượng.
-2. va_start(va_list ap, last_named_arg): Macro này khởi tạo va_list bằng cách lấy địa chỉ của tham số cuối cùng được đặt tên.
-3. va_arg(va_list ap, type): Macro này lấy giá trị của tham số tiếp theo từ va_list và chuyển đổi nó sang kiểu dữ liệu được chỉ định.
+1. va_list: Đây là một kiểu dữ liệu được sử dụng để lưu trữ thông tin về các tham số không xác định số lượng. (Sử dụng typedef để định nghĩa lại, bản chất nó giống như 1 con trỏ lưu kiểu dữ liệu: typedef char* va_list;)
+2. va_start(va_list ap, last_named_arg): Macro này khởi tạo va_list bằng cách lấy địa chỉ của tham số cuối cùng được đặt tên. (Bản chất của nó là 1 cái Macro: #define va_start(args, temp)) Ví dụ: ta có 1 chuỗi char* = {5,1,3,4,5,6} thì last_named_arg được nhập bằng 5, nó sẽ tạo ra con trỏ so sánh vị trí đầu tiên xem giá trị có bằng với chuỗi last_named_arg này không nếu không thì bỏ qua so sánh tiếp vị trí tiếp theo, nếu bằng thì nó xác định cái dấu ... thì sẽ bắt đầu từ đoạn vị trí tiếp theo trở đi. Tạo ra mã ký tự khác để lưu mảng còn lại. Khi 
+3. va_arg(va_list ap, type): Macro này lấy giá trị của tham số tiếp theo từ va_list và chuyển đổi nó sang kiểu dữ liệu được chỉ định. type được hiểu là ép kiểu dữ liệu. Khi gọi hàm va_arg(va_list ap, type) thì nó đọc giá trị tại ô phía sau va_start và trỏ tới ô tiếp theo.
 4. va_end(va_list ap): Macro này thực hiện dọn dẹp và hoàn thành việc sử dụng va_list.
 
 Code:
@@ -182,19 +182,59 @@ Value at 2: 15
 Value at 3: 10
 Value at 4: 13
 ```
-Thư viện stdarg là một công cụ hữu ích khi cần xử lý các tham số không xác định số lượng, chẳng hạn như trong các hàm printf(), scanf(), hoặc các hàm tự định nghĩa khác.
+Thư viện stdarg là một công cụ hữu ích khi cần xử lý các tham số không xác định số lượng, chẳng hạn như trong các hàm printf(), scanf(), hoặc các hàm tự định nghĩa khác.<br>
+Có thể ép kiểu của struct:
+```
+#include <stdio.h>
+#include <stdarg.h>
 
+typedef struct Data
+{
+    int x;
+    double y;
+} Data;
 
+void display(int count, ...) {
+    va_list args;
+    va_start(args, count);
+    int result = 0;
+    for (int i = 0; i < count; i++)
+    {
+        Data tmp = va_arg(args,Data);
+        printf("Data.x at %d is: %d\n", i,tmp.x);
+        printf("Data.y at %d is: %f\n", i,tmp.y);
+    }
+    va_end(args);
+}
 
+int main() {
+    display(3, (Data){2,5.0} , (Data){10,57.0}, (Data){29,36.0});
+    return 0;
+}
+```
+## 2. Assert
+Khi phát triển project lớn có rất nhiều file, bình thường Debug bằng If Else do chương trình nhỏ nên khó phân biệt ở đoạn nào, khi đó ta dùng Assert Lib để Debug.
+> Syntax: assert(condition && #cmd);
 
+Nếu điều kiện đúng (true), không có gì xảy ra và chương trình tiếp tục thực thi. Nếu điều kiện sai (false), chương trình dừng lại và thông báo một thông điệp lỗi. Dùng trong debug, dùng #define NDEBUG để tắt debug
 
+```
+#include <stdio.h>
+#include <assert.h>
 
+// Macro dùng để debug
+#define LOG(condition, cmd) assert(condition && #cmd)
 
+int main() {
+    int x = 5;
 
+    LOG(x == 5, "x khac 5");
 
-
-
-
+    // Chương trình sẽ tiếp tục thực thi nếu điều kiện là đúng.
+    printf("X is: %d", x);
+    return 0;
+}
+```
 
 # **Bài 3: Pointer**
 ## Bài tập về nhà
