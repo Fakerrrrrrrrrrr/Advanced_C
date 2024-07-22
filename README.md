@@ -4,6 +4,19 @@ Compiler (trình biên dịch) là một phần mềm được sử dụng để
 
 ![Compiler Image](https://github.com/Fakerrrrrrrrrrr/Advanced_C/blob/main/Images/Complier.png)
 
+Chuyển đổi file main.c sang file main.i (Bước tiền xử lý) (Bước Preprocessor)
+> gcc -E main.c -o main.i
+
+Chuyển đổi file main.i sang file main.s (Chương trình mã nguồn của assembly) (Bước Compiler) (Chủ yếu lập trình liên quan đến hệ điều hành) (RTOS)
+> gcc main.i -S -o main.s
+
+Chuyển đổi file main.s sang main.o (File Hex) (Bước Assembler (Phần bên phải là địa chỉ, phần bên trái là giá trị của địa chỉ đó) (Nó sẽ ghi vào bộ nhớ Flash) khi tắt nguồn đi nó vẫn không bị mất dữ liệu, copy tất cả chương trình ở bộ nhớ Flash vào RAM rồi mới thực thi chương trình trên RAM. (Học RTOS tìm hiểu sau tra keyword booting process tìm hiểu, câu hỏi phỏng vấn)
+> gcc - c main.s -o main.o
+
+File main.o đã là chương trình của mình nhưng vẫn chưa chạy được trên hệ điều hành của mình vì nó chỉ chạy trên con vi điều khiển (Bước linker) (Khi viết chương trình sẽ có nhiều file như file Head, file main, file library,...)
+> gcc test1.o test2.o main.o -o main
+> ./main
+
 Quá trình biên dịch thường bao gồm các bước sau:
 
 1. Quét mã nguồn (Lexical Analysis): Trình biên dịch sẽ đọc mã nguồn, phân tích các từ khóa, toán tử, tên biến, hằng số, v.v. và tạo ra một chuỗi các token.
@@ -83,7 +96,7 @@ Giải thích:
 %d là một specifier(định dạng) dùng để in ra một số nguyên.<br>
 %f là một specifier dùng để in ra một số thực trong dạng dấu phẩy động.<br>
 %s sẽ được thya thế b ởi giá trị của biến/ biểu thức chuỗi ký tự tương ứng.<br>
-_VA_ARGS_ đại diện cho tất cả các tham số được truyền vào khi Macro được gọi.
+__VA_ARGS_ đại diện cho tất cả các tham số được truyền vào khi Macro được gọi.
 
 Để bỏ định nghĩa Macro để định nghĩa lại lần nữa vì trong source code không được định nghĩa Macro lần thứ 2:
 > #undef <tên_Macro>
@@ -125,6 +138,63 @@ typedef enum{
     {code}
 #endif
 ```
+
+# Bài 2: STDARG - ASSERT
+## 1. STDARG
+Thư viện stdarg trong C là một thư viện tiêu chuẩn được sử dụng để xử lý các tham số không xác định số lượng của các hàm. Thư viện này cung cấp một số macro và hàm cho phép xử lý các tham số không xác định số lượng.
+
+Các macro và hàm chính trong thư viện stdarg bao gồm:
+
+1. va_list: Đây là một kiểu dữ liệu được sử dụng để lưu trữ thông tin về các tham số không xác định số lượng.
+2. va_start(va_list ap, last_named_arg): Macro này khởi tạo va_list bằng cách lấy địa chỉ của tham số cuối cùng được đặt tên.
+3. va_arg(va_list ap, type): Macro này lấy giá trị của tham số tiếp theo từ va_list và chuyển đổi nó sang kiểu dữ liệu được chỉ định.
+4. va_end(va_list ap): Macro này thực hiện dọn dẹp và hoàn thành việc sử dụng va_list.
+
+Code:
+```
+#include <stdio.h>
+#include <stdarg.h>
+
+void display(int count, ...) {
+    va_list args;
+    va_start(args, count);
+   
+
+    for (int i = 0; i < count; i++) {
+        printf("Value at %d: %d\n", i, va_arg(args,int)); 
+    }
+
+    va_end(args);
+}
+
+int main()
+{
+    display(5, 5, 8, 15, 10, 13);
+
+    return 0;
+}
+```
+Output:
+```
+Value at 0: 5
+Value at 1: 8
+Value at 2: 15
+Value at 3: 10
+Value at 4: 13
+```
+Thư viện stdarg là một công cụ hữu ích khi cần xử lý các tham số không xác định số lượng, chẳng hạn như trong các hàm printf(), scanf(), hoặc các hàm tự định nghĩa khác.
+
+
+
+
+
+
+
+
+
+
+
+
 
 # **Bài 3: Pointer**
 ## Bài tập về nhà
