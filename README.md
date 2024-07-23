@@ -639,5 +639,79 @@ int main() {
 }
 
 ```
+## 2. Setjmp
+setjmp là một hàm được sử dụng để lưu trữ trạng thái hiện tại của chương trình. Nó được sử dụng trong kết hợp với hàm longjmp để thực hiện nhảy trỏ tới vị trí khác trong chương trình.
+> Syntax: int setjmp(jmp_buf buf);
+> int exception_code = setjmp(buf); //Với buf đã được khai báo jmp_buf buf; trước đó rồi
+
+Trong đó:
+- jmp_buf là một kiểu dữ liệu được định nghĩa trong thư viện <setjmp.h> dùng để lưu trữ vị trí trong trường hợp nào đó.
+- buf là một biến của kiểu jmp_buf được sử dụng để lưu vị trí đó.
+
+Ở phần này cần lưu ý:
+- setjmp(buf) == 0
+- longjmp(buf,(x))
+
+Setjmp có thể toàn cục trong khi Goto chỉ ở cục bộ nhảy từ function này sang function khác được. Giá trị đầu tiên khi gọi setjmp nó sẽ mặc định là 0. Nếu xảy ra lỗi muốn quay lại vị trí được lưu trữ bởi setjmp thì ta dùng hàm longjmp.
+> Syntax: void longjmp(jmp_buf buf, int val);
+
+Trong đó:
+- buf là biến jmp_buf được sử dụng để lưu trữ vị trí.
+- val là một giá trị được trả về bởi setjmp khi nó được gọi lại.
+
+Khi gọi longjmp thì nó sẽ nhảy tới vị trí đoạn code đã được lưu trữ trước đó bởi setjmp và tiếp tục chạy chương trình từ vị trí đó với giá trị là val.
+
+Dùng để xử lý ngoại lệ bằng define
+```
+#define TRY if ((exception_code = setjmp(buf)) == 0) 
+#define CATCH(x) else if (exception_code == (x)) 
+#define THROW(x) longjmp(buf, (x))
+```
+Code ví dụ:
+```
+#include <stdio.h>
+#include <setjmp.h>
+
+jmp_buf buf;
+int exception_code;
+
+#define TRY if ((exception_code = setjmp(buf)) == 0) 
+#define CATCH(x) else if (exception_code == (x)) 
+#define THROW(x) longjmp(buf, (x))
+
+double divide(int a, int b) {
+    if (b == 0) {
+        THROW(1); // Mã lỗi 1 cho lỗi chia cho 0
+    }
+    return (double)a / b;
+}
+
+int main() {
+    int a = 10;
+    int b = 0;
+    double result = 0.0;
+
+    TRY {
+        result = divide(a, b);
+        printf("Result: %f\n", result);
+    } CATCH(1) {
+        printf("Error: Divide by 0!\n");
+    }
+    // Các xử lý khác của chương trình
+
+    return 0;
+}
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
