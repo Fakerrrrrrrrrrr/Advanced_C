@@ -764,7 +764,7 @@ int main() {
 - Dung lượng bộ nhớ có giới hạn, không thể mở rộng kích thước stack tùy ý.
 - Nếu sử dụng đệ quy quá sâu có thể dẫn đến tràn stack (stack overflow).
 
-## 2. Register
+## 3. Register
 Test:
 ```
 #include <stdio.h>
@@ -773,7 +773,7 @@ Test:
 int main() {
     // Lưu thời điểm bắt đầu
     clock_t start_time = clock();
-    int i;
+    int i; //register int i;
 
     // Đoạn mã của chương trình
     for (i = 0; i < 2000000; ++i) {
@@ -805,5 +805,29 @@ Register là một từ khóa để khai báo biến nên được lưu trữ tr
 
 Khi khai báo 'int i = 5;' nó sẽ lưu 1 cái địa chỉ ở RAM và lưu giá trị bằng 5, lưu thông tin phép toán ở RAM, muốn tính toán sẽ đẩy thông tin tính toán qua register sau đó register sẽ đẩy thông tin tính toán qua ALU (Bộ xử lý trung tâm) ở ALU thực hiện tính toán sau đó đẩy kết quả về cho register sau đó register trả về kết quả lại cho RAM.<br>
 Vậy nên khi sử dụng biến Register nó được lưu thông tin ở Register thay vì RAM vậy nên tính toán sẽ nhanh vì chỉ có bước đẩy thông tin qua ALU và ALU trả giá trị kết quả về lại Register mà không cần phải thông qua RAM.
+
+## 4. Volatile
+Khi sử dụng biến volatile thì nó sẽ thông báo cho chương trình biên dịch không được phép tối ưu code của biến đó. Biến volatile thường được sử dụng để truy cập vào các vùng nhớ liên quan đến phần cứng, như các thanh ghi hoặc bộ nhớ được chia sẻ. Khi sử dụng volatile, trình biên dịch sẽ không tối ưu hóa code liên quan đến biến này, vì giá trị của biến có thể thay đổi bất kỳ lúc nào.<br>
+Sau này khi học RTOS thì sử dụng nhiều luồng với nhau ta sẽ luôn luôn sử dụng Volatile bởi vì khi sử dụng ở luồng khác thì ta phải luôn luôn load lại biến đó.
+```
+#include <stdio.h>
+
+int main() {
+    volatile int flag = 0; // Biến flag được khai báo là volatile
+
+    // Một luồng (thread) khác có thể thay đổi giá trị của biến flag
+    // mà không cần sự介tác của luồng này
+    while (flag == 0) {
+        // Làm gì đó
+    }
+
+    printf("Kết thúc vòng lặp.\n");
+    return 0;
+}
+```
+
+
+
+
 
 
