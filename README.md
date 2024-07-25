@@ -799,7 +799,11 @@ Test lại đoạn code trên sửa lại đoạn code 'int i;' thành 'register
 ```
 Thoi gian chay cua chuong trinh: 0.000000 giay
 ```
+Register là một từ khóa để khai báo biến nên được lưu trữ trong thanh ghi của bộ xử lý thay vì trong bộ nhớ chính. Việc lưu trữ biến trong thanh ghi thay vì bộ nhớ chính có thể giúp tăng tốc độ truy cập và xử lý dữ liệu. Tuy nhiên, số lượng thanh ghi thường bị giới hạn, nên không phải tất cả biến đều có thể được lưu trữ trong thanh ghi.
 
+![Compiler Image](https://github.com/Fakerrrrrrrrrrr/Advanced_C/blob/main/Images/Register.png)
 
+Khi khai báo 'int i = 5;' nó sẽ lưu 1 cái địa chỉ ở RAM và lưu giá trị bằng 5, lưu thông tin phép toán ở RAM, muốn tính toán sẽ đẩy thông tin tính toán qua register sau đó register sẽ đẩy thông tin tính toán qua ALU (Bộ xử lý trung tâm) ở ALU thực hiện tính toán sau đó đẩy kết quả về cho register sau đó register trả về kết quả lại cho RAM.<br>
+Vậy nên khi sử dụng biến Register nó được lưu thông tin ở Register thay vì RAM vậy nên tính toán sẽ nhanh vì chỉ có bước đẩy thông tin qua ALU và ALU trả giá trị kết quả về lại Register mà không cần phải thông qua RAM.
 
 
