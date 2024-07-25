@@ -14,7 +14,7 @@ Chuyển đổi file main.s sang main.o (File Hex) (Bước Assembler (Phần b�
 > gcc - c main.s -o main.o
 
 File main.o đã là chương trình của mình nhưng vẫn chưa chạy được trên hệ điều hành của mình vì nó chỉ chạy trên con vi điều khiển (Bước linker) (Khi viết chương trình sẽ có nhiều file như file Head, file main, file library,...)
-> gcc test1.o test2.o main.o -o main
+> gcc test1.o test2.o main.o -o main<br>
 > ./main
 
 Quá trình biên dịch thường bao gồm các bước sau:
@@ -703,14 +703,102 @@ int main() {
 }
 ```
 
+# Bài 5: Extern - Static - Volatile - Register
+## 1. Extern
+Khi sử dụng keyword extern thì có nghĩa là chúng ta muốn lấy một biến hoặc một hàm ở một file khác trong chương trình.<br>
+Ví dụ: Ta có 2 file main.c và file test.c. Biến ở file test.c được khai báo toàn cục 'int count = 20;' thì khi chúng ta dùng 'extern int count;' ở file main.c thì chúng ta hoàn toàn có thể sử dụng biến count và có giá trị là 20, có nghĩa là nếu count có địa chỉ 0x01 ở file test.c thì ở file main.c nó cũng có địa chỉ là 0x01.<br>
+Extern cũng có thể sử dụng để khai báo các hàm ở file khác.<br>
+Ví dụ: extern int calculatorDivide(int a, int b); ta lấy hàm calculatorDivide sử dụng mà không cần phải viết lại hàm đó.
+> Syntax: extern datatype variable_name;<br>
+> extern return_type function_name(parameter_list);
 
+## 2. Static variable
+Khi khai báo biến static chương trình sẽ cấp phát cho nó 1 địa chỉ tồn tại hết vòng đời của chương trình (không bị thu hồi), biến static chỉ khởi tạo 1 lần và không khởi tạo lại lần nữa, nếu gặp biến static ở function được gọi nó sẽ bỏ qua và chạy dòng code tiếp theo.</br>
+Giá trị của biến static chỉ có phạm vi cục bộ với file hoặc hàm chứa nó. Biến static sẽ được lưu trữ trong vùng nhớ static thay vì vùng nhớ stack như biến cục bộ thông thường.<br>
+```
+void myFunction() {
+    static int counter = 0;
+    counter++;
+    printf("Counter value: %d\n", counter);
+}
 
+int main() {
+    myFunction(); // Output: Counter value: 1
+    myFunction(); // Output: Counter value: 2
+    myFunction(); // Output: Counter value: 3
+    return 0;
+}
+```
+Khi sử dụng static toàn cục (khai báo bên ngoài các hàm) (static hàm) thì hàm đó chỉ sử dụng được ở trong file đó. Nghĩa là hàm static có thể gọi bên trong file chứa nó, không thể gọi từ các file khác. Việc sử dụng static hàm giúp bạn ẩn các hàm hỗ trợ bên trong, không cho phép chúng được gọi từ bên ngoài.
+```
+// file1.c
+static int calculateSum(int a, int b) {
+    return a + b;
+}
 
+int main() {
+    int result = calculateSum(5, 3); // Có thể gọi hàm calculateSum() ở đây
+    return 0;
+}
 
+// file2.c
+int calculateDifference(int a, int b) {
+    return a - b;
+}
 
+int main() {
+    int result = calculateSum(5, 3); // Lỗi, hàm calculateSum() không thể gọi được ở đây
+    return 0;
+}
+```
+1.Stack: là một cấu trúc dữ liệu có tính chất "Last-In-First-Out" (LIFO), được sử dụng để lưu trữ các biến cục bộ, tham số của hàm, và địa chỉ trở về (return address) khi gọi hàm. Phân vùng stack là vùng nhớ được cấp phát và quản lý theo cấu trúc stack.
+2.Cách hoạt động của stack:
+- Khi một hàm được gọi, một khung stack (stack frame) mới sẽ được tạo ra và đẩy lên trên cùng của stack.
+- Trong khung stack này, các biến cục bộ của hàm, tham số truyền vào, và địa chỉ trở về sẽ được lưu trữ.
+- Khi hàm kết thúc, khung stack của hàm đó sẽ được xóa khỏi stack, và giá trị các biến cục bộ sẽ mất đi.
+3. Ưu điểm:
+- Quản lý bộ nhớ đơn giản và hiệu quả.
+- Hỗ trợ đệ quy (recursion) tốt.
+- Truy xuất dữ liệu nhanh.
+4. Nhược điểm:
+- Dung lượng bộ nhớ có giới hạn, không thể mở rộng kích thước stack tùy ý.
+- Nếu sử dụng đệ quy quá sâu có thể dẫn đến tràn stack (stack overflow).
 
+## 2. Register
+Test:
+```
+#include <stdio.h>
+#include <time.h>
 
+int main() {
+    // Lưu thời điểm bắt đầu
+    clock_t start_time = clock();
+    int i;
 
+    // Đoạn mã của chương trình
+    for (i = 0; i < 2000000; ++i) {
+        // Thực hiện một số công việc bất kỳ
+    }
+
+    // Lưu thời điểm kết thúc
+    clock_t end_time = clock();
+
+    // Tính thời gian chạy bằng miligiây
+    double time_taken = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+
+    printf("Thoi gian chay cua chuong trinh: %f giay\n", time_taken);
+
+    return 0;
+}
+```
+Output
+```
+Thoi gian chay cua chuong trinh: 0.002000 giay
+```
+Test lại đoạn code trên sửa lại đoạn code 'int i;' thành 'register int i;'
+```
+Thoi gian chay cua chuong trinh: 0.000000 giay
+```
 
 
 
