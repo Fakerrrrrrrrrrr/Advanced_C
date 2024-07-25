@@ -816,7 +816,7 @@ int main() {
     volatile int flag = 0; // Biến flag được khai báo là volatile
 
     // Một luồng (thread) khác có thể thay đổi giá trị của biến flag
-    // mà không cần sự介tác của luồng này
+    // mà không cần sự tương tác của luồng này
     while (flag == 0) {
         // Làm gì đó
     }
