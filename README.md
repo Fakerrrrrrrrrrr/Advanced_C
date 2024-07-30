@@ -826,6 +826,8 @@ int main() {
 }
 ```
 
+# Bài 6: Bitmask
+## Ứng dụng:
 
 
 
