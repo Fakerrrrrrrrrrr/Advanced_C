@@ -828,8 +828,23 @@ int main() {
 
 # Bài 6: Bitmask
 ## Ứng dụng:
+Trong đời sống có rất nhiều trường hợp sẽ rơi vào tình huống phải lựa chọn những trường hợp khác nhau, ví dụ như muốn đi từ Hà Nội tới Đà Nẵng thì phải có thể chọn phương tiện khác nhau để tới được Đà Nẵng như đi máy bay, xe bus, taxi, tàu lửa,... 
+Nếu có nhiều sự lựa chọn như vậy thì ta lại phải khai báo từng biến khác nhau rất mất thời gian và tốn bộ nhớ vì mỗi biến sẽ có ít nhất 1byte. Vậy nên chúng ta dùng bitmask để lưu trữ và làm việc với các trạng thái hoặc cấu hình dưới dạng các bit trong một số nguyên.
+Bitmask thường dùng để biểu diễn một tập hợp các lựa chọn hoặc thiết lập, trong đó mỗi bit tương ứng với một lựa chọn hoặc cấu hình.<br>
+Ví dụ, nếu bạn muốn lưu trữ trạng thái của 8 tính năng khác nhau, sử dụng bitmask để lưu trữ với một số nguyên 8-bit(1 byte) cho mỗi tính năng:<br>
+- Bit 0 (giá trị 1): Tính năng 1 được bật //00000001
+- Bit 1 (giá trị 2): Tính năng 2 được bật //00000010
+- Bit 3 (giá trị 3): Tính năng 3 được bật //00000100
+- Và cứ thế<br>
 
-
-
+## Các thao tác phổ biến với bitmask bao gồm:
+- Kiểm tra xem một bít có được bật hay không (AND)<br>
+Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn kiểm tra bit thứ 2 (tính từ bit 0), bạn có thể sử dụng mặt nạ 0b00000010. Kết quả của bitmask & 0b00000010 sẽ là 0, cho biết bit thứ 2 không được bật.<br>
+- Bật một bit (OR)<br>
+Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn bật bit thứ 2, bạn có thể sử dụng mặt nạ 0b00000010. Kết quả của bitmask | 0b00000010 sẽ là 0b10101010.<br>
+- Tắt một bit (AND OR)<br>
+Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn tắt bit thứ 2, bạn có thể sử dụng mặt nạ 0b11111101. Kết quả của bitmask & 0b11111101 sẽ là 0b10101000.<br>
+- Chuyển đổi trạng thái của một bit (XOR)<br>
+Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn chuyển đổi trạng thái của bit thứ 2, bạn có thể sử dụng mặt nạ 0b00000010. Kết quả của bitmask ^ 0b00000010 sẽ là 0b10101000.<br>
 
 
