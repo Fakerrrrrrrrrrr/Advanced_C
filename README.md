@@ -848,3 +848,169 @@ Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn tắt bit thứ 2, bạn
 Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn chuyển đổi trạng thái của bit thứ 2, bạn có thể sử dụng mặt nạ 0b00000010. Kết quả của bitmask ^ 0b00000010 sẽ là 0b10101000.<br>
 
 
+# Bài 11
+## 1. Stack
+Stack là một cấu trúc dữ liệu trừu tượng tuân theo nguyên tắc "Last-In-First-Out" (LIFO) - phần tử được thêm vào cuối cùng sẽ được lấy ra đầu tiên.<br>
+Stack có thể được triển khai bằng mảng hoặc danh sách liên kết dưới dạng struct,...<br>
+![Stack Image](https://github.com/Fakerrrrrrrrrrr/Advanced_C/blob/main/Images/Stack.png)
+Ở ví dụ trên ta có thể thấy thì kích cỡ của mảng hoặc danh sách là 7 và 5, bắt đầu với index hoặc top = -1, những phần tử sẽ được thêm vào theo trình tự 1->2->3->4->5->6->7 index hoặc top sẽ tăng dần thêm 1 theo trình tự và chúng sẽ được lấy ra theo trình tự ngược lại 7->6->5->4->3->2->1 và index hoặc top cũng giảm dần đi 1 theo trình tự.<br>
+Các thao tác cơ bản như:
+- push: thêm phần tử ở cuối vào mảng stack
+- pop: xóa phần tử ở cuối cùng ra khỏi mảng stack
+- peek: lấy giá trị ở cuối cùng ở mảng stack
+
+Code triển khai Stack dưới dạng mảng:
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE 10
+
+int arr_stack[SIZE];
+int top = -1;
+
+//Function element empty
+int is_empty(){
+    return top == -1;
+}
+
+//Function element full
+int is_full(){
+    return top == SIZE - 1;
+}
+
+//Function import element into stack
+void push(int value){
+    if (is_full()){
+        printf("Stack overflow\n");
+        return;
+    }
+    arr_stack[++top] = value;
+}
+
+//Function export element into stack
+int pop(){
+    if (is_empty()) {
+        printf("Stack is empty\n");
+        return -1;
+    }
+    return arr_stack[top--];
+}
+
+//Function get last element in stack
+int peek(){
+    if (is_empty()) {
+        printf("Stack is empty\n");
+        return -1;
+    }
+    return arr_stack[top];
+}
+
+int main()
+{
+    push(10);
+    push(20);
+    push(30);
+    push(40);
+    push(50);
+    printf("%d\n",pop());   //50
+    printf("%d\n",peek());  //40
+    printf("%d\n",top);     //3
+    printf("%d\n",pop());   //40
+    printf("%d\n",peek());  //30
+    printf("%d\n",top);     //2
+    return 0;
+}
+```
+Code triển khai Stack dưới dạng Struct:
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+//Create Stack Struct
+typedef struct{
+    int* items;
+    int size;
+    int top;
+} Stack;
+
+//Initialize Stack
+void initialize(Stack *stack, int size) {
+    stack->items = (int*) malloc(sizeof(int) * size);
+    stack->size = size;
+    stack->top = -1;
+}
+
+//Check Stack is element empty
+int is_empty(Stack stack) {
+    return stack.top == -1;
+}
+
+//Check Stack is element full
+int is_full( Stack stack) {
+    return stack.top == stack.size - 1;
+}
+
+//Insert last element into Stack
+void push(Stack *stack, int value) {
+    if (!is_full(*stack)) {
+        stack->items[++stack->top] = value;
+    } else {
+        printf("Stack overflow\n");
+    }
+}
+
+//Erase last element from Stack
+int pop(Stack *stack) {
+    if (!is_empty(*stack)) {
+        return stack->items[stack->top--];
+    } else {
+        printf("Stack underflow\n");
+        return -1;
+    }
+}
+
+//Get last value from Stack
+int peek(Stack stack) {
+    if (!is_empty(stack)) {
+        return stack.items[stack.top];
+    } else {
+        printf("Stack is empty\n");
+        return -1;
+    }
+}
+
+int main() {
+    Stack stack1;
+    initialize(&stack1, 5);
+
+    push(&stack1, 10);
+    push(&stack1, 20);
+    push(&stack1, 30);
+    push(&stack1, 40);
+    push(&stack1, 50);
+    push(&stack1, 60); //Stack overflow
+
+    printf("Top element: %d\n", peek(stack1)); //Top element: 50
+    printf("Pop element: %d\n", pop(&stack1)); //Pop element: 50
+    printf("Pop element: %d\n", pop(&stack1)); //Pop element: 40
+    printf("Top element: %d\n", peek(stack1)); //Top element: 30
+    return 0;
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
