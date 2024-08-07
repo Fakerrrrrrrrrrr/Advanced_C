@@ -837,16 +837,98 @@ Ví dụ, nếu bạn muốn lưu trữ trạng thái của 8 tính năng khác 
 - Bit 3 (giá trị 3): Tính năng 3 được bật //00000100
 - Và cứ thế<br>
 
-## Các thao tác phổ biến với bitmask bao gồm:
-- Kiểm tra xem một bít có được bật hay không (AND)<br>
-Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn kiểm tra bit thứ 2 (tính từ bit 0), bạn có thể sử dụng mặt nạ 0b00000010. Kết quả của bitmask & 0b00000010 sẽ là 0, cho biết bit thứ 2 không được bật.<br>
-- Bật một bit (OR)<br>
-Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn bật bit thứ 2, bạn có thể sử dụng mặt nạ 0b00000010. Kết quả của bitmask | 0b00000010 sẽ là 0b10101010.<br>
-- Tắt một bit (AND OR)<br>
-Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn tắt bit thứ 2, bạn có thể sử dụng mặt nạ 0b11111101. Kết quả của bitmask & 0b11111101 sẽ là 0b10101000.<br>
-- Chuyển đổi trạng thái của một bit (XOR)<br>
-Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn chuyển đổi trạng thái của bit thứ 2, bạn có thể sử dụng mặt nạ 0b00000010. Kết quả của bitmask ^ 0b00000010 sẽ là 0b10101000.<br>
+## Ứng dụng các thao tác phổ biến với bitmask bao gồm:
+- Kiểm tra xem một bít có được bật hay không dùng toán tử (AND)(&), nó sẽ so sánh từng bit tương ứng của hai số và trả về 1 nếu cả hai bit đều bằng 1 (True), ngược lại nó sẽ trả về 0 (False)  <br>
+Ví dụ: Nếu bitmask là 0b10101010 và muốn kiểm tra bit thứ 2 (tính từ bit 0), sử dụng bitmask 0b00000100. Kết quả của bitmask & 0b00000100 sẽ là 0b00000000, bit thứ 2 không được bật.<br>
+- Bật một bit dùng toàn tử (OR)(|), nó sẽ so sánh từng bit tương ứng của hai số và trả về 1 nếu 1 trong hai có ít nhất 1 giá trị bằng 1 và trả về 0 nếu cả hai đều bằng 0 <br>
+Ví dụ: Nếu bitmask là 0b10101010 và muốn bật bit thứ 2, sử dụng bitmask 0b00000100. Kết quả của bitmask | 0b00000100 sẽ là 0b10101110, như vậy đã bật bit thứ 2<br>
+- Đảo ngược giá trị của mỗi bit dùng toán tử (NOT)(~), chuyển 0 thành 1 và chuyển 1 thành 0.<br>
+Ví dụ: Nếu bitmask là 0b10101010 và muốn đảo ngược giá trị của mỗi bit, sử dụng ~bitmask, kết quả sẽ là 0b01010101. <br>
+- Chuyển đổi trạng thái của một bit dùng toán tử (XOR)(^), nó sẽ so sánh từng bit tương ứng của hai số và trả về 1 nếu các bit khác nhau, ngược lại trả về 0 nếu hai bit giống nhau. <br>
+Ví dụ: Nếu bitmask là 0b10101010 và muốn chuyển đổi trạng thái của bit thứ 2, sử dụng bitmask 0b00000100. Kết quả của bitmask ^ 0b00000100 se là 0b10101110,như vậy bit thứ 2 đã được chuyển đổi.<br>
+- Tắt một bit sử dụng toán tử (AND NOT)(&~), nó kết hợp toán tử AND và NOT để tắt 1 bit cụ thể nào đó<br>
+Ví dụ: Nếu bitmask là 0b10101010 và muốn tắt bit thứ 1, sử dụng bitmask 0b11111101. Kết quả của bitmask & 0b11111101 sẽ là 0b10101000.<br>
+- Dịch bit sang phải sử dụng toán tử (>>), nó sẽ dịch sang phải một vị trí cố định và các bit bên trái sẽ mất đi và chuyển thành 0.<br>
+Ví dụ: Nếu bitmask là 0b10101010 và muốn dịch sang phải 2 vị trí. Kết quả của bitmask >> 2 sẽ là 0b00101010.<br>
+- Dịch bit sang trái sử dụng toán tử (<<), nó sẽ dịch sang trái một vị trí cố định và các bit bên phải sẽ mất đi và chuyển thành 0.<br>
+Ví dụ: Nếu bitmask là 0b10101010 và muốn dịch sang trái 2 vị trí. Kết quả của bitmask << 2 sẽ là 0b00101000.<br>
+**Code tạo thông số kỹ thuật của một chiếc xe bằng bitmask:**
+```
+#include <stdio.h>
+#include <stdint.h>
+#define COLOR_RED 0
+#define COLOR_BLUE 1
+#define COLOR_BLACK 2
+#define COLOR_WHITE 3
+#define POWER_100HP 0
+#define POWER_150HP 1
+#define POWER_200HP 2
+#define ENGINE_1_5L 0
+#define ENGINE_2_0L 1
 
+typedef uint8_t CarColor;
+typedef uint8_t CarPower;
+typedef uint8_t CarEngine;
+
+#define SUNROOF_MASK 1 << 0     // 0001
+#define PREMIUM_AUDIO_MASK 1 << 1 // 0010
+#define SPORTS_PACKAGE_MASK 1 << 2 // 0100
+// Thêm các bit masks khác tùy thuộc vào tùy chọn
+
+typedef struct {
+    uint8_t additionalOptions : 3; // 3 bits cho các tùy chọn bổ sung
+    CarColor color : 2;
+    CarPower power : 2;
+    CarEngine engine : 1;
+    
+} CarOptions;
+
+void configureCar(CarOptions *car, CarColor color, CarPower power, CarEngine engine, uint8_t options) {
+    car->color = color;
+    car->power = power;
+    car->engine = engine;
+    car->additionalOptions = options;
+}
+
+void setOption(CarOptions *car, uint8_t optionMask) {
+    car->additionalOptions |= optionMask;
+}
+
+void unsetOption(CarOptions *car, uint8_t optionMask) {
+    car->additionalOptions &= ~optionMask;
+}
+
+
+void displayCarOptions(const CarOptions car) {
+    const char *colors[] = {"Red", "Blue", "Black", "White"};
+    const char *powers[] = {"100HP", "150HP", "200HP"};
+    const char *engines[] = {"1.5L", "2.0L"};
+
+    printf("Car Configuration: \n");
+    printf("Color: %s\n", colors[car.color]);
+    printf("Power: %s\n", powers[car.power]);
+    printf("Engine: %s\n", engines[car.engine]);
+    printf("Sunroof: %s\n", (car.additionalOptions & SUNROOF_MASK) ? "Yes" : "No");
+    printf("Premium Audio: %s\n", (car.additionalOptions & PREMIUM_AUDIO_MASK) ? "Yes" : "No");
+    printf("Sports Package: %s\n", (car.additionalOptions & SPORTS_PACKAGE_MASK) ? "Yes" : "No");
+}
+
+int main() {
+    CarOptions myCar = {COLOR_BLACK, POWER_150HP, ENGINE_2_0L};
+
+    setOption(&myCar, SUNROOF_MASK);
+    setOption(&myCar, PREMIUM_AUDIO_MASK);
+    
+    displayCarOptions(myCar);
+
+    unsetOption(&myCar, PREMIUM_AUDIO_MASK); 
+    displayCarOptions(myCar);
+
+    printf("size of my car: %d\n", sizeof(CarOptions));
+
+    return 0;
+}
+```
 
 # Bài 11: Stack - Queue
 ## 1. Stack
