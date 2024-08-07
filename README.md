@@ -850,14 +850,14 @@ Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn chuyển đổi trạng 
 
 # Bài 11
 ## 1. Stack
-Stack là một cấu trúc dữ liệu trừu tượng tuân theo nguyên tắc "Last-In-First-Out" (LIFO) - phần tử được thêm vào cuối cùng sẽ được lấy ra đầu tiên.<br>
+Stack là một cấu trúc dữ liệu tuân theo nguyên tắc "Last-In-First-Out" (LIFO) - phần tử được thêm vào cuối cùng sẽ được lấy ra đầu tiên.<br>
 Stack có thể được triển khai bằng mảng hoặc danh sách liên kết dưới dạng struct,...<br>
 ![Stack Image](https://github.com/Fakerrrrrrrrrrr/Advanced_C/blob/main/Images/Stack.png)
 Ở ví dụ trên ta có thể thấy thì kích cỡ của mảng hoặc danh sách là 7 và 5, bắt đầu với index hoặc top = -1, những phần tử sẽ được thêm vào theo trình tự 1->2->3->4->5->6->7 index hoặc top sẽ tăng dần thêm 1 theo trình tự và chúng sẽ được lấy ra theo trình tự ngược lại 7->6->5->4->3->2->1 và index hoặc top cũng giảm dần đi 1 theo trình tự.<br>
-Các thao tác cơ bản như:
+Stack có 3 thao tác chính cơ bản như:
 - push: thêm phần tử ở cuối vào mảng stack
 - pop: xóa phần tử ở cuối cùng ra khỏi mảng stack
-- peek: lấy giá trị ở cuối cùng ở mảng stack
+- top: lấy giá trị ở cuối cùng ở mảng stack
 
 Code triển khai Stack dưới dạng mảng:
 ```
@@ -898,7 +898,7 @@ int pop(){
 }
 
 //Function get last element in stack
-int peek(){
+int top(){
     if (is_empty()) {
         printf("Stack is empty\n");
         return -1;
@@ -914,10 +914,10 @@ int main()
     push(40);
     push(50);
     printf("%d\n",pop());   //50
-    printf("%d\n",peek());  //40
+    printf("%d\n",top());  //40
     printf("%d\n",top);     //3
     printf("%d\n",pop());   //40
-    printf("%d\n",peek());  //30
+    printf("%d\n",top());  //30
     printf("%d\n",top);     //2
     return 0;
 }
@@ -971,7 +971,7 @@ int pop(Stack *stack) {
 }
 
 //Get last value from Stack
-int peek(Stack stack) {
+int top(Stack stack) {
     if (!is_empty(stack)) {
         return stack.items[stack.top];
     } else {
@@ -991,21 +991,183 @@ int main() {
     push(&stack1, 50);
     push(&stack1, 60); //Stack overflow
 
-    printf("Top element: %d\n", peek(stack1)); //Top element: 50
+    printf("Top element: %d\n", top(stack1)); //Top element: 50
     printf("Pop element: %d\n", pop(&stack1)); //Pop element: 50
     printf("Pop element: %d\n", pop(&stack1)); //Pop element: 40
-    printf("Top element: %d\n", peek(stack1)); //Top element: 30
+    printf("Top element: %d\n", top(stack1)); //Top element: 30
     return 0;
 }
 ```
 
+## 2. Queue
+Queue là một cấu trúc dữ liệu tuân theo nguyên tắt "Fisrt In, First Out", phần tử đầu tiên được thêm vào mảng Queue sẽ là phần tử được lấy ra đầu tiên từ mảng Queue.<br>
+Queue có 3 thao tác chính:
+- enqueue: Thêm vào phần tử cuối cùng của mảng Queue.
+- dequeue: Lấy ra phần tử đầu tiên của mảng Queue.
+- front: lấy ra giá trị đầu tiên của mảng Queue
 
+Code Queue với mảng:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
+#define MAX_SIZE 100
 
+typedef struct {
+    int data[MAX_SIZE];
+    int front;
+    int rear;
+} Queue;
 
+void initQueue(Queue *q) {
+    q->front = q->rear = -1;
+}
 
+int isEmpty(Queue *q) {
+    return q->front == -1 && q->rear == -1;
+}
 
+int isFull(Queue *q) {
+    return q->rear == MAX_SIZE - 1;
+}
 
+void enqueue(Queue *q, int value) {
+    if (isFull(q)) {
+        printf("Queue is full\n");
+        return;
+    }
+    if (isEmpty(q)) {
+        q->front = q->rear = 0;
+    } else {
+        q->rear++;
+    }
+    q->data[q->rear] = value;
+}
+
+int dequeue(Queue *q) {
+    if (isEmpty(q)) {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    int value = q->data[q->front];
+    if (q->front == q->rear) {
+        q->front = q->rear = -1;
+    } else {
+        q->front++;
+    }
+    return value;
+}
+
+int front(Queue *q) {
+    if (isEmpty(q)) {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    return q->data[q->front];
+}
+
+int main() {
+    Queue q;
+    initQueue(&q);
+
+    enqueue(&q, 10);
+    enqueue(&q, 20);
+    enqueue(&q, 30);
+
+    printf("Peek value: %d\n", front(&q)); //10
+    printf("Dequeued value: %d\n", dequeue(&q)); //10
+    printf("Peek value: %d\n", front(&q)); //20
+
+    return 0;
+}
+```
+Code với mảng Struct
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct{
+    int* items;
+    int size;
+    int front, rear;
+} Queue;
+
+void initialize(Queue *queue, int size)
+{
+    queue->items = (int*) malloc(sizeof(int)* size);
+    queue->front = -1;
+    queue->rear = -1;
+    queue->size = size;
+}
+
+int is_empty(Queue queue) {
+    return queue.front == -1;
+}
+
+int is_full(Queue queue) {
+    return (queue.rear + 1) % queue.size == queue.front;
+}
+
+void enqueue(Queue *queue, int value) {
+    if (!is_full(*queue)) {
+        if (is_empty(*queue)) {
+            queue->front = queue->rear = 0;
+        } else {
+            queue->rear = (queue->rear + 1) % queue->size;
+        }
+        queue->items[queue->rear] = value;
+    } else {
+        printf("Queue overflow\n");
+    }
+}
+
+int dequeue(Queue *queue) {
+    if (!is_empty(*queue)) {
+        int dequeued_value = queue->items[queue->front];
+        if (queue->front == queue->rear) {
+            queue->front = queue->rear = -1;
+        } else {
+            queue->front = (queue->front + 1) % queue->size;
+        }
+        return dequeued_value;
+    } else {
+        printf("Queue underflow\n");
+        return -1;
+    }
+}
+
+int front(Queue queue) {
+    if (!is_empty(queue)) {
+        return queue.items[queue.front];
+    } else {
+        printf("Queue is empty\n");
+        return -1;
+    }
+}
+
+int main() {
+    Queue queue;
+    initialize(&queue, 3);
+
+    enqueue(&queue, 10);
+    enqueue(&queue, 20);
+    enqueue(&queue, 30);
+
+    printf("Front element: %d\n", front(queue)); //10
+
+    printf("Dequeue element: %d\n", dequeue(&queue)); //10
+    printf("Dequeue element: %d\n", dequeue(&queue)); //20
+
+    printf("Front element: %d\n", front(queue)); //30
+
+    enqueue(&queue, 40);
+    enqueue(&queue, 50);
+    printf("Dequeue element: %d\n", dequeue(&queue));//30
+    printf("Front element: %d\n", front(queue));//40
+
+    return 0;
+}
+```
 
 
 
