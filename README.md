@@ -852,6 +852,7 @@ Ví dụ: Nếu bitmask là 0b10101010 và muốn tắt bit thứ 1, sử dụng
 Ví dụ: Nếu bitmask là 0b10101010 và muốn dịch sang phải 2 vị trí. Kết quả của bitmask >> 2 sẽ là 0b00101010.<br>
 - Dịch bit sang trái sử dụng toán tử (<<), nó sẽ dịch sang trái một vị trí cố định và các bit bên phải sẽ mất đi và chuyển thành 0.<br>
 Ví dụ: Nếu bitmask là 0b10101010 và muốn dịch sang trái 2 vị trí. Kết quả của bitmask << 2 sẽ là 0b00101000.<br>
+
 **Code tạo thông số kỹ thuật của một chiếc xe bằng bitmask:**
 ```
 #include <stdio.h>
