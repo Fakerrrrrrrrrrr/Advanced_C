@@ -848,7 +848,7 @@ Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn tắt bit thứ 2, bạn
 Ví dụ: Nếu bitmask là 0b10101010 và bạn muốn chuyển đổi trạng thái của bit thứ 2, bạn có thể sử dụng mặt nạ 0b00000010. Kết quả của bitmask ^ 0b00000010 sẽ là 0b10101000.<br>
 
 
-# Bài 11
+# Bài 11: Stack - Queue
 ## 1. Stack
 Stack là một cấu trúc dữ liệu tuân theo nguyên tắc "Last-In-First-Out" (LIFO) - phần tử được thêm vào cuối cùng sẽ được lấy ra đầu tiên.<br>
 Stack có thể được triển khai bằng mảng hoặc danh sách liên kết dưới dạng struct,...<br>
