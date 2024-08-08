@@ -931,6 +931,99 @@ int main() {
 }
 ```
 
+# Bài 10: Linked List
+## Khái niệm
+Linked List là cấu trúc dữ liệu mà trong đó các phần tử node được liên kết với nhau thông qua các con trỏ.<br>
+Mỗi node trong linked list sẽ có 2 thành phần là:<br>
+- Data: Chứa dữ liệu của node
+- Next: Là một con trỏ chứa địa chỉ tiếp theo của node tiếp theo<br>
+Cấu trúc của một node trong Linked List được định nghĩa bằng một struct như sau:
+```
+typedef struct Node {
+    int data;
+    Node *next;
+} Node;
+
+//Create New Node
+Node *createNode(int data){
+    Node *ptr = (Node*)malloc(sizeof(Node));
+    ptr->data = data;
+    ptr->next = NULL;
+    return ptr;
+}
+```
+## Ứng dụng
+Linked List có thể ứng dụng để tạo một List có kích thước động vì nó cấp phát động cho mỗi khi tạo ra Node mới và các Node trong đó không cần phải có địa chỉ liên tiếp nhau nhưng có thể truy cập tuần tự theo danh sách.<br>
+Các thao tác cơ bản của Linked List là:
+- push_back: Thêm phần tử Node vào cuối danh sách.
+```
+void push_back(Node **array, int data) {
+    if (*array == NULL) {
+        *array = createNode(data);
+    }
+    else {
+        Node *temp = *array;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = createNode(data);
+    }
+}
+```
+- pop_back: Xóa phần tử cuối cùng ở danh sách Node.
+```
+void pop_back(Node **array){
+    Node *temp = *array;
+    if (temp->next == NULL){
+        free(temp);
+    }
+    else {
+        while(temp->next->next!=NULL) {
+            temp = temp->next;
+        }
+        free(temp->next);
+        temp->next = NULL;
+    }
+}
+```
+- insert: Chèn Node mới vào vị trí bất kỳ.
+```
+void insert(Node **array,int data,int position){
+    Node *temp = *array;
+    if (temp == NULL && position == 1) {
+        *array = createNode(data);
+        return;
+    }
+    if (position < 1 || temp == NULL){
+        printf("Error: Incorrect position\n");
+        return;
+    }
+    if (position == 1){
+        Node *newNode = createNode(data);
+        newNode->next = *array;
+        *array = newNode;
+        return;
+    }
+
+    for (int i = 1; i < position - 1 && temp != NULL; i++){
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Error: Incorrect position\n");
+        return;
+    }
+
+    Node *newNode = createNode(data);
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+```
+- erase: Xóa Node với vị trí được chỉ định.
+```
+
+```
+
 # Bài 11: Stack - Queue
 ## 1. Stack
 Stack là một cấu trúc dữ liệu tuân theo nguyên tắc "Last-In-First-Out" (LIFO) - phần tử được thêm vào cuối cùng sẽ được lấy ra đầu tiên.<br>
