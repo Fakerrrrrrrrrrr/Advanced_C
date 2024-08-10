@@ -936,7 +936,8 @@ int main() {
 Linked List là cấu trúc dữ liệu mà trong đó các phần tử node được liên kết với nhau thông qua các con trỏ.<br>
 Mỗi node trong linked list sẽ có 2 thành phần là:<br>
 - Data: Chứa dữ liệu của node
-- Next: Là một con trỏ chứa địa chỉ tiếp theo của node tiếp theo<br>
+- Next: Là một con trỏ chứa địa chỉ tiếp theo của node tiếp theo
+
 Cấu trúc của một node trong Linked List được định nghĩa bằng một struct như sau:
 ```
 typedef struct Node {
@@ -953,6 +954,7 @@ Node *createNode(int data){
 }
 ```
 ## Ứng dụng
+Khi chúng ta có 1 mảng 10000 phần tử, để chèn vào phần tử hoặc xóa 1 phần tử ở 1 vị trí chỉ định thì chúng ta phải tốn nhiều tài nguyên của hệ thống để dịch chuyển sang hoặc lùi 1 ô nhớ, vì vậy chúng ta dùng Linked List.<br>
 Linked List có thể ứng dụng để tạo một List có kích thước động vì nó cấp phát động cho mỗi khi tạo ra Node mới và các Node trong đó không cần phải có địa chỉ liên tiếp nhau nhưng có thể truy cập tuần tự theo danh sách.<br>
 Các thao tác cơ bản của Linked List là:
 - push_back: Thêm phần tử Node vào cuối danh sách.
@@ -1021,7 +1023,54 @@ void insert(Node **array,int data,int position){
 ```
 - erase: Xóa Node với vị trí được chỉ định.
 ```
+void erase(Node **array,int position){
+    Node *temp = *array;
+    
+    if (temp == NULL) {
+        return;
+    }
+    if (position < 1) {
+        printf("Error: Position < 1\n");
+        return;
+    }
+    if (position == 1){
+        *array = temp->next;
+        free(temp);
+        return;
+    }
 
+    for (int i = 1; i < position - 1; i++){
+        temp = temp->next;
+    }
+    if (temp->next == NULL) {
+        printf("Error: Position > list size\n");
+        return;
+    }
+    if (temp->next->next == NULL) {
+        temp->next = NULL;
+        free(temp->next);
+    } else {
+        Node *current = temp->next;
+        temp->next = temp->next->next;
+        current = NULL;
+        free(current);
+    }
+}
+```
+- clear: Xóa toàn bộ các phần tử ở trong danh sách Node.
+```
+void clear(Node **array){
+    Node *temp = *array;
+    Node *nextTemp;
+
+    while (temp != NULL) {
+        nextTemp = temp->next;
+        free(temp);
+        temp = nextTemp;
+    }
+
+    *array = NULL;
+}
 ```
 
 # Bài 11: Stack - Queue
