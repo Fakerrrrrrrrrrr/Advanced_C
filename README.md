@@ -931,6 +931,12 @@ int main() {
 }
 ```
 
+# Bài 8: Struct - Union
+## 1. Struct
+- Khái niệm:<br>
+Struct là một kiểu dữ liệu được định nghĩa bởi người viết code, cho phép nhóm các kiểu dữ liệu khác nhau lại thành một kiểu dữ liệu mới. Một struct thường được sử dụng để lưu trữ các thông tin liên quan với nhau, như một người hoặc thông tin về một sản phẩm,...
+
+
 # Bài 9: JSON
 ## 1. Khái niệm và ứng dụng
 JSON (Javascript Object Notation) là một dạng database dựa trên văn bản, nó nhẹ, dễ đọc và dễ viết, cú pháp đơn giản và gọn gàng, được sử dụng để trao đổi dữ liệu giữa máy chủ và web app, nó hiệu quả khi truyền dữ liệu qua mạng đặc biệt là trên các thiết bị có băng thông hạn chế và trên ô tô.<br>
