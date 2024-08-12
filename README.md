@@ -714,7 +714,7 @@ Ví dụ: extern int calculatorDivide(int a, int b); ta lấy hàm calculatorDiv
 
 ## 2. Static variable
 Khi khai báo biến static chương trình sẽ cấp phát cho nó 1 địa chỉ tồn tại hết vòng đời của chương trình (không bị thu hồi), biến static chỉ khởi tạo 1 lần và không khởi tạo lại lần nữa, nếu gặp biến static ở function được gọi nó sẽ bỏ qua và chạy dòng code tiếp theo.</br>
-Giá trị của biến static chỉ có phạm vi cục bộ với file hoặc hàm chứa nó. Biến static sẽ được lưu trữ trong vùng nhớ static thay vì vùng nhớ stack như biến cục bộ thông thường.<br>
+Giá trị của biến static chỉ có phạm vi cục bộ với file hoặc hàm chứa nó. Biến static sẽ được lưu trữ trong vùng nhớ data hoặc bss thay vì vùng nhớ stack như biến cục bộ thông thường.<br>
 ```
 void myFunction() {
     static int counter = 0;
@@ -751,18 +751,6 @@ int main() {
     return 0;
 }
 ```
-1.Stack: là một cấu trúc dữ liệu có tính chất "Last-In-First-Out" (LIFO), được sử dụng để lưu trữ các biến cục bộ, tham số của hàm, và địa chỉ trở về (return address) khi gọi hàm. Phân vùng stack là vùng nhớ được cấp phát và quản lý theo cấu trúc stack.
-2.Cách hoạt động của stack:
-- Khi một hàm được gọi, một khung stack (stack frame) mới sẽ được tạo ra và đẩy lên trên cùng của stack.
-- Trong khung stack này, các biến cục bộ của hàm, tham số truyền vào, và địa chỉ trở về sẽ được lưu trữ.
-- Khi hàm kết thúc, khung stack của hàm đó sẽ được xóa khỏi stack, và giá trị các biến cục bộ sẽ mất đi.
-3. Ưu điểm:
-- Quản lý bộ nhớ đơn giản và hiệu quả.
-- Hỗ trợ đệ quy (recursion) tốt.
-- Truy xuất dữ liệu nhanh.
-4. Nhược điểm:
-- Dung lượng bộ nhớ có giới hạn, không thể mở rộng kích thước stack tùy ý.
-- Nếu sử dụng đệ quy quá sâu có thể dẫn đến tràn stack (stack overflow).
 
 ## 3. Register
 Test:
@@ -931,7 +919,7 @@ int main() {
 }
 ```
 
-# Bài 8: Struct - Union
+# Bài 7: Struct - Union
 ## 1. Struct
 - Khái niệm:<br>
 Struct là một kiểu dữ liệu được định nghĩa bởi người viết code, cho phép nhóm các kiểu dữ liệu khác nhau lại thành một kiểu dữ liệu mới. Một struct thường được sử dụng để lưu trữ các thông tin liên quan với nhau, như một người hoặc thông tin về một sản phẩm,...<br>
@@ -1056,7 +1044,116 @@ typedef union{
 - Struct: Truy cập đồng thời nhiều thành phần khác nhau của struct.
 - Union: Chỉ có thể truy cập vào một thành phần của union tại một thời điểm.
 
+# Bài 8: Memory Layout
+## Khái niệm
+Chương trình của mình code ở file main.c hoặc main.exe thì file đó được lưu trên bộ nhớ ROM hoặc Flash, khi click run chương trình thì sẽ copy qua vùng nhớ RAM rồi mới chạy chương trình, RAM tốc độ truy xuất nhanh, ở trong vi điều khiển (main.hex) thì khi chạy nó sẽ nạp chương trình vào và nằm ở phân vùng nhớ FLASH hoặc SSD và 
+khi nó chạy (cấp nguồn cho vi điều khiển) nó sẽ copy chương trình ở flash qua RAM, quá trình này được gọi là Putting progress: quá trình chuyển dữ liệu từ bộ nhớ flash (nơi lưu trữ mã chương trình và dữ liệu cố định) qua bộ nhớ RAM (nơi lưu trữ dữ liệu tạm thời và biến trong quá trình thực thi chương trình).<br>
+Những biến chúng ta code ra đều được chạy trên bộ nhớ RAM (Câu hỏi phỏng vấn: Những biến này được lưu ở đâu)<br>
+Có tổng cộng 5 phân vùng nhớ bao gồm: Text, data (initialized data), bss (uninitialized data), heap và stack.
+## 1. Vùng nhớ text
+Phân vùng nhớ text (Text Segment) là những chương trình khi được copy từ vùng nhớ Flash sang RAM mà chương trình đó không có cách nào để sửa (chỉ đọc) thì nó sẽ được lưu ở phân vùng Text ngoài ra các biến Const hoặc con trỏ ký tự nó cũng sẽ lưu ở phân vùng Text.<br>
+Ví dụ:
+```
+const int a = 10;
+char *ptr = "Hello worlds";
 
+int main(){
+    return 0;
+}
+```
+## 2. Vùng nhớ data
+Phân vùng nhớ data (Data segment) là phân vùng nhớ chứa các biến toàn cục được khởi tạo đầu tiên giá trị khác 0, chứa các biến Static được khởi tạo ở giá trị khác 0, quyền truy cập của nó là đọc và ghi nghĩa là có thể đọc và thay đổi giá trị của biến và tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.
+Ví dụ:
+```
+int a = 10; //Biến toàn cục
+static int a = 20; // Biến giá trị static toàn cục
+void test(){
+    static int x = 5; // Biến giá trị static cục bộ
+}
+
+int main(){
+    a = 50; //Thay đổi giá trị vẫn ở phân vùng nhớ data
+    return 0;
+}
+```
+## 2. Vùng nhớ bss
+Phân vùng nhớ BSS (BSS segment) là phân vùng nhớ chứa biến toàn cụ và các biến Static được khởi tạo đầu tiên giá trị bằng 0 hoặc không gán giá trị ban đầu cho biến đó và phân vùng này cũng tồn tại hết vòng đời ở chương trình, quyền truy cập của nó cũng là đọc và ghi có nghĩa là có thể đọc và thay đổi giá trị của biến đó.
+Ví dụ:
+```
+int a = 0; //Biến toàn cục
+static int a; // Biến giá trị static toàn cục
+void test(){
+    static int x = 0; // Biến giá trị static cục bộ
+}
+
+int main(){
+    a = 50; //Thay đổi giá trị vẫn ở phân vùng nhớ bss
+    return 0;
+}
+```
+## 3. Vùng nhớ Stack
+3.1. Khái niệm:
+- Phân vùng stack là vùng nhớ được cấp phát và quản lý theo cấu trúc stack, một vùng nhớ tĩnh, được sử dụng để lưu trữ các biến cục bộ và tham số truyền vào các hàm. Khi chúng ta gọi hàm các biến trong hàm sẽ được cấp địa chỉ, sau khi kết thúc hàm các biến đó sẽ bị thu hồi mà những địa chỉ được cấp phát và thu đều ở phân vùng nhớ Stack. Cấu trúc Stack là một cấu trúc dữ liệu có tính chất "Last-In-First-Out" (LIFO), được sử dụng để lưu trữ các biến cục bộ, tham số của hàm, và địa chỉ trở về (return address) khi gọi hàm. <br>
+Lưu ý: Kể cả dùng biến const bên trong function thì vẫn ở phân vùng nhớ Stack
+
+3.2.Cách hoạt động của stack:
+- Khi một hàm được gọi, một khung stack (stack frame) mới sẽ được tạo ra và đẩy lên trên cùng của stack.
+- Trong khung stack này, các biến cục bộ của hàm, tham số truyền vào, và địa chỉ trở về sẽ được lưu trữ.
+- Khi hàm kết thúc, khung stack của hàm đó sẽ được xóa khỏi stack, và giá trị các biến cục bộ sẽ mất đi.<br>
+
+3.3. Ưu điểm:
+- Quản lý bộ nhớ đơn giản và hiệu quả.
+- Hỗ trợ đệ quy (recursion) tốt.
+- Truy xuất dữ liệu nhanh.<br>
+
+3.4. Nhược điểm:
+- Dung lượng bộ nhớ có giới hạn, không thể mở rộng kích thước stack tùy ý.
+- Nếu sử dụng đệ quy quá sâu có thể dẫn đến tràn stack (stack overflow).
+
+## 4. Vùng nhớ Heap
+Phân vùng nhớ Heap là một vùng nhớ động, được sử dụng để cấp phát và giải phóng bộ nhớ một cách linh hoạt trong quá trình chạy chương trình.<br>
+
+4.1. Khái niệm:
+- Heap là một vùng nhớ được sử dụng để cấp phát và giải phóng bộ nhớ động, không như vùng nhớ Stack, nơi chỉ lưu trữ các biến cục bộ và tham số truyền vào các hàm.
+- Bộ nhớ Heap được quản lý bởi hệ thống cấp phát bộ nhớ động, cung cấp các hàm như malloc(), calloc(), realloc() và free() để người dùng có thể cấp phát và giải phóng bộ nhớ.
+
+4.2. Cách hoạt động:
+- Khi chương trình cần cấp phát bộ nhớ động, nó sẽ gọi các hàm cấp phát bộ nhớ như malloc() hoặc calloc() hoặc realloc() để yêu cầu một vùng nhớ từ Heap.
+- Hệ thống cấp phát bộ nhớ sẽ tìm kiếm một khu vực trống trong Heap đủ lớn để chứa dữ liệu cần cấp phát, và trả lại một con trỏ trỏ đến vùng nhớ đó.
+- Khi không còn cần sử dụng vùng nhớ đó nữa, chương trình sẽ gọi hàm free() để giải phóng vùng nhớ, để hệ thống có thể sử dụng lại nó sau này.
+
+4.3. Ưu điểm:
+- Linh hoạt: Heap cho phép cấp phát và giải phóng bộ nhớ động, không giới hạn kích thước như Stack.
+- Hiệu quả: Heap cho phép sử dụng bộ nhớ hiệu quả hơn, tránh lãng phí bộ nhớ.
+- Phù hợp với các cấu trúc dữ liệu phức tạp: Heap phù hợp với việc tạo ra các cấu trúc dữ liệu động như linked list, tree, v.v.
+
+4.4. Nhược điểm:
+- Quản lý phức tạp: Việc cấp phát và giải phóng bộ nhớ trên Heap đòi hỏi người lập trình phải quản lý cẩn thận, tránh rò rỉ bộ nhớ.
+- Hiệu suất có thể giảm: Quá trình quản lý Heap có thể làm giảm hiệu suất chung của chương trình, đặc biệt nếu có nhiều yêu cầu cấp phát/giải phóng bộ nhớ.
+- Nguy cơ lỗi: Nếu không quản lý cẩn thận, việc sử dụng Heap có thể dẫn đến các lỗi như truy cập vùng nhớ không hợp lệ, rò rỉ bộ nhớ, v.v.
+
+4.5. Rò rỉ bộ nhớ:
+Rò rỉ bộ nhớ (memory leak) là một vấn đề trong lập trình, đề cập đến tình trạng bộ nhớ được cấp phát nhưng không được giải phóng khi không còn sử dụng nữa.
+
+Khái niệm:
+- Khi một chương trình cấp phát bộ nhớ để lưu trữ dữ liệu, nhưng không giải phóng lại bộ nhớ đó khi không cần dùng nữa, thì xảy ra rò rỉ bộ nhớ.
+- Tình trạng này dẫn đến bộ nhớ của hệ thống bị chiếm dụng ngày càng nhiều, làm chậm hoạt động của chương trình và hệ thống.
+
+Nguyên nhân:
+- Quên giải phóng bộ nhớ khi không cần dùng nữa.
+- Lỗi logic trong việc quản lý động bộ nhớ.
+- Sử dụng không đúng cách các hàm cấp phát/giải phóng bộ nhớ.
+
+Ảnh hưởng
+- Chương trình chạy chậm dần do bộ nhớ bị chiếm dụng ngày càng nhiều.
+- Trong trường hợp nghiêm trọng, chương trình có thể bị treo hoặc crash do không đủ bộ nhớ.
+- Tốn tài nguyên hệ thống, ảnh hưởng đến hiệu suất chung của máy.
+
+Phòng ngừa và khắc phục:
+- Sử dụng các công cụ kiểm tra rò rỉ bộ nhớ.
+- Thực hiện đúng quy trình cấp phát và giải phóng bộ nhớ.
+- Sử dụng ngôn ngữ lập trình có garbage collector tự động quản lý bộ nhớ.
+- Viết mã chương trình cẩn thận, kiểm tra kỹ các điểm cấp phát và giải phóng bộ nhớ.
 
 # Bài 9: JSON
 ## 1. Khái niệm và ứng dụng
