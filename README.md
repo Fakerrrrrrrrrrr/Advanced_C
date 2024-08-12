@@ -939,10 +939,10 @@ Struct là một kiểu dữ liệu được định nghĩa bởi người viế
 Cú pháp:
 ```
 struct StrucName{
-    DataType1: Member1;
-    DataType2: Member2;
+    <data_type1> <member1>;
+    <data_type2> <member2>;
     ...
-}
+};
 
 //syntax: struct StrucName Variable;
 ```
@@ -967,7 +967,94 @@ int main(){
 }
 ```
 ## 2. Union
+- Khái niệm:<br>
+Union là một kiểu dữ liệu có thể lưu trữ nhiều giá trị khác nhau cùng một lúc, nhưng chỉ có thể truy cập một giá trị tại một thời điểm. Các thành viên trong một union sử dụng cùng một vùng nhớ, nghĩa là kích thước của Union sẽ bằng kích thước của thành viên lớn nhất.
 
+Syntax:
+```
+union <union_name> {
+    <data_type1> <member1>;
+    <data_type2> <member2>;
+    ...
+};
+```
+Union thường được dùng trong trường hợp muốn tiết kiệm bộ nhớ khi cần lưu nhiều kiểu dữ liệu khác nhau nhưng chỉ sử dụng một trong số đó tại thời điểm đó, truy cập dữ liệu dưới nhiều dạng khác nhau như read/write dữ liệu input/output file ở nhiều định dạng khác nhau,
+các giao thức mạng và cấu trúc dữ liệu như khi cần lưu các kiểu dữ liệu khác nhau trong cùng một cấu trúc. Để truy cập biến thành viên của Union ta dùng toán tử "."
+```
+union MyUnion {
+    int i;
+    float f;
+    char c[4];
+};
+
+union MyUnion data;
+data.i = 42;
+printf("Integer value: %d\n", data.i); // Output: 42
+data.f = 3.14;
+printf("Float value: %f\n", data.f); // Output: 3.140000
+printf("Integer value: %d\n", data.i); // Output: 1078530000 (không phải 42)
+```
+## 3. Sự khác nhau giữa Struct và Union
+3.1. Cấu trúc dữ liệu:
+- Struct:
+    - Cho phép lưu trữ nhiều kiểu dữ liệu khác nhau trong cùng một biến.
+    - Mỗi thành phần trong struct có địa chỉ riêng và chiếm không gian riêng trong bộ nhớ.
+    - Khi truy cập các thành phần của struct, có thể truy cập độc lập vào từng thành phần.
+- Union:
+    - Union cũng cho phép lưu trữ nhiều kiểu dữ liệu khác nhau trong cùng một biến, nhưng chỉ có thể sử dụng một thành phần của union tại một thời điểm.
+    - Tất cả các thành phần của union chia sẽ cùng một vùng nhớ, do đó khi gán giá trị cho một thành phần, giá trị của thành phần khác sẽ bị thay đổi.
+    - Union thường được sử dụng để tiết kiệm bộ nhớ khi chỉ cần lưu trữ một trong số các kiểu dữ liệu.
+3.2 Dung lượng bộ nhớ:
+- Struct:<br>
+Dung lượng bộ nhớ của một biến struct bằng tổng dung lượng của tất cả các thành phần trong struct và khi sắp xếp chúng hợp lý thì chúng ta có thể tiết kiệm được bộ nhớ.<br>
+Ví dụ:
+```
+typedef struct{
+    uint32_t var3;   //4 byte
+    uint8_t var2;    //1 byte
+    uint16_t var1;   //2 byte
+}frame;
+```
+Tổng dung lượng bộ nhớ của struct trên sẽ là 8 byte. Nhưng khi sắp xếp lại như này thì nó sẽ thành 12 byte. Bởi vì kiểu dữ liệu lớn nhất của struct này 4 byte vậy complier nó sẽ hiểu là 4 byte sẽ đại diện cho 1 lần quét của nó, hệ thống sẽ quét theo thứ tự từ trên xuống dưới, 
+nếu biến tiếp theo còn thừa đủ ô nhớ để chứa thì nó sẽ điền vào những ô nhớ tiếp theo còn trống đó. Như vậy trong ví dụ thì ở ví dụ trên lần quét đầu tiên là 4 byte var3 đã chiếm đủ, 
+lần quét thứ 2 thì var2 chỉ chứ 1 ô do 1 byte và còn thừa 3 byte nên var1 sẽ điền vào phía sau đó vì var1 chỉ có 2 byte, và hệ thống sẽ còn thừa 1 byte. Ngược lại ở ví dụ dưới thì ở lần quét đầu tiên là var2 1byte còn thừa 3 byte nhưng var3 có kích thước 4 byte nên không đủ để lưu nên nó sẽ chuyển qua lần quét thử 2,
+và sau khi đã quét đủ 4 byte thì var1 chỉ có thể thực hiện lần quét tiếp theo là 2 byte như vậy hệ thống đã cung cấp 12 ô nhớ và thừ 5 ô nhớ (5byte).
+```
+typedef struct{
+    uint8_t var2;    //1 byte
+    uint32_t var3;   //4 byte
+    uint16_t var1;   //2 byte
+}frame;
+```
+Ví dụ cụ thể:
+```
+typedef struct{
+    uint8_t var2[9];
+    uint64_t var4[3];
+    uint16_t var1[10];
+    uint32_t var3[2];
+    uint8_t var5;
+}frame;
+```
+Ở ví dụ trên thì kiểu dữ liệu lớn nhất là 8 byte nên complier sẽ quét 1 lần 8 byte, vậy nên mỗi var2 là 1 byte mà mảng có 9 var2 sẽ là 8 byte cho lần quét đầu tiên và 1 byte cho lần quét thứ 2, lần quét tiếp theo vì là mỗi var4 đều là 8 byte nên không đủ ô nhớ để điền vào phần dư 7 byte vậy thì sẽ là tổng 2*8 + 3*8 = 40 byte,
+tiếp theo thì mỗi var1 là 2 byte nên cần 4 var1 để đủ 8 byte như vậy còn dư 2 var1 và 4 byte, mỗi var3 thì là 4 byte nên sẽ điền vào 4 byte còn dư đó và 1 var3 sẽ điền vào 4 byte ở lần quét tiếp theo, như vậy chỉ còn var5 1byte nên sẽ điền vào 4 byte còn dư đó, như vậy kết quả sẽ là 40 + 2*8(8 var1) + 8(2 var1 +1 var3) + 8(1 var3 + 1 var5) 
+= 72 byte.<br>
+- Union:<br>
+Dung lượng bộ nhớ của một biến union bằng với dung lượng của thành phần lớn nhất trong union. Vì chúng sử dụng chung vùng nhớ nên giá trị của 1 biến thành viên trong đó chỉ có thể chứa được tối đa giá trị mà số byte cũng như số ô nhớ mà biến đó sở hữu
+Ví dụ cụ thể:
+```
+typedef union{            
+    uint8_t var2[9];     //9 byte => 16 byte
+    uint64_t var4[3];    //24 byte => 24 byte
+    uint16_t var1[10];   //20 byte => 24 byte
+    uint32_t var3[2];    //8 byte => 8 byte
+    uint8_t var5;        //1 byte => 8 byte
+}frame;
+```
+Ở ví dụ trên thì dung lượng của bộ nhớ của biến union là 24 byte bởi vì kiểu dữ liệu lớn nhất là uint64_t có kích thước là 8 byte nên sẽ quét mỗi lần với 8 byte, vậy nên kích thước của Union sẽ là 24 byte.<br>
+3.3 Truy cập dữ liệu:
+- Struct: Truy cập đồng thời nhiều thành phần khác nhau của struct.
+- Union: Chỉ có thể truy cập vào một thành phần của union tại một thời điểm.
 
 
 
