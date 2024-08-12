@@ -934,7 +934,41 @@ int main() {
 # Bài 8: Struct - Union
 ## 1. Struct
 - Khái niệm:<br>
-Struct là một kiểu dữ liệu được định nghĩa bởi người viết code, cho phép nhóm các kiểu dữ liệu khác nhau lại thành một kiểu dữ liệu mới. Một struct thường được sử dụng để lưu trữ các thông tin liên quan với nhau, như một người hoặc thông tin về một sản phẩm,...
+Struct là một kiểu dữ liệu được định nghĩa bởi người viết code, cho phép nhóm các kiểu dữ liệu khác nhau lại thành một kiểu dữ liệu mới. Một struct thường được sử dụng để lưu trữ các thông tin liên quan với nhau, như một người hoặc thông tin về một sản phẩm,...<br>
+
+Cú pháp:
+```
+struct StrucName{
+    DataType1: Member1;
+    DataType2: Member2;
+    ...
+}
+
+//syntax: struct StrucName Variable;
+```
+Sau khi định nghĩa Struct ta có thể khai báo biến và truy cập biến thành viên của Struct đó thông qua dấu "." nếu đó là con trỏ (địa chỉ) thì ta phải dùng  "->" để truy cập. Mỗi thành viên trong Struct có địa chỉ riêng và chiếm không gian riêng trong bộ nhớ,
+khi truy cập thành phần của struct, bạn có thể truy cập độc lập của từng thành phần đó. Ngoài ra có thể sử dụng typedef tạo bí danh (alias) để rút ngắn syntax mỗi lần khai báo biến.
+```
+typedef struct {
+    char name[50];
+    int age;
+    char address[100];
+} Person;
+int main(){
+    Person person1;
+    strcpy(person1.name, "Nhat");
+    person1.age = 35;
+    strcpy(person1.address, "Hai Chau, Da Nang");
+    
+    Person *person2 = malloc(sizeof(struct Person));
+    strcpy(person2->name, "Nhat");
+    person2->age = 35;
+    strcpy(person2->address, "Nam Tu Liem, Ha Noi");
+}
+```
+## 2. Union
+
+
 
 
 # Bài 9: JSON
