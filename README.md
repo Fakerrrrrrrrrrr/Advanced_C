@@ -1164,7 +1164,7 @@ Cú pháp:
 - size là kích thước của khối bộ nhớ cần được cấp phát, tính bằng bytes.
 - Hàm trả về một con trỏ void * trỏ đến vùng nhớ đã được cấp phát. Nếu không đủ bộ nhớ, hàm sẽ trả về giá trị NULL.<br>
 
-**Lưu ý: ** vì size là kích thước của khối bộ nhớ đó nên chúng ta sẽ dùng sizeof cho kiểu dữ liệu cần cấp phát ví dụ sizeof(int) n với n là số phần tử cần cấp phát và sẽ tạo ra n ô nhớ liền kề, hàm trả về là một con trỏ void * vậy nên khi khai báo cần ép kiểu dữ liệu mà chúng ta cần trỏ tới ví dụ như (int*)malloc(sizeof(int)*n), khi sử dụng xong thì cần dùng hàm free() để giải phóng bộ nhớ tránh rò rỉ bộ nhớ.
+**Lưu ý: ** vì size là kích thước của khối bộ nhớ đó nên chúng ta sẽ dùng sizeof cho kiểu dữ liệu cần cấp phát ví dụ sizeof(int)*n với n là số phần tử cần cấp phát và sẽ tạo ra n ô nhớ liền kề, hàm trả về là một con trỏ void * vậy nên khi khai báo cần ép kiểu dữ liệu mà chúng ta cần trỏ tới ví dụ như (int*)malloc(sizeof(int)*n), khi sử dụng xong thì cần dùng hàm free() để giải phóng bộ nhớ tránh rò rỉ bộ nhớ.
 
 Ứng dụng: hàm malloc thường được sử dụng khi chúng ta cần cấp phát bộ nhớ động, ví dụ như khi cần cấp phát bộ nhớ cho một mảng có kích thước chưa biết trước, hoặc khi chúng ta cần cấp phát bộ nhớ cho 
 các cấu trúc dữ liệu trức tạp như linked list, tree,...
@@ -1184,6 +1184,28 @@ Cú pháp:
 Ứng dụng: Hàm calloc thường được sử dụng khi chúng ta cần cấp phát bộ nhớ động và khởi tạo tất cả các byte trong vùng nhớ thành giá trị 0. Ví dụ như khi chúng ta cần cấp phát bộ nhớ cho một mảng và khởi tạo tất cả các phần tử của mảng thành 0.
 
 4.8. Hàm realloc
+- Hàm realloc được sử dụng để thay đổi kích thước của một vùng nhớ đã được cấp phát trước đó. Nó có thể tăng hoặc giảm kích thước của vùng nhớ, tùy thuộc vào yêu cầu.
+
+Cú pháp:
+> void *realloc(void *ptr, size_t size);
+
+- ptr là con trỏ trỏ đến vùng nhớ đã được cấp phát trước đó.
+- size là kích thước mới của vùng nhớ, tính bằng bytes.
+- Hàm trả về một con trỏ void * trỏ đến vùng nhớ mới. Nếu không đủ bộ nhớ, hàm sẽ trả về giá trị NULL.
+
+**Lưu ý: ** vì size là kích thước của khối bộ nhớ đó nên chúng ta sẽ dùng sizeof cho kiểu dữ liệu cần cấp phát ví dụ sizeof(int)*n với n là số phần tử cần cấp phát và sẽ tạo ra n ô nhớ liền kề, hàm trả về là một con trỏ void * vậy nên khi khai báo cần ép kiểu dữ liệu mà chúng ta cần trỏ tới ví dụ như (int*)realloc(ptr,sizeof(int)*n), khi sử dụng xong thì cần dùng hàm free() để giải phóng bộ nhớ tránh rò rỉ bộ nhớ.
+
+Ứng dụng: Hàm realloc thường được sử dụng khi chúng ta cần thay đổi kích thước của một vùng nhớ đã được cấp phát trước đó. Ví dụ, khi chúng ta cần tăng kích thước của một mảng động, hoặc khi chúng ta cần thay đổi kích thước của một cấu trúc dữ liệu phức tạp.
+
+4.9. Hàm free
+- Hàm free được sử dụng để giải phóng vùng nhớ đã được cấp phát trước đó. Sau khi sử dụng xong vùng nhớ, chúng ta cần giải phóng nó để tránh rò rỉ bộ nhớ.
+
+Cú pháp:
+> void free(void *ptr);
+
+- ptr là con trỏ trỏ đến vùng nhớ cần được giải phóng.
+
+Ứng dụng: Hàm free() thường được sử dụng sau khi chúng ta đã sử dụng xong vùng nhớ được cấp phát bởi các hàm malloc(), calloc() hoặc realloc(). Nếu không giải phóng vùng nhớ, chúng ta sẽ gặp phải vấn đề rò rỉ bộ nhớ (memory leak).
 
 # Bài 9: JSON
 ## 1. Khái niệm và ứng dụng
