@@ -1110,7 +1110,7 @@ Lưu ý: Kể cả dùng biến const bên trong function thì vẫn ở phân v
 - Dung lượng bộ nhớ có giới hạn, không thể mở rộng kích thước stack tùy ý.
 - Nếu sử dụng đệ quy quá sâu có thể dẫn đến tràn stack (stack overflow).
 
-## 4. Vùng nhớ Heap
+## 4. Vùng nhớ Heap:
 Phân vùng nhớ Heap là một vùng nhớ động, được sử dụng để cấp phát và giải phóng bộ nhớ một cách linh hoạt trong quá trình chạy chương trình.<br>
 
 4.1. Khái niệm:
@@ -1133,7 +1133,7 @@ Phân vùng nhớ Heap là một vùng nhớ động, được sử dụng để
 - Nguy cơ lỗi: Nếu không quản lý cẩn thận, việc sử dụng Heap có thể dẫn đến các lỗi như truy cập vùng nhớ không hợp lệ, rò rỉ bộ nhớ, v.v.
 
 4.5. Rò rỉ bộ nhớ:
-Rò rỉ bộ nhớ (memory leak) là một vấn đề trong lập trình, đề cập đến tình trạng bộ nhớ được cấp phát nhưng không được giải phóng khi không còn sử dụng nữa.
+- Rò rỉ bộ nhớ (memory leak) là một vấn đề trong lập trình, đề cập đến tình trạng bộ nhớ được cấp phát nhưng không được giải phóng khi không còn sử dụng nữa.
 
 Khái niệm:
 - Khi một chương trình cấp phát bộ nhớ để lưu trữ dữ liệu, nhưng không giải phóng lại bộ nhớ đó khi không cần dùng nữa, thì xảy ra rò rỉ bộ nhớ.
@@ -1154,6 +1154,36 @@ Phòng ngừa và khắc phục:
 - Thực hiện đúng quy trình cấp phát và giải phóng bộ nhớ.
 - Sử dụng ngôn ngữ lập trình có garbage collector tự động quản lý bộ nhớ.
 - Viết mã chương trình cẩn thận, kiểm tra kỹ các điểm cấp phát và giải phóng bộ nhớ.
+
+4.6. Hàm malloc:
+- Hàm malloc cấp phát một khối bộ nhớ có kích thước được chỉ định bởi người dùng. Kích thước của khối bộ nhớ này được tính bằng bytes và các ô nhớ được cấp phát sẽ liền kề nhau.
+
+Cú pháp:
+> void *malloc(size_t size);
+
+- size là kích thước của khối bộ nhớ cần được cấp phát, tính bằng bytes.
+- Hàm trả về một con trỏ void * trỏ đến vùng nhớ đã được cấp phát. Nếu không đủ bộ nhớ, hàm sẽ trả về giá trị NULL.<br>
+
+**Lưu ý: ** vì size là kích thước của khối bộ nhớ đó nên chúng ta sẽ dùng sizeof cho kiểu dữ liệu cần cấp phát ví dụ sizeof(int) n với n là số phần tử cần cấp phát và sẽ tạo ra n ô nhớ liền kề, hàm trả về là một con trỏ void * vậy nên khi khai báo cần ép kiểu dữ liệu mà chúng ta cần trỏ tới ví dụ như (int*)malloc(sizeof(int)*n), khi sử dụng xong thì cần dùng hàm free() để giải phóng bộ nhớ tránh rò rỉ bộ nhớ.
+
+Ứng dụng: hàm malloc thường được sử dụng khi chúng ta cần cấp phát bộ nhớ động, ví dụ như khi cần cấp phát bộ nhớ cho một mảng có kích thước chưa biết trước, hoặc khi chúng ta cần cấp phát bộ nhớ cho 
+các cấu trúc dữ liệu trức tạp như linked list, tree,...
+
+4.7. Hàm calloc:
+- Hàm calloc cấp phát một khối bộ nhớ có kích thước được chỉ định bởi người dùng, và khởi tạo tất cả các byte trong vùng nhớ này thành giá trị 0.
+
+Cú pháp:
+> void *calloc(size_t nmemb, size_t size);
+
+- nmemb là số lượng phần tử cần được cấp phát
+- size là kích thước của mỗi phần tử, tính bằng bytes.
+- Hàm trả về một con trỏ void * trỏ đến vùng nhớ đã được cấp phát và khởi tạo. Nếu không đủ bộ nhớ, hàm sẽ trả về giá trị NULL.
+
+**Lưu ý: ** vì nmembn là số lượng phần tử cần được cấp phát sẽ tạo ra nmembn ô nhớ liền kề theo kích thước mỗi phần tử, size là kích thước của mỗi phần tử đó nên chúng ta sẽ dùng sizeof cho kiểu dữ liệu cần cấp phát ví dụ sizeof(int), hàm trả về là một con trỏ void * vậy nên khi khai báo cần ép kiểu dữ liệu mà chúng ta cần trỏ tới ví dụ như (int*)calloc(nmembn,sizeof(int)), khi sử dụng xong thì cần dùng hàm free() để giải phóng bộ nhớ tránh rò rỉ bộ nhớ.
+
+Ứng dụng: Hàm calloc thường được sử dụng khi chúng ta cần cấp phát bộ nhớ động và khởi tạo tất cả các byte trong vùng nhớ thành giá trị 0. Ví dụ như khi chúng ta cần cấp phát bộ nhớ cho một mảng và khởi tạo tất cả các phần tử của mảng thành 0.
+
+4.8. Hàm realloc
 
 # Bài 9: JSON
 ## 1. Khái niệm và ứng dụng
