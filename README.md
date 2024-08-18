@@ -1,6 +1,9 @@
 # **Bài 1: Compiler - Marco**
 ## 1. Compiler
-Compiler (trình biên dịch) là một phần mềm được sử dụng để chuyển đổi một ngôn ngữ lập trình cấp cao (high-level programming language) như C, C++, Java, Python, v.v. thành mã máy (machine code) có thể được thực thi trực tiếp bởi bộ xử lý (CPU) của máy tính.
+<details>
+<summary> Details </summary>
+
+**Compiler** (trình biên dịch) là một phần mềm được sử dụng để chuyển đổi một ngôn ngữ lập trình cấp cao (high-level programming language) như C, C++, Java, Python, v.v. thành mã máy (machine code) có thể được thực thi trực tiếp bởi bộ xử lý (CPU) của máy tính.
 
 ![Compiler Image](https://github.com/Fakerrrrrrrrrrr/Advanced_C/blob/main/Images/Complier.png)
 
@@ -32,8 +35,13 @@ Các ưu điểm chính của việc sử dụng trình biên dịch bao gồm:
 - Kiểm tra và phát hiện lỗi trong quá trình biên dịch.
 - Tối ưu hóa mã nguồn.
 - Trình biên dịch là một thành phần cơ bản và quan trọng trong quá trình phát triển phần mềm, đặc biệt là đối với các ngôn ngữ lập trình cấp cao.
+</details>
+
 ## 2. Macro
-Macro là một tính năng trong lập trình cho phép người lập trình định nghĩa một tập hợp các lệnh hoặc quy tắc được đặt tên và có thể được sử dụng nhiều lần trong chương trình.
+<details>
+<summary> Details </summary>
+
+**Macro** là một tính năng trong lập trình cho phép người lập trình định nghĩa một tập hợp các lệnh hoặc quy tắc được đặt tên và có thể được sử dụng nhiều lần trong chương trình.
 
 Khi gặp một macro trong chương trình, trình biên dịch sẽ thay thế macro bằng đoạn mã tương ứng trước khi chuyển đổi chương trình sang mã máy. Macro xảy ra ở giai đoạn tiền xử lý.
 
@@ -138,9 +146,13 @@ typedef enum{
     {code}
 #endif
 ```
+</details>
 
 # Bài 2: STDARG - ASSERT
 ## 1. STDARG
+
+<details>
+<summary> Details </summary>
 Thư viện stdarg trong C là một thư viện tiêu chuẩn được sử dụng để xử lý các tham số không xác định số lượng (tham số đầu vào) của các hàm. Thư viện này cung cấp một số macro và hàm cho phép xử lý các tham số không xác định số lượng.
 
 Các macro và hàm chính trong thư viện stdarg bao gồm:
@@ -212,7 +224,12 @@ int main() {
     return 0;
 }
 ```
+</details>
+
 ## 2. Assert
+<details>
+<summary> Details </summary>
+    
 Khi phát triển project lớn có rất nhiều file, bình thường Debug bằng If Else do chương trình nhỏ nên khó phân biệt ở đoạn nào, khi đó ta dùng Assert Lib để Debug.
 > Syntax: assert(condition && #cmd);
 
@@ -235,9 +252,14 @@ int main() {
     return 0;
 }
 ```
+</details>
 
 # **Bài 3: Pointer**
 ## Bài tập về nhà
+
+<details>
+<summary> Details </summary>
+    
 > Kích thước của con trỏ
 
 Kích thước của con trỏ phụ thuộc vào kiến trúc máy tính (32-bit hay 64-bit) và kiểu dữ liệu mà con trỏ đang trỏ đến.
@@ -281,7 +303,13 @@ int main() {
 4 bytes
 ```
 
+</details>
+
 ## 1. Pointer
+
+<details>
+<summary> Details </summary>
+    
 - Con trỏ (Pointer) là một biến lưu lại địa chỉ ô nhớ trong bộ nhớ máy tính.
 > Cú pháp: <kiểu_dữ_liệu> *<tên_biến>;
 
@@ -311,7 +339,14 @@ Ví dụ 3 kết quả dưới đều tương đương nhau:
 *ptr = 10
 *(&a) = 10
 ```
+
+</details>
+    
 ## 2. Function Pointer
+
+<details>
+<summary> Details </summary>
+    
 - Con trỏ hàm (Function Pointer) là một biến có thể lưu địa chỉ của hàm.
 > Cú pháp: <kiểu_dữ_liệu_trả_về> (*<tên_con_trỏ>)(<các_tham_số>) = <tên_hàm>;
 
@@ -354,7 +389,14 @@ int main(){
     TinhToan(&a,&b,&thuong);  //Thuong 7 va 5 = 1.400
 }
 ```
+
+</details>
+    
 ## 3. Void Pointer
+
+<details>
+<summary> Details </summary>
+    
 Con trỏ void (void pointer) là một loại con trỏ đặc biệt, có thể trỏ đến bất kỳ kiểu dữ liệu nào, bao gồm cả các kiểu do người dùng định nghĩa.
 > Cú pháp: void *<tên_con_trỏ>;
 
@@ -378,8 +420,13 @@ myPointer = &z;
 
 intPointer = (int*)myPointer;
 ```
+</details>
+
 ## 4. Pointer to Constant
 
+<details>
+<summary> Details </summary>
+    
 Con trỏ hằng (Pointer to Constant) là không thể sử dụng con trỏ để thay đổi giá trị mà nó trỏ .
 > Cú pháp: <kiểu_dữ_liệu> const *<tên_con_trỏ>;<br>           const <kiểu_dữ_liệu> *<tên_con_trỏ>;
 
@@ -397,8 +444,13 @@ const int *p = &x; // Gán địa chỉ của x cho con trỏ p, nhưng không t
 const int y = 30;
 p = &y; // Hợp lệ, có thể thay đổi địa chỉ mà p trỏ đến
 ```
+</details>
 
 ## 5. Null Pointer
+
+<details>
+<summary> Details </summary>
+    
 Con trỏ Null (Null Pointer) là một con trỏ không trỏ đến bất kỳ vùng nhớ nào và có giá trị bằng 0.
 Khi chúng ta khai báo bất kỳ
 > Cú pháp: <kiểu_dữ_liệu> *<tên_con_trỏ> = NULL;
@@ -418,9 +470,14 @@ if (ptr != NULL) {
     // Xử lý trường hợp con trỏ null
 }
 ```
-
+</details>
+    
 # Bài 4: Goto - setjmp.h
 ## 1. Goto
+
+<details>
+<summary> Details </summary>
+    
 Goto có khá nhiều ứng dụng, khi code không khuyến khích sử dụng Goto vì nó thay đổi luồng chạy của chương trình chỉ dành cho những người Master ngôn ngữ lập trình mới kiểm soát luồng chạy của nó.
 Khi viết chương trình có rất rất nhiều phức tạp thì chúng ta không thể Break hết tất cả hoặc chương trình bị lỗi ta không thể thoát ngay lập tức thì chúng ta sử dụng Goto.
 > Syntax: goto label; //label là tên được sử dụng để xác định vị trí mà goto sẽ nhảy đến -> label:
@@ -639,7 +696,13 @@ int main() {
 }
 
 ```
+</details>
+
 ## 2. Setjmp
+
+<details>
+<summary> Details </summary>
+    
 setjmp là một hàm được sử dụng để lưu trữ trạng thái hiện tại của chương trình. Nó được sử dụng trong kết hợp với hàm longjmp để thực hiện nhảy trỏ tới vị trí khác trong chương trình.
 > Syntax: int setjmp(jmp_buf buf);
 > int exception_code = setjmp(buf); //Với buf đã được khai báo jmp_buf buf; trước đó rồi
@@ -702,9 +765,14 @@ int main() {
     return 0;
 }
 ```
-
+</details>
+    
 # Bài 5: Extern - Static - Volatile - Register
 ## 1. Extern
+
+<details>
+<summary> Details </summary>
+    
 Khi sử dụng keyword extern thì có nghĩa là chúng ta muốn lấy một biến hoặc một hàm ở một file khác trong chương trình.<br>
 Ví dụ: Ta có 2 file main.c và file test.c. Biến ở file test.c được khai báo toàn cục 'int count = 20;' thì khi chúng ta dùng 'extern int count;' ở file main.c thì chúng ta hoàn toàn có thể sử dụng biến count và có giá trị là 20, có nghĩa là nếu count có địa chỉ 0x01 ở file test.c thì ở file main.c nó cũng có địa chỉ là 0x01.<br>
 Extern cũng có thể sử dụng để khai báo các hàm ở file khác.<br>
@@ -712,7 +780,13 @@ Ví dụ: extern int calculatorDivide(int a, int b); ta lấy hàm calculatorDiv
 > Syntax: extern datatype variable_name;<br>
 > extern return_type function_name(parameter_list);
 
+</details>
+    
 ## 2. Static variable
+
+<details>
+<summary> Details </summary>
+    
 Khi khai báo biến static chương trình sẽ cấp phát cho nó 1 địa chỉ tồn tại hết vòng đời của chương trình (không bị thu hồi), biến static chỉ khởi tạo 1 lần và không khởi tạo lại lần nữa, nếu gặp biến static ở function được gọi nó sẽ bỏ qua và chạy dòng code tiếp theo.</br>
 Giá trị của biến static chỉ có phạm vi cục bộ với file hoặc hàm chứa nó. Biến static sẽ được lưu trữ trong vùng nhớ data hoặc bss thay vì vùng nhớ stack như biến cục bộ thông thường.<br>
 ```
@@ -752,7 +826,13 @@ int main() {
 }
 ```
 
+</details>
+    
 ## 3. Register
+
+<details>
+<summary> Details </summary>
+    
 Test:
 ```
 #include <stdio.h>
@@ -794,7 +874,13 @@ Register là một từ khóa để khai báo biến nên được lưu trữ tr
 Khi khai báo 'int i = 5;' nó sẽ lưu 1 cái địa chỉ ở RAM và lưu giá trị bằng 5, lưu thông tin phép toán ở RAM, muốn tính toán sẽ đẩy thông tin tính toán qua register sau đó register sẽ đẩy thông tin tính toán qua ALU (Bộ xử lý trung tâm) ở ALU thực hiện tính toán sau đó đẩy kết quả về cho register sau đó register trả về kết quả lại cho RAM.<br>
 Vậy nên khi sử dụng biến Register nó được lưu thông tin ở Register thay vì RAM vậy nên tính toán sẽ nhanh vì chỉ có bước đẩy thông tin qua ALU và ALU trả giá trị kết quả về lại Register mà không cần phải thông qua RAM.
 
+</details>
+    
 ## 4. Volatile
+
+<details>
+<summary> Details </summary>
+    
 Khi sử dụng biến volatile thì nó sẽ thông báo cho chương trình biên dịch không được phép tối ưu code của biến đó. Biến volatile thường được sử dụng để truy cập vào các vùng nhớ liên quan đến phần cứng, như các thanh ghi hoặc bộ nhớ được chia sẻ. Khi sử dụng volatile, trình biên dịch sẽ không tối ưu hóa code liên quan đến biến này, vì giá trị của biến có thể thay đổi bất kỳ lúc nào.<br>
 Sau này khi học RTOS thì sử dụng nhiều luồng với nhau ta sẽ luôn luôn sử dụng Volatile bởi vì khi sử dụng ở luồng khác thì ta phải luôn luôn load lại biến đó.
 ```
@@ -813,9 +899,14 @@ int main() {
     return 0;
 }
 ```
+</details>
 
 # Bài 6: Bitmask
 ## Ứng dụng:
+
+<details>
+<summary> Details </summary>
+    
 Trong đời sống có rất nhiều trường hợp sẽ rơi vào tình huống phải lựa chọn những trường hợp khác nhau, ví dụ như muốn đi từ Hà Nội tới Đà Nẵng thì phải có thể chọn phương tiện khác nhau để tới được Đà Nẵng như đi máy bay, xe bus, taxi, tàu lửa,... 
 Nếu có nhiều sự lựa chọn như vậy thì ta lại phải khai báo từng biến khác nhau rất mất thời gian và tốn bộ nhớ vì mỗi biến sẽ có ít nhất 1byte. Vậy nên chúng ta dùng bitmask để lưu trữ và làm việc với các trạng thái hoặc cấu hình dưới dạng các bit trong một số nguyên.
 Bitmask thường dùng để biểu diễn một tập hợp các lựa chọn hoặc thiết lập, trong đó mỗi bit tương ứng với một lựa chọn hoặc cấu hình.<br>
@@ -825,7 +916,11 @@ Ví dụ, nếu bạn muốn lưu trữ trạng thái của 8 tính năng khác 
 - Bit 3 (giá trị 3): Tính năng 3 được bật //00000100
 - Và cứ thế<br>
 
+</details>
+    
 ## Ứng dụng các thao tác phổ biến với bitmask bao gồm:
+<details>
+<summary> Details </summary>
 - Kiểm tra xem một bít có được bật hay không dùng toán tử (AND)(&), nó sẽ so sánh từng bit tương ứng của hai số và trả về 1 nếu cả hai bit đều bằng 1 (True), ngược lại nó sẽ trả về 0 (False)  <br>
 Ví dụ: Nếu bitmask là 0b10101010 và muốn kiểm tra bit thứ 2 (tính từ bit 0), sử dụng bitmask 0b00000100. Kết quả của bitmask & 0b00000100 sẽ là 0b00000000, bit thứ 2 không được bật.<br>
 - Bật một bit dùng toàn tử (OR)(|), nó sẽ so sánh từng bit tương ứng của hai số và trả về 1 nếu 1 trong hai có ít nhất 1 giá trị bằng 1 và trả về 0 nếu cả hai đều bằng 0 <br>
@@ -918,9 +1013,14 @@ int main() {
     return 0;
 }
 ```
-
+</details>
+    
 # Bài 7: Struct - Union
 ## 1. Struct
+
+<details>
+<summary> Details </summary>
+    
 - Khái niệm:<br>
 Struct là một kiểu dữ liệu được định nghĩa bởi người viết code, cho phép nhóm các kiểu dữ liệu khác nhau lại thành một kiểu dữ liệu mới. Một struct thường được sử dụng để lưu trữ các thông tin liên quan với nhau, như một người hoặc thông tin về một sản phẩm,...<br>
 
@@ -954,7 +1054,14 @@ int main(){
     strcpy(person2->address, "Nam Tu Liem, Ha Noi");
 }
 ```
+
+</details>
+    
 ## 2. Union
+
+<details>
+<summary> Details </summary>
+    
 - Khái niệm:<br>
 Union là một kiểu dữ liệu có thể lưu trữ nhiều giá trị khác nhau cùng một lúc, nhưng chỉ có thể truy cập một giá trị tại một thời điểm. Các thành viên trong một union sử dụng cùng một vùng nhớ, nghĩa là kích thước của Union sẽ bằng kích thước của thành viên lớn nhất.
 
@@ -982,7 +1089,13 @@ data.f = 3.14;
 printf("Float value: %f\n", data.f); // Output: 3.140000
 printf("Integer value: %d\n", data.i); // Output: 1078530000 (không phải 42)
 ```
+
+</details>
+    
 ## 3. Sự khác nhau giữa Struct và Union
+<details>
+<summary> Details </summary>
+    
 3.1. Cấu trúc dữ liệu:
 - Struct:
     - Cho phép lưu trữ nhiều kiểu dữ liệu khác nhau trong cùng một biến.
@@ -1044,13 +1157,26 @@ typedef union{
 - Struct: Truy cập đồng thời nhiều thành phần khác nhau của struct.
 - Union: Chỉ có thể truy cập vào một thành phần của union tại một thời điểm.
 
+</details>
+    
 # Bài 8: Memory Layout
 ## Khái niệm
+
+<details>
+<summary> Details </summary>
+    
 Chương trình của mình code ở file main.c hoặc main.exe thì file đó được lưu trên bộ nhớ ROM hoặc Flash, khi click run chương trình thì sẽ copy qua vùng nhớ RAM rồi mới chạy chương trình, RAM tốc độ truy xuất nhanh, ở trong vi điều khiển (main.hex) thì khi chạy nó sẽ nạp chương trình vào và nằm ở phân vùng nhớ FLASH hoặc SSD và 
 khi nó chạy (cấp nguồn cho vi điều khiển) nó sẽ copy chương trình ở flash qua RAM, quá trình này được gọi là Putting progress: quá trình chuyển dữ liệu từ bộ nhớ flash (nơi lưu trữ mã chương trình và dữ liệu cố định) qua bộ nhớ RAM (nơi lưu trữ dữ liệu tạm thời và biến trong quá trình thực thi chương trình).<br>
 Những biến chúng ta code ra đều được chạy trên bộ nhớ RAM (Câu hỏi phỏng vấn: Những biến này được lưu ở đâu)<br>
 Có tổng cộng 5 phân vùng nhớ bao gồm: Text, data (initialized data), bss (uninitialized data), heap và stack.
+
+</details>
+    
 ## 1. Vùng nhớ text
+
+<details>
+<summary> Details </summary>
+    
 Phân vùng nhớ text (Text Segment) là những chương trình khi được copy từ vùng nhớ Flash sang RAM mà chương trình đó không có cách nào để sửa (chỉ đọc) thì nó sẽ được lưu ở phân vùng Text ngoài ra các biến Const hoặc con trỏ ký tự nó cũng sẽ lưu ở phân vùng Text.<br>
 Ví dụ:
 ```
@@ -1061,7 +1187,14 @@ int main(){
     return 0;
 }
 ```
+
+</details>
+    
 ## 2. Vùng nhớ data
+
+<details>
+<summary> Details </summary>
+    
 Phân vùng nhớ data (Data segment) là phân vùng nhớ chứa các biến toàn cục được khởi tạo đầu tiên giá trị khác 0, chứa các biến Static được khởi tạo ở giá trị khác 0, quyền truy cập của nó là đọc và ghi nghĩa là có thể đọc và thay đổi giá trị của biến và tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.
 Ví dụ:
 ```
@@ -1076,7 +1209,13 @@ int main(){
     return 0;
 }
 ```
-## 2. Vùng nhớ bss
+</details>
+    
+## 3. Vùng nhớ bss
+
+<details>
+<summary> Details </summary>
+    
 Phân vùng nhớ BSS (BSS segment) là phân vùng nhớ chứa biến toàn cụ và các biến Static được khởi tạo đầu tiên giá trị bằng 0 hoặc không gán giá trị ban đầu cho biến đó và phân vùng này cũng tồn tại hết vòng đời ở chương trình, quyền truy cập của nó cũng là đọc và ghi có nghĩa là có thể đọc và thay đổi giá trị của biến đó.
 Ví dụ:
 ```
@@ -1091,48 +1230,61 @@ int main(){
     return 0;
 }
 ```
-## 3. Vùng nhớ Stack
-3.1. Khái niệm:
+
+</details>
+
+## 4. Vùng nhớ Stack
+
+<details>
+<summary> Details </summary>
+    
+4.1. Khái niệm:
 - Phân vùng stack là vùng nhớ được cấp phát và quản lý theo cấu trúc stack, một vùng nhớ tĩnh, được sử dụng để lưu trữ các biến cục bộ và tham số truyền vào các hàm. Khi chúng ta gọi hàm các biến trong hàm sẽ được cấp địa chỉ, sau khi kết thúc hàm các biến đó sẽ bị thu hồi mà những địa chỉ được cấp phát và thu đều ở phân vùng nhớ Stack. Cấu trúc Stack là một cấu trúc dữ liệu có tính chất "Last-In-First-Out" (LIFO), được sử dụng để lưu trữ các biến cục bộ, tham số của hàm, và địa chỉ trở về (return address) khi gọi hàm. <br>
 Lưu ý: Kể cả dùng biến const bên trong function thì vẫn ở phân vùng nhớ Stack
 
-3.2.Cách hoạt động của stack:
+4.2.Cách hoạt động của stack:
 - Khi một hàm được gọi, một khung stack (stack frame) mới sẽ được tạo ra và đẩy lên trên cùng của stack.
 - Trong khung stack này, các biến cục bộ của hàm, tham số truyền vào, và địa chỉ trở về sẽ được lưu trữ.
 - Khi hàm kết thúc, khung stack của hàm đó sẽ được xóa khỏi stack, và giá trị các biến cục bộ sẽ mất đi.<br>
 
-3.3. Ưu điểm:
+4.3. Ưu điểm:
 - Quản lý bộ nhớ đơn giản và hiệu quả.
 - Hỗ trợ đệ quy (recursion) tốt.
 - Truy xuất dữ liệu nhanh.<br>
 
-3.4. Nhược điểm:
+4.4. Nhược điểm:
 - Dung lượng bộ nhớ có giới hạn, không thể mở rộng kích thước stack tùy ý.
 - Nếu sử dụng đệ quy quá sâu có thể dẫn đến tràn stack (stack overflow).
 
-## 4. Vùng nhớ Heap:
+</details>
+    
+## 5. Vùng nhớ Heap:
+
+<details>
+<summary> Details </summary>
+    
 Phân vùng nhớ Heap là một vùng nhớ động, được sử dụng để cấp phát và giải phóng bộ nhớ một cách linh hoạt trong quá trình chạy chương trình.<br>
 
-4.1. Khái niệm:
+5.1. Khái niệm:
 - Heap là một vùng nhớ được sử dụng để cấp phát và giải phóng bộ nhớ động, không như vùng nhớ Stack, nơi chỉ lưu trữ các biến cục bộ và tham số truyền vào các hàm.
 - Bộ nhớ Heap được quản lý bởi hệ thống cấp phát bộ nhớ động, cung cấp các hàm như malloc(), calloc(), realloc() và free() để người dùng có thể cấp phát và giải phóng bộ nhớ.
 
-4.2. Cách hoạt động:
+5.2. Cách hoạt động:
 - Khi chương trình cần cấp phát bộ nhớ động, nó sẽ gọi các hàm cấp phát bộ nhớ như malloc() hoặc calloc() hoặc realloc() để yêu cầu một vùng nhớ từ Heap.
 - Hệ thống cấp phát bộ nhớ sẽ tìm kiếm một khu vực trống trong Heap đủ lớn để chứa dữ liệu cần cấp phát, và trả lại một con trỏ trỏ đến vùng nhớ đó.
 - Khi không còn cần sử dụng vùng nhớ đó nữa, chương trình sẽ gọi hàm free() để giải phóng vùng nhớ, để hệ thống có thể sử dụng lại nó sau này.
 
-4.3. Ưu điểm:
+5.3. Ưu điểm:
 - Linh hoạt: Heap cho phép cấp phát và giải phóng bộ nhớ động, không giới hạn kích thước như Stack.
 - Hiệu quả: Heap cho phép sử dụng bộ nhớ hiệu quả hơn, tránh lãng phí bộ nhớ.
 - Phù hợp với các cấu trúc dữ liệu phức tạp: Heap phù hợp với việc tạo ra các cấu trúc dữ liệu động như linked list, tree, v.v.
 
-4.4. Nhược điểm:
+5.4. Nhược điểm:
 - Quản lý phức tạp: Việc cấp phát và giải phóng bộ nhớ trên Heap đòi hỏi người lập trình phải quản lý cẩn thận, tránh rò rỉ bộ nhớ.
 - Hiệu suất có thể giảm: Quá trình quản lý Heap có thể làm giảm hiệu suất chung của chương trình, đặc biệt nếu có nhiều yêu cầu cấp phát/giải phóng bộ nhớ.
 - Nguy cơ lỗi: Nếu không quản lý cẩn thận, việc sử dụng Heap có thể dẫn đến các lỗi như truy cập vùng nhớ không hợp lệ, rò rỉ bộ nhớ, v.v.
 
-4.5. Rò rỉ bộ nhớ:
+5.5. Rò rỉ bộ nhớ:
 - Rò rỉ bộ nhớ (memory leak) là một vấn đề trong lập trình, đề cập đến tình trạng bộ nhớ được cấp phát nhưng không được giải phóng khi không còn sử dụng nữa.
 
 Khái niệm:
@@ -1155,7 +1307,7 @@ Phòng ngừa và khắc phục:
 - Sử dụng ngôn ngữ lập trình có garbage collector tự động quản lý bộ nhớ.
 - Viết mã chương trình cẩn thận, kiểm tra kỹ các điểm cấp phát và giải phóng bộ nhớ.
 
-4.6. Hàm malloc:
+5.6. Hàm malloc:
 - Hàm malloc cấp phát một khối bộ nhớ có kích thước được chỉ định bởi người dùng. Kích thước của khối bộ nhớ này được tính bằng bytes và các ô nhớ được cấp phát sẽ liền kề nhau.
 
 Cú pháp:
@@ -1169,7 +1321,7 @@ Cú pháp:
 Ứng dụng: hàm malloc thường được sử dụng khi chúng ta cần cấp phát bộ nhớ động, ví dụ như khi cần cấp phát bộ nhớ cho một mảng có kích thước chưa biết trước, hoặc khi chúng ta cần cấp phát bộ nhớ cho 
 các cấu trúc dữ liệu trức tạp như linked list, tree,...
 
-4.7. Hàm calloc:
+5.7. Hàm calloc:
 - Hàm calloc cấp phát một khối bộ nhớ có kích thước được chỉ định bởi người dùng, và khởi tạo tất cả các byte trong vùng nhớ này thành giá trị 0.
 
 Cú pháp:
@@ -1183,7 +1335,7 @@ Cú pháp:
 
 Ứng dụng: Hàm calloc thường được sử dụng khi chúng ta cần cấp phát bộ nhớ động và khởi tạo tất cả các byte trong vùng nhớ thành giá trị 0. Ví dụ như khi chúng ta cần cấp phát bộ nhớ cho một mảng và khởi tạo tất cả các phần tử của mảng thành 0.
 
-4.8. Hàm realloc
+5.8. Hàm realloc
 - Hàm realloc được sử dụng để thay đổi kích thước của một vùng nhớ đã được cấp phát trước đó. Nó có thể tăng hoặc giảm kích thước của vùng nhớ, tùy thuộc vào yêu cầu.
 
 Cú pháp:
@@ -1197,7 +1349,7 @@ Cú pháp:
 
 Ứng dụng: Hàm realloc thường được sử dụng khi chúng ta cần thay đổi kích thước của một vùng nhớ đã được cấp phát trước đó. Ví dụ, khi chúng ta cần tăng kích thước của một mảng động, hoặc khi chúng ta cần thay đổi kích thước của một cấu trúc dữ liệu phức tạp.
 
-4.9. Hàm free
+5.9. Hàm free
 - Hàm free được sử dụng để giải phóng vùng nhớ đã được cấp phát trước đó. Sau khi sử dụng xong vùng nhớ, chúng ta cần giải phóng nó để tránh rò rỉ bộ nhớ.
 
 Cú pháp:
@@ -1207,8 +1359,14 @@ Cú pháp:
 
 Ứng dụng: Hàm free() thường được sử dụng sau khi chúng ta đã sử dụng xong vùng nhớ được cấp phát bởi các hàm malloc(), calloc() hoặc realloc(). Nếu không giải phóng vùng nhớ, chúng ta sẽ gặp phải vấn đề rò rỉ bộ nhớ (memory leak).
 
+</details>
+
 # Bài 9: JSON
 ## 1. Khái niệm và ứng dụng
+
+<details>
+<summary> Details </summary>
+    
 JSON (Javascript Object Notation) là một dạng database dựa trên văn bản, nó nhẹ, dễ đọc và dễ viết, cú pháp đơn giản và gọn gàng, được sử dụng để trao đổi dữ liệu giữa máy chủ và web app, nó hiệu quả khi truyền dữ liệu qua mạng đặc biệt là trên các thiết bị có băng thông hạn chế và trên ô tô.<br>
 JSON được sử dụng để lưu database, lưu các dữ liệu mà có kiểu dữ liệu không xác định được. Mỗi đối tượng JSON bao gồm một tập hợp các cặp key-value, mảng JSON tập hợp các giá trị của mỗi đối tượng hoặc đối tượng.<br>
 
@@ -1230,7 +1388,13 @@ Ví dụ:
     }
 }
 ```
+</details>
+
 ## 2. Cấu trúc và định dạng của JSON
+
+<details>
+<summary> Details </summary>
+    
 Cấu trúc của JSON:
 ```
 typedef enum {
@@ -1677,9 +1841,14 @@ int main(int argc, char const *argv[])
     return 0;
 }
 ```
-
+</details>
+    
 # Bài 10: Linked List
 ## Khái niệm
+
+<details>
+<summary> Details </summary>
+    
 Linked List là cấu trúc dữ liệu mà trong đó các phần tử node được liên kết với nhau thông qua các con trỏ.<br>
 Mỗi node trong linked list sẽ có 2 thành phần là:<br>
 - Data: Chứa dữ liệu của node
@@ -1700,7 +1869,14 @@ Node *createNode(int data){
     return ptr;
 }
 ```
+
+</details>
+    
 ## Ứng dụng
+
+<details>
+<summary> Details </summary>
+    
 Khi chúng ta có 1 mảng 10000 phần tử, để chèn vào phần tử hoặc xóa 1 phần tử ở 1 vị trí chỉ định thì chúng ta phải tốn nhiều tài nguyên của hệ thống để dịch chuyển sang hoặc lùi 1 ô nhớ, vì vậy chúng ta dùng Linked List.<br>
 Linked List có thể ứng dụng để tạo một List có kích thước động vì nó cấp phát động cho mỗi khi tạo ra Node mới và các Node trong đó không cần phải có địa chỉ liên tiếp nhau nhưng có thể truy cập tuần tự theo danh sách.<br>
 Các thao tác cơ bản của Linked List là:
@@ -1820,8 +1996,14 @@ void clear(Node **array){
 }
 ```
 
+</details>
+    
 # Bài 11: Stack - Queue
 ## 1. Stack
+
+<details>
+<summary> Details </summary>
+    
 Stack là một cấu trúc dữ liệu tuân theo nguyên tắc "Last-In-First-Out" (LIFO) - phần tử được thêm vào cuối cùng sẽ được lấy ra đầu tiên.<br>
 Stack có thể được triển khai bằng mảng hoặc danh sách liên kết dưới dạng struct,...<br>
 ![Stack Image](https://github.com/Fakerrrrrrrrrrr/Advanced_C/blob/main/Images/Stack.png)
@@ -1971,7 +2153,13 @@ int main() {
 }
 ```
 
+</details>
+    
 ## 2. Queue
+
+<details>
+<summary> Details </summary>
+    
 Queue là một cấu trúc dữ liệu tuân theo nguyên tắt "Fisrt In, First Out", phần tử đầu tiên được thêm vào mảng Queue sẽ là phần tử được lấy ra đầu tiên từ mảng Queue.<br>
 Queue có 3 thao tác chính:
 - enqueue: Thêm vào phần tử cuối cùng của mảng Queue.
@@ -2140,7 +2328,7 @@ int main() {
     return 0;
 }
 ```
-
+</details>
 
 
 
