@@ -2330,8 +2330,345 @@ int main() {
 ```
 </details>
 
+# Bài 12 : Binary search - File operations - Code standards
+## 1. Binary search:
+<details>
+<summary> Details </summary>
+
+- Tìm kiếm nhị phân (Binary Search) là một thuật toán tìm kiếm hiệu quả để tìm vị trí của một phần tử trong một danh sách đã được sắp xếp. Thay vì tìm kiếm tuần tự từng phần tử như tìm kiếm tuyến tính, tìm kiếm nhị phân chia danh sách thành hai phần và chỉ tiếp tục tìm kiếm trong nửa có khả năng chứa phần tử cần tìm.
+
+Tìm kiếm nhị phân dựa trên nguyên lý "chia để trị" (divede and conquer):
+- So sánh phần tử cần tìm với phần tử giữa của danh sách.
+- Nếu phần tử cần tìm nhỏ hơn phần tử giữa, tìm kiếm tiếp tục trong nửa trái.
+- Nếu phần tử cần tìm lớn hơn phần tử giữa, tìm kiếm tiếp tục trong nửa phải.
+- Quá trình này lặp lại cho đến khi tìm thấy phần tử hoặc không còn phần tử nào để tìm kiếm.
+
+Đặc điểm:
+- Hiệu suất: Tìm kiếm nhị phân có thời gian tìm kiếm rất ngắn hơn so với tìm kiếm tuyến tính, đặc biệt đối với các danh sách lớn.
+- Yêu cầu: Danh sách phải được sắp xếp trước khi áp dụng tìm kiếm nhị phân.
+
+Ứng dụng:
+
+Tìm kiếm nhị phân có nhiều ứng dụng trong các lĩnh vực khác nhau, đặc biệt là trong các bài toán và hệ thống cần tìm kiếm nhanh và hiệu quả. Một số ứng dụng tiêu biểu bao gồm:
+- Tìm kiếm trong cơ sở dữ liệu: Các hệ quản trị cơ sở dữ liệu thường sử dụng tìm kiếm nhị phân để tìm kiếm dữ liệu nhanh chón trong các bảng hoặc chỉ mục đã sắp xếp (Thẻ RFID thang máy)
+- Thư viện phần mềm và API: Nhiều thư viện và API cung cấp các chức năng tìm kiếm nhị phân để giúp lập trình viên thực hiện tìm kiếm nhanh chóng trong các tập dữ liệu lớn.
+- Các bài toán trên mảng hoặc danh sách: Tìm kiếm nhị phân thường được sử dụng trong các bài toán xử lý mảng hoặc danh sách đã được sắp xếp, chẳng hạn như tìm kiếm số lần xuất hiện của một phần tử, tìm phần tử lớn nhất nhỏ hơn một giá trị cho trước, ...
+- Cấu trúc dữ liệu dạng cây: Các cấu trúc dữ liệu như cây tìm kiếm nhị phân (Binary Search Tree - BST) sử dụng nguyên lý của tìm kiếm nhị phân để tổ chức và tìm kiếm dữ liệu.
+- Ứng dụng trong thuật toán tối ưu hóa: Tìm kiếm nhị phân được sử dụng trong các thuật toán tối ưu hóa để tìm kiếm giá trị tối ưu trong một khoảng, ví dụ như tìm nghiệm của một phương trình hoặc tối thiếu hóa/ đại hóa một hàm số.
+- Chương trình lập lịch trong hệ điều hành: Trong các hệ điều hành, tìm kiếm nhị phân có thể được sử dụng để quản lý và tìm kiếm nhanh chòng trong các bảng thời gian, quản lý bộ nhớ hoặc lập lịch CPU
+- Ngành tài chính: Tìm kiếm nhị phân có thể được sử dụng trong các ứng dụng tài chính để tìm kiếm nhanh chóng trong các bảng giá cổ phiếu đã sắp xếp, hoặc xác định mức giá tối ưu trong giao dịch.
+
+Ví dụ Thực Tiễn:
+
+Một ví dụ thực tế về ứng dụng của tìm kiếm nhị phân là trong việc tìm kiếm một cuốn sách trong thư viện. Nếu thư viện sắp xếp sách theo bảng chữ cái, bạn có thể nhanh chóng chia danh sách sách thành hai phần và quyết định tìm kiếm tiếp theo ở nửa nào dựa trên tên cuốn sách mà bạn cần tìm. Điều này giúp tiết kiệm thời gian hơn nhiều so với việc tìm kiếm từng cuốn một.
+
+Bài tập: Sử dụng tìm kiếm nhị phân với đối với database có struct là Họ và tên, Tuổi, Địa chỉ, Số điện thoại
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include "..\include\mString.h"
+
+typedef struct Node {
+    struct {
+        char *fullName;
+        int age;
+        char *address;
+        long long phoneNumber;
+    }value;
+    struct Node *next;
+}Node;
+
+typedef struct{
+    struct Node *treeFullname;
+    struct Node *treePhonenumber;
+}mainTree;
+
+Node *createNode(char *strName, int valueAge, char *strAddress, long long valueNumber){
+    Node *temp = (Node*)malloc(sizeof(Node));
+    temp->value.fullName = strName;
+    temp->value.age = valueAge;
+    temp->value.address = strAddress;
+    temp->value.phoneNumber = valueNumber;
+    temp->next = NULL;
+    return temp;
+};
+
+//add list with phone number
+void addNodeWithPhoneNumber(Node **head, char *strName, int valueAge, char *strAddress, long long valueNumber) {
+    Node *newNode = createNode(strName, valueAge, strAddress, valueNumber);
+
+    if (*head == NULL || (*head)->value.phoneNumber >= valueNumber){
+        newNode->next = *head;
+        *head = newNode;
+    }
+    else {
+        Node *temp = *head;
+        while (temp->next != NULL && temp->next->value.phoneNumber < valueNumber)
+        {
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+};
+
+//add list with full name
+void addNodeWithFullName(Node **head, char *strName, int valueAge, char *strAddress, long long valueNumber) {
+    Node *newNode = createNode(strName, valueAge, strAddress, valueNumber);
+
+    if (*head == NULL || compareString((*head)->value.fullName,strName) > 0){
+        newNode->next = *head;
+        *head = newNode;
+    }
+
+    else {
+        Node *temp = *head;
+        while (temp->next != NULL && compareString(temp->next->value.fullName,strName) <= 0)
+        {
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+};
+
+void addNode(mainTree **head, char *strName, int valueAge, char *strAddress, long long valueNumber){
+    if (*head == NULL){
+        *head = (mainTree*)malloc(sizeof(mainTree));
+        (*head)->treeFullname = NULL;
+        (*head)->treePhonenumber = NULL;
+    }
+    addNodeWithFullName(&((*head)->treeFullname),strName, valueAge, strAddress, valueNumber);
+    addNodeWithPhoneNumber(&((*head)->treePhonenumber),strName, valueAge, strAddress, valueNumber);
+};
+
+void freeList(Node **head) {
+    Node *current = *head;
+    Node *nextNode;
+
+    while (current != NULL) {
+        nextNode = current->next;
+        free(current);
+        current = nextNode;
+    }
+
+    *head = NULL;
+};
+
+void freeMainTree(mainTree **tree) {
+    if (*tree == NULL) {
+        return;
+    }
+
+    freeList(&((*tree)->treeFullname));
+
+    freeList(&((*tree)->treePhonenumber));
+
+    free(*tree);
+
+    *tree = NULL;
+}
 
 
+//Search to Type
+typedef enum{
+    SEARCH_FULLNAME,
+    SEARCH_PHONENUMBER,
+    SEARCH_AGE,
+    SEARCH_ADDRESS
+}SearchType;
+
+//Binary Search Struct
+typedef struct CenterPoint {
+    union {
+        char *fullName;
+        long long phoneNumber;
+    } value;
+    struct CenterPoint *left;
+    struct CenterPoint *right;
+} CenterPoint;
+
+//Create build Tree with Fullname
+CenterPoint *buildTree(Node *head, int start, int end, SearchType type) {
+    if (head == NULL || start > end) {
+        return NULL;
+    }
+
+    int mid = (start + end)/2;
+    Node *node = head;
+    for (int i = start; i < mid; i++) {
+        if (node->next == NULL) {
+            break;
+        }
+        node = node->next;
+    }
+
+    CenterPoint *root = (CenterPoint *) malloc(sizeof(CenterPoint));
+    switch (type)
+    {
+    case 0:
+        root->value.fullName = node->value.fullName;
+        break;
+    case 1:
+        root->value.phoneNumber = node->value.phoneNumber;
+        break;
+    default:
+        free(root);
+        return NULL;
+        break;
+    }
+
+    root->left = buildTree(head, start, mid - 1,type);
+    root->right = buildTree(node->next, mid + 1, end,type);
+
+    return root;
+}
+
+CenterPoint *centerPoint(Node *head, SearchType type) {
+    int length = 0;
+    Node *node = head;
+    while (node != NULL) {
+        node = node->next;
+        length++;
+    }
+
+    return buildTree(head, 0, length - 1,type);
+}
+
+//Binary Search With String
+CenterPoint *binarySearchString(CenterPoint *root, const char *str,SearchType type) {
+    static int loop = 0;
+    loop++;
+    printf("so lan lap: %d\n", loop);
+    if (root == NULL) {
+        return NULL;
+    }
+    
+    switch (type)
+    {
+    case 0:
+        if (compareString(root->value.fullName,str) == 0) {
+            return root;
+        }
+
+        if (compareString(root->value.fullName,str) > 0) {
+            return binarySearchString(root->left, str, type);
+        } else {
+            return binarySearchString(root->right, str, type);
+        }
+
+        break;
+    // case 3:
+    //     if (compareString(root->value.address) == 0) {
+    //     return root;
+    //     }
+
+    //     if (compareString(root->value.address,str) < 0) {
+    //         return binarySearch(root->left, str, type);
+    //     } else {
+    //         return binarySearch(root->right, str, type);
+    //     }
+
+    //     break;
+    default:
+        return NULL;
+        break;
+    }
+
+}
+
+//Binary Search With String
+CenterPoint *binarySearchNumber(CenterPoint *root, long long value,SearchType type) {
+    static int loop = 0;
+    loop++;
+    printf("so lan lap: %d\n", loop);
+    if (root == NULL) {
+        return NULL;
+    }
+    
+    switch (type)
+    {
+    case 1:
+        if (root->value.phoneNumber == value) {
+            return root;
+        }
+
+        if (value < root->value.phoneNumber) {
+            return binarySearchNumber(root->left, value, type);
+        } else {
+            return binarySearchNumber(root->right, value, type);
+        }
+        break;
+    // case 2:
+    //     if (root->value.age == value) {
+    //         return root;
+    //     }
+
+    //     if (value < root->value.age) {
+    //         return binarySearch(root->left, value, type);
+    //     } else {
+    //         return binarySearch(root->right, value, type);
+    //     }
+    //     break;
+    default:
+        return NULL;
+        break;
+    }
+}
+
+//Print Node list
+void print_list(Node *head){
+    Node *temp = head;
+    while (temp != NULL)
+    {
+        printf("Full name is: %s, ", temp->value.fullName);
+        printf("Age is: %d, ", temp->value.age);
+        printf("Address is: %s, ", temp->value.address);
+        printf("Phone number is: %lld, ", temp->value.phoneNumber);
+        temp = temp->next;
+    }
+
+    printf("\n");
+};
+
+int main()
+{
+    mainTree *Person = NULL;
+    addNode(&Person,"Nguyen Thi Hoa", 22, "Ha Noi 1", 84345771057);
+    addNode(&Person,"Nguyen Hoang Nhat", 23, "Ha Noi 2", 84365871058);
+    addNode(&Person,"Nguyen Huu Y", 24, "Ha Noi 3", 84345471056);
+    addNode(&Person,"Nguyen Phong Hoang", 25, "Ha Noi 4", 84365871057);
+    addNode(&Person,"Nguyen Thi Thuy Lan", 26, "Ha Noi 5", 84342871059);
+
+    print_list(Person->treeFullname);
+
+    CenterPoint *ptrFullname = centerPoint(Person->treeFullname,SEARCH_FULLNAME);
+    CenterPoint *ptrPhonenumber = centerPoint(Person->treePhonenumber,SEARCH_PHONENUMBER);
+
+    char *Name = "Nguyen Hoang Nhat";
+    CenterPoint *cprFullname = binarySearchString(ptrFullname, Name,SEARCH_FULLNAME);
+    if (cprFullname != NULL){
+        printf("Tim thay: %s\n",Name);
+    }
+    else {
+        printf("Khong tim thay: %s\n",Name);
+    }
+
+    long long value = 84342871159;
+    CenterPoint *cprPhonenumber = binarySearchNumber(ptrPhonenumber, value,SEARCH_PHONENUMBER);
+    if (cprPhonenumber != NULL){
+        printf("Tim thay: %lld\n",value);
+    }
+    else {
+        printf("Khong tim thay: %lld\n",value);
+    }
+    
+}
+```
+
+
+
+</details>
 
 
 
