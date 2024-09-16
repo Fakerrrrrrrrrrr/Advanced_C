@@ -2666,10 +2666,16 @@ int main()
 }
 ```
 
+</details>
+
+## 2. File operations:
+<details>
+<summary> Details </summary>
+
+- File operation cho phép đọc và ghi dữ liệu vào các tệp tin trên hệ thống.
+
+Để mở một file, sử dụng hàm fopen(). Hàm này trả về một con trỏ FILE.
+> FILE *file = fopen(const char *file_name, const char *access_mode);
 
 
 </details>
-
-
-
-
