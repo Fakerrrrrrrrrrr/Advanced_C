@@ -2709,3 +2709,11 @@ Các hàm khác:
 - feof(): Để kiểm tra địa chỉ hiện tại có phải ký tự cuối cùng của File hay chưa.
 
 </details>
+
+## 3. Code standards:
+<details>
+<summary> Details </summary>
+
+[Các quy tắc về đặt tên theo tiêu chuẩn "Autosar C Coding Guidelines"](https://hala.edu.vn/c-co-ban/cac_quy_tac_ve_dat_ten_theo_tieu_chuan_autosar_c_coding_guidelines/)
+
+</details>
