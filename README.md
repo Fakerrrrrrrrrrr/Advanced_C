@@ -2845,7 +2845,146 @@ a. Public
 - Các thuộc tính và phương thức public có thể được truy cập từ bất kỳ đâu (bên trong hoặc bên ngoài class).
 
 ```
+class Animal {
+public:
+    string name;    // Public attribute
+    void speak() {  // Public method
+        cout << name << " is speaking!" << endl;
+    }
+};
+```
+Có thể truy cập từ bên ngoài class:
+```
+Animal dog;
+dog.name = "Buddy";
+dog.speak();
+```
+
+b. Private
+
+- Các thuộc tính và phương thức private chỉ có thể được truy cập từ bên trong class hoặc bởi các phương thức của class đó. Không thể truy cập trực tiếp từ bên ngoài class.
 
 ```
+class Animal {
+private:
+    string name;    // Private attribute
+public:
+    Animal(string animalName) {
+        name = animalName;  // Có thể truy cập name từ bên trong class
+    }
+    
+    void speak() {
+        cout << name << " is speaking!" << endl;
+    }
+};
+```
+dog.name sẽ không thể truy cập được thuộc tính private name
+```
+Animal dog("Buddy");
+// dog.name = "Charlie";  // Error: private attribute is not accessible
+dog.speak();              // Call public methods
+```
+
+c. Protected
+
+- Các thuộc tính và phương thức protected chỉ có thể được truy cập từ bên trong class hoặc từ các class dẫn xuất (class con). Không thể truy cập từ bên ngoài class.
+
+```
+class Animal {
+protected:
+    string name;    // Protected attribute
+    
+public:
+    Animal(string animalName) {
+        name = animalName;
+    }
+};
+```
+
+8. Inheritance
+
+- Inheritance là cơ chế cho phép một class (class con) kế thừa các thuộc tính và phương thức từ một class khác (class cha). Điều này giúp tái sử dụng mã và mở rộng tính năng của class cha.
+
+```
+class ChildClass : public ParentClass {
+    // Methods và properties of child class
+};
+```
+Example:
+```
+class Animal {
+protected:
+    string name;
+    
+public:
+    Animal(string animalName) {
+        name = animalName;
+    }
+    
+    void speak() {
+        cout << name << " is speaking!" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    Dog(string dogName) : Animal(dogName) {}  // Gọi constructor của class cha
+    
+    void bark() {
+        cout << name << " is barking!" << endl;
+    }
+};
+```
+```
+Dog dog("Buddy");
+dog.speak();
+dog.bark();
+```
+
+9. Static Members
+
+- Các thành viên tĩnh (static members) thuộc về class chứ không thuộc về một đối tượng cụ thể. Điều này có nghĩa là tất cả các đối tượng của class sẽ chia sẻ cùng một bản sao của thành viên tĩnh.
+
+```
+class ClassName {
+public:
+    static int staticVariable;  // Static Variable
+    static void staticMethod(); // Static Method
+};
+```
+Example:
+```
+class Counter {
+public:
+    static int count;  // Static Variable
+    
+    Counter() {
+        count++;
+    }
+    
+    static void showCount() {  // Static Method
+        cout << "Count: " << count << endl;
+    }
+};
+
+int Counter::count = 0;  // Khởi tạo biến tĩnh
+
+int main() {
+    Counter c1, c2;
+    Counter::showCount();  // Output: Count: 2
+    return 0;
+}
+```
+
+10. Tổng kết:
+
+- Class là khuôn mẫu định nghĩa các thuộc tính và hành vi của đối tượng.<br>
+- Object là thực thể cụ thể được tạo ra từ class.<br>
+- Constructor và Destructor là các hàm đặc biệt để khởi tạo và hủy đối tượng.<br>
+- Properties là các biến lưu trữ dữ liệu của đối tượng.<br>
+- Method là các hàm thực hiện hành động của đối tượng.<br>
+- Access Modifiers như public, private, và protected để kiểm soát quyền truy cập.<br>
+- Inheritance cho phép tái sử dụng và mở rộng class.<br>
+- Static Members là các thành viên thuộc về class, không phải đối tượng.<br>
 
 <details>
