@@ -2717,3 +2717,135 @@ Các hàm khác:
 [Các quy tắc về đặt tên theo tiêu chuẩn "Autosar C Coding Guidelines"](https://hala.edu.vn/c-co-ban/cac_quy_tac_ve_dat_ten_theo_tieu_chuan_autosar_c_coding_guidelines/)
 
 </details>
+
+
+# Bài 13 : Class
+## 1. Binary search:
+<details>
+<summary> Details </summary>
+
+1. Class:
+
+- Class là một kiểu dữ liệu do người dùng tự định nghĩa, chứa các thuộc tính (properties) và phương thức (methods) để mô tả một đối tượng cụ thể. Class là phần cốt lõi của lập trình hướng đối tượng (OOP) trong C++.
+
+```
+class ClassName {
+public:
+    // Properties and methods
+};
+```
+
+2. Object
+
+- Object là một thực thể cụ thể được tạo ra từ class. Mỗi object chứa dữ liệu và có thể thực hiện các hành động được mô tả bởi class.
+
+```
+Animal animal1;  // Create object from class Animal
+animal1.speak(); // Call speak methods of object
+```
+
+3. Constructer
+
+- Constructor là một hàm đặc biệt được gọi tự động khi một đối tượng của class được tạo ra. Constructor giúp khởi tạo các thuộc tính của đối tượng. Trong C++, constructor có cùng tên với class và không có kiểu trả về (kể cả void).
+
+```
+class Animal {
+public:
+    string name;
+    
+    // Constructor
+    Animal(string animalName) {
+        name = animalName;
+    }
+    
+    void speak() {
+        cout << name << " is speaking!" << endl;
+    }
+};
+```
+Khi tạo đối tượng, constructor sẽ tự động được gọi:
+```
+Animal dog("Buddy");
+dog.speak();
+```
+
+4.  Destructor
+
+- Destructor là một hàm đặc biệt được gọi tự động khi đối tượng bị hủy hoặc không còn được sử dụng nữa. Destructor có cùng tên với class, nhưng có dấu ~ ở đầu và không có tham số.
+
+```
+class Animal {
+public:
+    string name;
+    
+    // Constructor
+    Animal(string animalName) {
+        name = animalName;
+        cout << name << " is created!" << endl;
+    }
+    
+    // Destructor
+    ~Animal() {
+        cout << name << " is destroyed!" << endl;
+    }
+};
+```
+Khi đối tượng ra khỏi phạm vi, destructor sẽ tự động được gọi:
+```
+int main() {
+    Animal dog("Buddy");
+    return 0;
+}
+```
+Output:
+```
+Buddy is created!
+Buddy is destroyed!
+```
+
+5. Properties
+
+- Properties là các biến thành viên (member variables) của class, lưu trữ dữ liệu hoặc trạng thái của đối tượng. Chúng có thể là public, private, hoặc protected.
+
+```
+class Animal {
+public:
+    string name;
+    int age;
+};
+```
+
+6. Method
+
+- Method là các hàm thành viên (member functions) của class, dùng để thực hiện các hành động hoặc thao tác trên các thuộc tính của đối tượng. Phương thức có thể được định nghĩa bên trong hoặc bên ngoài class.
+
+```
+class Animal {
+public:
+    string name;
+
+    //Inside class
+    void speak() {
+        cout << name << " is speaking!" << endl;
+    }
+};
+
+//Outside class
+void Animal::speak() {
+    cout << name << " is speaking!" << endl;
+}
+```
+
+7. Access Modifiers
+
+- Trong C++, các thuộc tính và phương thức của class có thể được kiểm soát thông qua các từ khóa public, private, và protected.
+
+a. Public
+
+- Các thuộc tính và phương thức public có thể được truy cập từ bất kỳ đâu (bên trong hoặc bên ngoài class).
+
+```
+
+```
+
+<details>
