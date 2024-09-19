@@ -2720,7 +2720,6 @@ Các hàm khác:
 
 
 # Bài 13 : Class
-## 1. Binary search:
 <details>
 <summary> Details </summary>
 
