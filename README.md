@@ -2720,10 +2720,10 @@ Các hàm khác:
 
 
 # Bài 13 : Class
+
+## 1. Class:
 <details>
 <summary> Details </summary>
-
-1. Class:
 
 - Class là một kiểu dữ liệu do người dùng tự định nghĩa, chứa các thuộc tính (properties) và phương thức (methods) để mô tả một đối tượng cụ thể. Class là phần cốt lõi của lập trình hướng đối tượng (OOP) trong C++.
 
@@ -2733,8 +2733,12 @@ public:
     // Properties and methods
 };
 ```
+</details>
 
-2. Object
+## 2. Object
+
+<details>
+<summary> Details </summary>
 
 - Object là một thực thể cụ thể được tạo ra từ class. Mỗi object chứa dữ liệu và có thể thực hiện các hành động được mô tả bởi class.
 
@@ -2743,7 +2747,12 @@ Animal animal1;  // Create object from class Animal
 animal1.speak(); // Call speak methods of object
 ```
 
-3. Constructer
+</details>
+
+## 3. Constructer
+
+<details>
+<summary> Details </summary>
 
 - Constructor là một hàm đặc biệt được gọi tự động khi một đối tượng của class được tạo ra. Constructor giúp khởi tạo các thuộc tính của đối tượng. Trong C++, constructor có cùng tên với class và không có kiểu trả về (kể cả void).
 
@@ -2768,7 +2777,12 @@ Animal dog("Buddy");
 dog.speak();
 ```
 
-4.  Destructor
+</details>
+
+## 4.  Destructor
+
+<details>
+<summary> Details </summary>
 
 - Destructor là một hàm đặc biệt được gọi tự động khi đối tượng bị hủy hoặc không còn được sử dụng nữa. Destructor có cùng tên với class, nhưng có dấu ~ ở đầu và không có tham số.
 
@@ -2802,7 +2816,12 @@ Buddy is created!
 Buddy is destroyed!
 ```
 
-5. Properties
+</details>
+
+## 5. Properties
+
+<details>
+<summary> Details </summary>
 
 - Properties là các biến thành viên (member variables) của class, lưu trữ dữ liệu hoặc trạng thái của đối tượng. Chúng có thể là public, private, hoặc protected.
 
@@ -2814,7 +2833,12 @@ public:
 };
 ```
 
-6. Method
+</details>
+
+## 6. Method
+
+<details>
+<summary> Details </summary>
 
 - Method là các hàm thành viên (member functions) của class, dùng để thực hiện các hành động hoặc thao tác trên các thuộc tính của đối tượng. Phương thức có thể được định nghĩa bên trong hoặc bên ngoài class.
 
@@ -2835,7 +2859,12 @@ void Animal::speak() {
 }
 ```
 
-7. Access Modifiers
+</details>
+
+## 7. Access Modifiers
+
+<details>
+<summary> Details </summary>
 
 - Trong C++, các thuộc tính và phương thức của class có thể được kiểm soát thông qua các từ khóa public, private, và protected.
 
@@ -2900,7 +2929,12 @@ public:
 };
 ```
 
-8. Inheritance
+</details>
+
+## 8. Inheritance
+
+<details>
+<summary> Details </summary>
 
 - Inheritance là cơ chế cho phép một class (class con) kế thừa các thuộc tính và phương thức từ một class khác (class cha). Điều này giúp tái sử dụng mã và mở rộng tính năng của class cha.
 
@@ -2940,7 +2974,12 @@ dog.speak();
 dog.bark();
 ```
 
-9. Static Members
+</details>
+
+## 9. Static Members
+
+<details>
+<summary> Details </summary>
 
 - Các thành viên tĩnh (static members) thuộc về class chứ không thuộc về một đối tượng cụ thể. Điều này có nghĩa là tất cả các đối tượng của class sẽ chia sẻ cùng một bản sao của thành viên tĩnh.
 
@@ -2975,7 +3014,12 @@ int main() {
 }
 ```
 
-10. Tổng kết:
+</details>
+    
+## 10. Tổng kết:
+
+<details>
+<summary> Details </summary>
 
 - Class là khuôn mẫu định nghĩa các thuộc tính và hành vi của đối tượng.<br>
 - Object là thực thể cụ thể được tạo ra từ class.<br>
@@ -2986,4 +3030,4 @@ int main() {
 - Inheritance cho phép tái sử dụng và mở rộng class.<br>
 - Static Members là các thành viên thuộc về class, không phải đối tượng.<br>
 
-<details>
+</details>
