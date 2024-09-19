@@ -1,4 +1,8 @@
 # **Bài 1: Compiler - Marco**
+
+<details>
+<summary> Details </summary>
+
 ## 1. Compiler
 <details>
 <summary> Details </summary>
@@ -148,7 +152,13 @@ typedef enum{
 ```
 </details>
 
+</details>
+
 # Bài 2: STDARG - ASSERT
+
+<details>
+<summary> Details </summary>
+
 ## 1. STDARG
 
 <details>
@@ -254,7 +264,13 @@ int main() {
 ```
 </details>
 
+</details>
+
 # **Bài 3: Pointer**
+
+<details>
+<summary> Details </summary>
+
 ## Bài tập về nhà
 
 <details>
@@ -471,8 +487,14 @@ if (ptr != NULL) {
 }
 ```
 </details>
+
+</details>
     
 # Bài 4: Goto - setjmp.h
+
+<details>
+<summary> Details </summary>
+
 ## 1. Goto
 
 <details>
@@ -766,8 +788,14 @@ int main() {
 }
 ```
 </details>
+
+</details>
     
 # Bài 5: Extern - Static - Volatile - Register
+
+<details>
+<summary> Details </summary>
+    
 ## 1. Extern
 
 <details>
@@ -901,7 +929,13 @@ int main() {
 ```
 </details>
 
+</details>
+
 # Bài 6: Bitmask
+
+<details>
+<summary> Details </summary>
+    
 ## Ứng dụng:
 
 <details>
@@ -1014,8 +1048,14 @@ int main() {
 }
 ```
 </details>
+
+</details>
     
 # Bài 7: Struct - Union
+
+<details>
+<summary> Details </summary>
+    
 ## 1. Struct
 
 <details>
@@ -1158,8 +1198,14 @@ typedef union{
 - Union: Chỉ có thể truy cập vào một thành phần của union tại một thời điểm.
 
 </details>
+
+</details>
     
 # Bài 8: Memory Layout
+
+<details>
+<summary> Details </summary>
+    
 ## Khái niệm
 
 <details>
@@ -1361,7 +1407,13 @@ Cú pháp:
 
 </details>
 
+</details>
+
 # Bài 9: JSON
+
+<details>
+<summary> Details </summary>
+    
 ## 1. Khái niệm và ứng dụng
 
 <details>
@@ -1842,8 +1894,14 @@ int main(int argc, char const *argv[])
 }
 ```
 </details>
+
+</details>
     
 # Bài 10: Linked List
+
+<details>
+<summary> Details </summary>
+    
 ## Khái niệm
 
 <details>
@@ -1997,8 +2055,14 @@ void clear(Node **array){
 ```
 
 </details>
+
+</details>
     
 # Bài 11: Stack - Queue
+
+<details>
+<summary> Details </summary>
+    
 ## 1. Stack
 
 <details>
@@ -2330,7 +2394,13 @@ int main() {
 ```
 </details>
 
+</details>
+
 # Bài 12 : Binary search - File operations - Code standards
+
+<details>
+<summary> Details </summary>
+    
 ## 1. Binary search:
 <details>
 <summary> Details </summary>
@@ -2718,8 +2788,13 @@ Các hàm khác:
 
 </details>
 
+</details>
+
 
 # Bài 13 : Class
+
+<details>
+<summary> Details </summary>
 
 ## 1. Class:
 <details>
@@ -3029,5 +3104,7 @@ int main() {
 - Access Modifiers như public, private, và protected để kiểm soát quyền truy cập.<br>
 - Inheritance cho phép tái sử dụng và mở rộng class.<br>
 - Static Members là các thành viên thuộc về class, không phải đối tượng.<br>
+
+</details>
 
 </details>
