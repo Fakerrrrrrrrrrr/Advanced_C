@@ -3108,3 +3108,281 @@ int main() {
 </details>
 
 </details>
+
+# Bài 14 : OOP
+
+<details>
+<summary> Details </summary>
+
+## 1. Các phương pháp lập trình:
+
+<details>
+<summary> Details </summary>
+
+Có 4 phương pháp lập trình phổ biến hiện nay là:
+
+### 1.1. Phương pháp lập trình hướng lệnh
+
+Xem chương trình là tập hợp các lệnh. Khi đó việc viết chương trình là xác định xem chương trình gồm những lệnh nào, thứ tự thực hiện của các lệnh ra sao.
+
+Ví dụ: Một chương trình có nhiều câu lệnh nhập xuất dữ liệu viết chung trong hàm main.
+
+### 1.2. Phương pháp lập trình hướng thủ tục, hàm
+
+Trong phương pháp này người ta xem chương trình là một hệ thống các thủ tục và hàm. Trong đó, mỗi thủ tục và hàm là một dãy các lệnh được sắp thứ tự. Khi đó, việc viết chương trình là xác định xem chương trình gồm các thủ tục và hàm nào, mối quan hệ giữa chúng ra sao?
+
+Ví dụ: Chương trình được chia rõ ra thành các hàm riêng biệt và khi thực hiện 1 chức năng cụ thể thì gọi hàm tương ứng. 
+
+### 1.3. Phương pháp lập trình hướng đơn thể/ Lập trình cấu trúc
+
+Phương pháp lập trình đơn thể xem chương trình là một hệ thống các đơn thể, mỗi một đơn thể là một hệ thống các thủ tục và hàm.
+
+Có 2 dạng đơn thể: 
+
+- Đơn thể chức năng: Bao gồm các hàm và thủ tục thực hiện 1 chức năng nào đó. Ví dụ như thư viện <math.h> thực hiện các chức năng tính toán.<br>
+- Đơn thể dữ liệu: Bao gồm các hàm và thủ tục cho 1 kiểu dữ liệu. Ví dụ thư viện <string.h> cung cấp các hàm xử lý chuỗi.<br>
+- Phương pháp lập trình cấu trúc sử dụng kiểu dữ liệu Struct. Trong đó, mỗi một thực thể sẽ bao gồm nhiều thuộc tính khác nhau được gom chung thành một kiểu dữ liệu mới.
+
+Ví dụ như thực thể "Con người" sẽ bao gồm nhiều thuộc tính như: tên, tuổi, năm sinh,... vv
+
+### 1.4. Phương pháp lập trình hướng đối tượng (OOP).
+
+Xem chương trình là một hệ thống các đối tượng. Mỗi một đối tượng là sự bao bọc bên trong nó 2 thành phần: thuộc tính và phương thức.
+
+- Thuộc tính: là các thông tin của đối tượng đó. Ví dụ đối tượng “Con Người” có các thuộc tính là màu da, quốc tịch, chiều cao, cân nặng, vvv…<br>
+- Phương thức: Là các hành động mà đối tượng đó có thể thực hiện. Ví dụ đối tượng “Con Người” có các phương thức là ăn, chạy, nói, vvv…<br>
+- Các đối tượng được tạo ra như 1 đơn thể chứa dữ liệu và các phương thức của riêng đối tượng đó. Người lập trình có thể tạo ra nhiều đối tượng khác nhau để sử dụng.
+
+Lập trình hướng đối tượng có 4 tính chất:<br>
+- Tính đóng gói
+- Tính kế thừa
+- Tính đa hình
+- Tính trừu tượng
+
+</details>
+
+## 2. Encapsulation (Tính đóng gói)
+
+<details>
+<summary> Details </summary>
+
+**Tính đóng gói** cho phép chúng ta che dấu thông tin và hành vi của một đối tượng trong một lớp, và chỉ cho phép truy cập vào chúng thông qua các phương thức công khai (public methods).
+
+Để thực hiện tính đóng gói trong C++, chúng ta sử dụng các phạm vi truy cập (access specifiers) như public, private, và protected trong class:
+
+- public: Các thành viên hoặc phương thức được khai báo ở phạm vi public có thể truy cập từ bất kỳ đâu bên ngoài lớp.
+- private: Các thành viên hoặc phương thức được khai báo ở phạm vi private chỉ có thể truy cập từ bên trong lớp đó.
+- protected: Các thành viên hoặc phương thức được khai báo ở phạm vi protected có thể truy cập từ bên trong lớp đó và các lớp kế thừa từ lớp đó.
+
+**Ý nghĩa của tính đóng gói**
+
+- Bảo vệ dữ liệu: Các thuộc tính (biến thành viên) của lớp có thể được khai báo là private để ngăn chặn việc truy cập trực tiếp từ ngoài lớp. Việc thay đổi dữ liệu chỉ có thể được thực hiện thông qua các phương thức công khai (public methods), giúp kiểm soát và bảo vệ dữ liệu.
+- Kiểm soát cách thức truy cập và thay đổi giá trị của thuộc tính: Tính đóng gói cho phép nhà phát triển quy định cách thức mà dữ liệu được truy cập hoặc thay đổi bằng cách sử dụng các phương thức getter và setter.
+- Giảm sự phụ thuộc: Các chi tiết bên trong của lớp được ẩn đi, giúp giảm sự phụ thuộc giữa các phần của chương trình. Điều này làm cho mã dễ bảo trì và thay đổi hơn.
+
+Example:
+```
+#include <iostream>
+using namespace std;
+
+class Person {
+private:
+    string name;
+    int age;
+
+public:
+    Person(string n, int a);
+    void setAge(int a);
+    int getAge();
+    void display();
+};
+
+// Constructor
+Person::Person(string n, int a) {
+    name = n;
+    age = a;
+};
+
+// Setter
+void Person::setAge(int a){
+    if (a > 0) {
+        age = a;
+    } else {
+        cout << "Age must be positive!" << endl;
+    }
+};
+
+// Getter
+int Person::getAge() {
+    return age;
+};
+
+// Display method
+void Person::display() {
+    cout << "Name: " << name << ", Age: " << age << endl;
+};
+
+int main() {
+    Person person1("John", 30);
+
+    person1.display();
+
+    person1.setAge(25);
+    person1.display();
+
+    person1.setAge(-5);
+    person1.display();
+
+    return 0;
+}
+```
+Output
+```
+Name: John, Age: 30
+Name: John, Age: 25
+Age must be positive!
+Name: John, Age: 25
+```
+
+</details>
+
+## 2. Inheritance (Tính kế thừa)
+
+<details>
+<summary> Details </summary>
+
+**Tính kế thừa** cho phép một lớp con (subclass) kế thừa các thuộc tính và phương thức từ một lớp cha (superclass). Lớp con có thể sử dụng lại mã của lớp cha và có thể mở rộng hoặc thay đổi các hành vi của nó.<br>
+Trong C++, chúng ta sử dụng từ khóa class hoặc struct để định nghĩa lớp con và sử dụng dấu hai chấm : để chỉ ra lớp cha mà lớp con muốn kế thừa.
+
+```
+class Animal {
+public:
+    void eat() {
+        cout << "Animal is eating" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void bark() {
+        cout << "Dog is barking" << endl;
+    }
+};
+```
+
+Các thuộc tính và phương thức của lớp cha có thể được kế thừa với các phạm vi truy cập khác nhau như public, private, và protected.
+
+- Nếu một thuộc tính hoặc phương thức của lớp cha được khai báo là public, thì nó sẽ được kế thừa với phạm vi public trong lớp con. Điều này có nghĩa là các thành viên của lớp con và bên ngoài lớp con đều có thể truy cập vào chúng.
+- Nếu một thuộc tính hoặc phương thức của lớp cha được khai báo là private, thì nó sẽ không được kế thừa với phạm vi private trong lớp con. Điều này có nghĩa là chỉ các phương thức của lớp cha mới có thể truy cập vào chúng, còn lớp con không thể truy cập trực tiếp.
+- Nếu một thuộc tính hoặc phương thức của lớp cha được khai báo là protected, thì nó sẽ được kế thừa với phạm vi protected trong lớp con. Điều này có nghĩa là các thành viên của lớp con có thể truy cập vào chúng, nhưng bên ngoài lớp con không thể truy cập trực tiếp.
+
+Example 1:
+```
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    void eat() {
+        cout << "Animal is eating" << endl;
+    }
+
+private:
+    void sleep() {
+        cout << "Animal is sleeping" << endl;
+    }
+
+protected:
+    void move() {
+        cout << "Animal is moving" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void bark() {
+        cout << "Dog is barking" << endl;
+    }
+
+    void play() {
+        move(); // Có thể truy cập vào phương thức protected của lớp cha
+        // sleep(); // Không thể truy cập vào phương thức private của lớp cha
+    }
+};
+
+int main() {
+    Dog myDog;
+    myDog.eat(); // Có thể truy cập vào phương thức public của lớp cha
+    // myDog.sleep(); // Không thể truy cập vào phương thức private của lớp cha
+    // myDog.move(); // Không thể truy cập vào phương thức protected của lớp cha
+    myDog.bark();
+    myDog.play();
+
+    return 0;
+}
+```
+Example 2:
+```
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class DoiTuong{
+    protected:
+        int ID;
+        string TEN;
+    public:
+        DoiTuong();
+        void input(string ten);
+        void display();
+};
+
+Doituong::Doituong() {
+    static int id = 100;
+    ID = id;
+}
+
+void DoiTuong::input(string ten) {
+    TEN = ten;
+}
+
+void DoiTuong::display() {
+    cout << "ID: " << ID << endl;
+    cout << "TEN: " << TEN << endl;
+}
+
+class SinhVien : public DoiTuong {
+    private:
+        string LOP;
+        string HOCKY;
+    public:
+        void input(string ten, string lop, string hocky); //override
+        void display();
+}
+
+void SinhVien::input(string ten, string lop, string hocky){
+    TEN = ten;
+    LOP = lop;
+    HOCKY = hocky;
+}
+
+void Sinhvien::display(){
+    cout << "TEN: " << TEN << endl;
+    cout << "LOP: " << LOP << endl;
+    cout << "HOC KY: " << HOCKY << endl;
+}
+
+int main() {
+    SinhVien sv;
+    sv.input("Hoang", "CK12" , "HOCKY3");
+    sv.display();
+    return 0;
+}
+
+```
+
+
+</details>
+
+</details>
