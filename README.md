@@ -57,7 +57,7 @@ Macro có thể được sử dụng để:
 4. Tái sử dụng mã: Tái sử dụng các đoạn mã thường xuyên được sử dụng.
 
 Định nghĩa Macro function nối bằng dấu \.
-```
+```cpp
 #include <stdio.h>
 
 #define CREATE(name,cmd)    \
@@ -77,7 +77,7 @@ So sánh Macro với Function:
 - Tuy nhiên, nhược điểm của Marco đó chính phần vùng nhớ cố định sẽ được cấp cho Macro nên kích thước của chương trình sẽ lớn hơn khi dùng Macro so với function.
 
 Ứng dụng nối chuỗi tên biến trong Macro:
-```
+```cpp
 #define CREATE(name)    \
 int int_##name;         \
 double double_##name;   \
@@ -86,7 +86,7 @@ char char_##char;
 CREATE(test) //int int_test; double double_test; char char_test;
 ```
 Chuyển hóa đoạn văn bản thành chuỗi
-```
+```cpp
 #include <stdio.h>
 #define CREATE(cmd) printf(#cmd);
 int main(){
@@ -95,7 +95,7 @@ int main(){
 }
 ```
 Trong trường hợp không biết số lượng tham số không xác định trước ở Macro thì chúng ta dùng Variadic Macro.
-```
+```cpp
 #Define PRINT_MENU_ITEM(number,item) printf("%d,%s\n",number,item);
 #Define PRINT_MENU(...)                        \
     const char* item[] = {_VA_ARGS_};          \
@@ -115,14 +115,14 @@ __VA_ARGS_ đại diện cho tất cả các tham số được truyền vào kh
 
 Để kiểm tra xem Macro đã được định nghĩa hay chưa nếu chưa thì đoạn code được sử dụng ta dùng if not define.<br>
 Điều này rất quan trọng để tạo ra những thư viện.
-```
+```cpp
 #ifndef _LIB_MACO_
 #define _LIB_MACO_
     {code}
 #endif
 ```
 Ví dụ về ứng dụng ifndef:
-```
+```cpp
 #Define STM32 0
 #Define PFC 1
 #Define ATMEGA 2
@@ -173,7 +173,7 @@ Các macro và hàm chính trong thư viện stdarg bao gồm:
 4. va_end(va_list ap): Macro này thực hiện dọn dẹp và hoàn thành việc sử dụng va_list.
 
 Code:
-```
+```cpp
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -197,7 +197,7 @@ int main()
 }
 ```
 Output:
-```
+```cpp
 Value at 0: 5
 Value at 1: 8
 Value at 2: 15
@@ -206,7 +206,7 @@ Value at 4: 13
 ```
 Thư viện stdarg là một công cụ hữu ích khi cần xử lý các tham số không xác định số lượng, chẳng hạn như trong các hàm printf(), scanf(), hoặc các hàm tự định nghĩa khác.<br>
 Có thể ép kiểu của struct:
-```
+```cpp
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -245,7 +245,7 @@ Khi phát triển project lớn có rất nhiều file, bình thường Debug b�
 
 Nếu điều kiện đúng (true), không có gì xảy ra và chương trình tiếp tục thực thi. Nếu điều kiện sai (false), chương trình dừng lại và thông báo một thông điệp lỗi. Dùng trong debug, dùng #define NDEBUG để tắt debug
 
-```
+```cpp
 #include <stdio.h>
 #include <assert.h>
 
@@ -285,7 +285,7 @@ Hầu hết ở các kiểu dữ liệu thì kích cỡ của con trỏ thườn
 Tuy nhiên ở kiểu dữ liệu **double** là **8** bytes (64 bit), kiểu dữ liệu **long long** là **8** bytes (64 bit), kiểu dữ liệu **bool** là **1** bytes (8 bit) trên cả hệ thống 32-bit và 64-bit.
 
 **Input**
-```
+```cpp
 #include <stdio.h>
 
 int main() {
@@ -305,7 +305,7 @@ int main() {
 }
 ```
 **Output**
-```
+```cpp
 4 bytes
 4 bytes
 4 bytes
@@ -330,27 +330,27 @@ int main() {
 > Cú pháp: <kiểu_dữ_liệu> *<tên_biến>;
 
 Ví dụ: 
-```
+```cpp
 int *ptr = 0x01;
 ```
 - Để lấy được địa chỉ của biến được khai báo bình thường thì dùng toán tử &
 
 Ví dụ: 
-```
+```cpp
 int a = 10;
 int *ptr = &a;
 ```
 - Đối với 1 mảng để lấy địa chỉ của 1 mảng thì ta chỉ cần nhập tên của mảng đó
 
 Ví dụ: 
-```
+```cpp
 int array[] = {1,2,3,4,5};
 int *ptr = array;
 ```
 - Để lấy giá trị của con trỏ đó dùng toán tử *
 
 Ví dụ 3 kết quả dưới đều tương đương nhau: 
-```
+```cpp
 *0x01 = 10
 *ptr = 10
 *(&a) = 10
@@ -369,7 +369,7 @@ Ví dụ 3 kết quả dưới đều tương đương nhau:
 Ngoài ra con trỏ hàm cũng có thể làm tham số của 1.
 
 Ví dụ: 
-```
+```cpp
 #include <stdio.h>
 
 void tong(int *a, int *b){
@@ -422,7 +422,7 @@ Có 3 đặc điểm của con trỏ void:
 3. Trước khi sử dụng, cần phải ép kiểu con trỏ void về kiểu dữ liệu đúng.
 
 Ví dụ:
-```
+```cpp
 int x = 10;
 double y = 10.5;
 char z = 'A';
@@ -451,7 +451,7 @@ Có 3 đặc điểm của con trỏ hằng:
 2. Có thể gán địa chỉ của một biến có thể thay đổi cho con trỏ, nhưng không thể thay đổi giá trị của biến đó thông qua con trỏ.
 3. Có thể gán địa chỉ của một hằng số cho con trỏ.
 
-```
+```cpp
 int x = 10;
 const int *p = &x; // Gán địa chỉ của x cho con trỏ p, nhưng không thể thay đổi giá trị của x thông qua p
 
@@ -474,7 +474,7 @@ Khi chúng ta khai báo bất kỳ
 Khi khai báo 1 con trỏ bất kỳ nhưng không gán giá trị cho nó thì sẽ xảy ra trường hợp con trỏ được cấp phát vùng nhớ ngẫu nhiên. <br> Vì vậy nên gán biến con trỏ đó thành con trỏ NULL nếu chưa sử dụng ngay biến con trỏ đó.
 
 Ví dụ:
-```
+```cpp
 //Việc sử dụng null pointer có thể gây ra lỗi chương trình.
 1. Khởi tạo: Khởi tạo một con trỏ null bằng cách gán giá trị 0 hoặc NULL cho nó:
 int *ptr = NULL;
@@ -508,7 +508,7 @@ Cách hoạt động:
 - Khi gặp lệnh goto label; chương trình sẽ ngay lập tức chuyển đến vị trí (trỏ tới vị trí) được xác định bởi label và tiếp tục thực hiện các câu lệnh tại đó. 
 - Label cso thể được định nghĩa bất kỳ đâu trong chương trình, miễn là nó nằm trong cùng phạm vị với lệnh goto sử dụng nó.
 
-```
+```cpp
 #include <stdio.h>
 
 int main() {
@@ -538,7 +538,7 @@ Lưu ý:
 Quy tắc thiết kế led Matrix (Nếu muốn tạo led Matrix mà nối mỗi con led 1 chân thì rất nhiều chân) quét từng hàng mỗi hàng theo vòng lặp For i,j quét mỗi hàng xong tắt, nhưng vì mắt con người có kỹ thuật lưu ảnh trên giác mạt nên mới có thể nhìn thấy dù những con led này đã tắt, tốc độ rất là nhanh tầm 10ms
 
 Trong chương trình thì sử dụng vòng lặp while -> tới switch -> tới for -> tới if -> Rồi mới tới for i,j để thoát ra thì phải break xong phải tạo điều kiện để vòng lặp trước đó break có rất nhiều và phức tạp. Bây giờ ta sẽ dùng Goto để thoát ra đến vị trí mình mong muốn.
-```
+```cpp
 #include <stdio.h>
 
 void delay()
@@ -747,13 +747,13 @@ Trong đó:
 Khi gọi longjmp thì nó sẽ nhảy tới vị trí đoạn code đã được lưu trữ trước đó bởi setjmp và tiếp tục chạy chương trình từ vị trí đó với giá trị là val.
 
 Dùng để xử lý ngoại lệ bằng define
-```
+```cpp
 #define TRY if ((exception_code = setjmp(buf)) == 0) 
 #define CATCH(x) else if (exception_code == (x)) 
 #define THROW(x) longjmp(buf, (x))
 ```
 Code ví dụ:
-```
+```cpp
 #include <stdio.h>
 #include <setjmp.h>
 
@@ -817,7 +817,7 @@ Ví dụ: extern int calculatorDivide(int a, int b); ta lấy hàm calculatorDiv
     
 Khi khai báo biến static chương trình sẽ cấp phát cho nó 1 địa chỉ tồn tại hết vòng đời của chương trình (không bị thu hồi), biến static chỉ khởi tạo 1 lần và không khởi tạo lại lần nữa, nếu gặp biến static ở function được gọi nó sẽ bỏ qua và chạy dòng code tiếp theo.</br>
 Giá trị của biến static chỉ có phạm vi cục bộ với file hoặc hàm chứa nó. Biến static sẽ được lưu trữ trong vùng nhớ data hoặc bss thay vì vùng nhớ stack như biến cục bộ thông thường.<br>
-```
+```cpp
 void myFunction() {
     static int counter = 0;
     counter++;
@@ -832,7 +832,7 @@ int main() {
 }
 ```
 Khi sử dụng static toàn cục (khai báo bên ngoài các hàm) (static hàm) thì hàm đó chỉ sử dụng được ở trong file đó. Nghĩa là hàm static có thể gọi bên trong file chứa nó, không thể gọi từ các file khác. Việc sử dụng static hàm giúp bạn ẩn các hàm hỗ trợ bên trong, không cho phép chúng được gọi từ bên ngoài.
-```
+```cpp
 // file1.c
 static int calculateSum(int a, int b) {
     return a + b;
@@ -862,7 +862,7 @@ int main() {
 <summary> Details </summary>
     
 Test:
-```
+```cpp
 #include <stdio.h>
 #include <time.h>
 
@@ -888,11 +888,11 @@ int main() {
 }
 ```
 Output
-```
+```cpp
 Thoi gian chay cua chuong trinh: 0.002000 giay
 ```
 Test lại đoạn code trên sửa lại đoạn code 'int i;' thành 'register int i;'
-```
+```cpp
 Thoi gian chay cua chuong trinh: 0.000000 giay
 ```
 Register là một từ khóa để khai báo biến nên được lưu trữ trong thanh ghi của bộ xử lý thay vì trong bộ nhớ chính. Việc lưu trữ biến trong thanh ghi thay vì bộ nhớ chính có thể giúp tăng tốc độ truy cập và xử lý dữ liệu. Tuy nhiên, số lượng thanh ghi thường bị giới hạn, nên không phải tất cả biến đều có thể được lưu trữ trong thanh ghi.
@@ -911,7 +911,7 @@ Vậy nên khi sử dụng biến Register nó được lưu thông tin ở Regi
     
 Khi sử dụng biến volatile thì nó sẽ thông báo cho chương trình biên dịch không được phép tối ưu code của biến đó. Biến volatile thường được sử dụng để truy cập vào các vùng nhớ liên quan đến phần cứng, như các thanh ghi hoặc bộ nhớ được chia sẻ. Khi sử dụng volatile, trình biên dịch sẽ không tối ưu hóa code liên quan đến biến này, vì giá trị của biến có thể thay đổi bất kỳ lúc nào.<br>
 Sau này khi học RTOS thì sử dụng nhiều luồng với nhau ta sẽ luôn luôn sử dụng Volatile bởi vì khi sử dụng ở luồng khác thì ta phải luôn luôn load lại biến đó.
-```
+```cpp
 #include <stdio.h>
 
 int main() {
@@ -971,7 +971,7 @@ Ví dụ: Nếu bitmask là 0b10101010 và muốn dịch sang phải 2 vị trí
 Ví dụ: Nếu bitmask là 0b10101010 và muốn dịch sang trái 2 vị trí. Kết quả của bitmask << 2 sẽ là 0b00101000.<br>
 
 **Code tạo thông số kỹ thuật của một chiếc xe bằng bitmask:**
-```
+```cpp
 #include <stdio.h>
 #include <stdint.h>
 #define COLOR_RED 0
@@ -1065,7 +1065,7 @@ int main() {
 Struct là một kiểu dữ liệu được định nghĩa bởi người viết code, cho phép nhóm các kiểu dữ liệu khác nhau lại thành một kiểu dữ liệu mới. Một struct thường được sử dụng để lưu trữ các thông tin liên quan với nhau, như một người hoặc thông tin về một sản phẩm,...<br>
 
 Cú pháp:
-```
+```cpp
 struct StrucName{
     <data_type1> <member1>;
     <data_type2> <member2>;
@@ -1076,7 +1076,7 @@ struct StrucName{
 ```
 Sau khi định nghĩa Struct ta có thể khai báo biến và truy cập biến thành viên của Struct đó thông qua dấu "." nếu đó là con trỏ (địa chỉ) thì ta phải dùng  "->" để truy cập. Mỗi thành viên trong Struct có địa chỉ riêng và chiếm không gian riêng trong bộ nhớ,
 khi truy cập thành phần của struct, bạn có thể truy cập độc lập của từng thành phần đó. Ngoài ra có thể sử dụng typedef tạo bí danh (alias) để rút ngắn syntax mỗi lần khai báo biến.
-```
+```cpp
 typedef struct {
     char name[50];
     int age;
@@ -1106,7 +1106,7 @@ int main(){
 Union là một kiểu dữ liệu có thể lưu trữ nhiều giá trị khác nhau cùng một lúc, nhưng chỉ có thể truy cập một giá trị tại một thời điểm. Các thành viên trong một union sử dụng cùng một vùng nhớ, nghĩa là kích thước của Union sẽ bằng kích thước của thành viên lớn nhất.
 
 Syntax:
-```
+```cpp
 union <union_name> {
     <data_type1> <member1>;
     <data_type2> <member2>;
@@ -1115,7 +1115,7 @@ union <union_name> {
 ```
 Union thường được dùng trong trường hợp muốn tiết kiệm bộ nhớ khi cần lưu nhiều kiểu dữ liệu khác nhau nhưng chỉ sử dụng một trong số đó tại thời điểm đó, truy cập dữ liệu dưới nhiều dạng khác nhau như read/write dữ liệu input/output file ở nhiều định dạng khác nhau,
 các giao thức mạng và cấu trúc dữ liệu như khi cần lưu các kiểu dữ liệu khác nhau trong cùng một cấu trúc. Để truy cập biến thành viên của Union ta dùng toán tử "."
-```
+```cpp
 union MyUnion {
     int i;
     float f;
@@ -1149,7 +1149,7 @@ printf("Integer value: %d\n", data.i); // Output: 1078530000 (không phải 42)
 - Struct:<br>
 Dung lượng bộ nhớ của một biến struct bằng tổng dung lượng của tất cả các thành phần trong struct và khi sắp xếp chúng hợp lý thì chúng ta có thể tiết kiệm được bộ nhớ.<br>
 Ví dụ:
-```
+```cpp
 typedef struct{
     uint32_t var3;   //4 byte
     uint8_t var2;    //1 byte
@@ -1168,7 +1168,7 @@ typedef struct{
 }frame;
 ```
 Ví dụ cụ thể:
-```
+```cpp
 typedef struct{
     uint8_t var2[9];
     uint64_t var4[3];
@@ -1183,7 +1183,7 @@ tiếp theo thì mỗi var1 là 2 byte nên cần 4 var1 để đủ 8 byte như
 - Union:<br>
 Dung lượng bộ nhớ của một biến union bằng với dung lượng của thành phần lớn nhất trong union. Vì chúng sử dụng chung vùng nhớ nên giá trị của 1 biến thành viên trong đó chỉ có thể chứa được tối đa giá trị mà số byte cũng như số ô nhớ mà biến đó sở hữu
 Ví dụ cụ thể:
-```
+```cpp
 typedef union{            
     uint8_t var2[9];     //9 byte => 16 byte
     uint64_t var4[3];    //24 byte => 24 byte
@@ -1225,7 +1225,7 @@ Có tổng cộng 5 phân vùng nhớ bao gồm: Text, data (initialized data), 
     
 Phân vùng nhớ text (Text Segment) là những chương trình khi được copy từ vùng nhớ Flash sang RAM mà chương trình đó không có cách nào để sửa (chỉ đọc) thì nó sẽ được lưu ở phân vùng Text ngoài ra các biến Const hoặc con trỏ ký tự nó cũng sẽ lưu ở phân vùng Text.<br>
 Ví dụ:
-```
+```cpp
 const int a = 10;
 char *ptr = "Hello worlds";
 
@@ -1243,7 +1243,7 @@ int main(){
     
 Phân vùng nhớ data (Data segment) là phân vùng nhớ chứa các biến toàn cục được khởi tạo đầu tiên giá trị khác 0, chứa các biến Static được khởi tạo ở giá trị khác 0, quyền truy cập của nó là đọc và ghi nghĩa là có thể đọc và thay đổi giá trị của biến và tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.
 Ví dụ:
-```
+```cpp
 int a = 10; //Biến toàn cục
 static int a = 20; // Biến giá trị static toàn cục
 void test(){
@@ -1264,7 +1264,7 @@ int main(){
     
 Phân vùng nhớ BSS (BSS segment) là phân vùng nhớ chứa biến toàn cụ và các biến Static được khởi tạo đầu tiên giá trị bằng 0 hoặc không gán giá trị ban đầu cho biến đó và phân vùng này cũng tồn tại hết vòng đời ở chương trình, quyền truy cập của nó cũng là đọc và ghi có nghĩa là có thể đọc và thay đổi giá trị của biến đó.
 Ví dụ:
-```
+```cpp
 int a = 0; //Biến toàn cục
 static int a; // Biến giá trị static toàn cục
 void test(){
@@ -1427,7 +1427,7 @@ Cú pháp:
 - Các giá trị có thể là chuỗi, số, boolean, null, mảng hoặc đối tượng JSON khác.
 
 Ví dụ:
-```
+```cpp
 {
   "name": "Nhat",
   "age": 26,
@@ -1448,7 +1448,7 @@ Ví dụ:
 <summary> Details </summary>
     
 Cấu trúc của JSON:
-```
+```cpp
 typedef enum {
     JSON_NULL,
     JSON_BOOLEAN,
@@ -1488,7 +1488,7 @@ typedef struct JsonValue {
 Mỗi cặp key-value được tách bằng dấu hai chấm ":" và các đối tượng phân tách nhau bằng dấu phẩy ",". Ngoài ra bất kỳ khoảng trắng nào cũng không ảnh hưởng tới tính chính xác của JSON và thường làm cho JSON dễ đọc hơn.
 
 Source code của JSON ở trên C
-```
+```cpp
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -1913,7 +1913,7 @@ Mỗi node trong linked list sẽ có 2 thành phần là:<br>
 - Next: Là một con trỏ chứa địa chỉ tiếp theo của node tiếp theo
 
 Cấu trúc của một node trong Linked List được định nghĩa bằng một struct như sau:
-```
+```cpp
 typedef struct Node {
     int data;
     Node *next;
@@ -1939,7 +1939,7 @@ Khi chúng ta có 1 mảng 10000 phần tử, để chèn vào phần tử hoặ
 Linked List có thể ứng dụng để tạo một List có kích thước động vì nó cấp phát động cho mỗi khi tạo ra Node mới và các Node trong đó không cần phải có địa chỉ liên tiếp nhau nhưng có thể truy cập tuần tự theo danh sách.<br>
 Các thao tác cơ bản của Linked List là:
 - push_back: Thêm phần tử Node vào cuối danh sách.
-```
+```cpp
 void push_back(Node **array, int data) {
     if (*array == NULL) {
         *array = createNode(data);
@@ -1954,7 +1954,7 @@ void push_back(Node **array, int data) {
 }
 ```
 - pop_back: Xóa phần tử cuối cùng ở danh sách Node.
-```
+```cpp
 void pop_back(Node **array){
     Node *temp = *array;
     if (temp->next == NULL){
@@ -1970,7 +1970,7 @@ void pop_back(Node **array){
 }
 ```
 - insert: Chèn Node mới vào vị trí bất kỳ.
-```
+```cpp
 void insert(Node **array,int data,int position){
     Node *temp = *array;
     if (temp == NULL && position == 1) {
@@ -2003,7 +2003,7 @@ void insert(Node **array,int data,int position){
 }
 ```
 - erase: Xóa Node với vị trí được chỉ định.
-```
+```cpp
 void erase(Node **array,int position){
     Node *temp = *array;
     
@@ -2039,7 +2039,7 @@ void erase(Node **array,int position){
 }
 ```
 - clear: Xóa toàn bộ các phần tử ở trong danh sách Node.
-```
+```cpp
 void clear(Node **array){
     Node *temp = *array;
     Node *nextTemp;
@@ -2078,7 +2078,7 @@ Stack có 3 thao tác chính cơ bản như:
 - top: lấy giá trị ở cuối cùng ở mảng stack
 
 Code triển khai Stack dưới dạng mảng:
-```
+```cpp
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -2141,7 +2141,7 @@ int main()
 }
 ```
 Code triển khai Stack dưới dạng Struct:
-```
+```cpp
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -2231,7 +2231,7 @@ Queue có 3 thao tác chính:
 - front: lấy ra giá trị đầu tiên của mảng Queue
 
 Code Queue với mảng:
-```
+```cpp
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -2306,7 +2306,7 @@ int main() {
 }
 ```
 Code với mảng Struct
-```
+```cpp
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -2433,7 +2433,7 @@ Ví dụ Thực Tiễn:
 Một ví dụ thực tế về ứng dụng của tìm kiếm nhị phân là trong việc tìm kiếm một cuốn sách trong thư viện. Nếu thư viện sắp xếp sách theo bảng chữ cái, bạn có thể nhanh chóng chia danh sách sách thành hai phần và quyết định tìm kiếm tiếp theo ở nửa nào dựa trên tên cuốn sách mà bạn cần tìm. Điều này giúp tiết kiệm thời gian hơn nhiều so với việc tìm kiếm từng cuốn một.
 
 Bài tập: Sử dụng tìm kiếm nhị phân với đối với database có struct là Họ và tên, Tuổi, Địa chỉ, Số điện thoại
-```
+```cpp
 #include <stdio.h>
 #include <stdlib.h>
 #include "..\include\mString.h"
@@ -2802,7 +2802,7 @@ Các hàm khác:
 
 - Class là một kiểu dữ liệu do người dùng tự định nghĩa, chứa các thuộc tính (properties) và phương thức (methods) để mô tả một đối tượng cụ thể. Class là phần cốt lõi của lập trình hướng đối tượng (OOP) trong C++.
 
-```
+```cpp
 class ClassName {
 public:
     // Properties and methods
@@ -2817,7 +2817,7 @@ public:
 
 - Object là một thực thể cụ thể được tạo ra từ class. Mỗi object chứa dữ liệu và có thể thực hiện các hành động được mô tả bởi class.
 
-```
+```cpp
 Animal animal1;  // Create object from class Animal
 animal1.speak(); // Call speak methods of object
 ```
@@ -2831,7 +2831,7 @@ animal1.speak(); // Call speak methods of object
 
 - Constructor là một hàm đặc biệt được gọi tự động khi một đối tượng của class được tạo ra. Constructor giúp khởi tạo các thuộc tính của đối tượng. Trong C++, constructor có cùng tên với class và không có kiểu trả về (kể cả void).
 
-```
+```cpp
 class Animal {
 public:
     string name;
@@ -2847,7 +2847,7 @@ public:
 };
 ```
 Khi tạo đối tượng, constructor sẽ tự động được gọi:
-```
+```cpp
 Animal dog("Buddy");
 dog.speak();
 ```
@@ -2861,7 +2861,7 @@ dog.speak();
 
 - Destructor là một hàm đặc biệt được gọi tự động khi đối tượng bị hủy hoặc không còn được sử dụng nữa. Destructor có cùng tên với class, nhưng có dấu ~ ở đầu và không có tham số.
 
-```
+```cpp
 class Animal {
 public:
     string name;
@@ -2879,14 +2879,14 @@ public:
 };
 ```
 Khi đối tượng ra khỏi phạm vi, destructor sẽ tự động được gọi:
-```
+```cpp
 int main() {
     Animal dog("Buddy");
     return 0;
 }
 ```
 Output:
-```
+```cpp
 Buddy is created!
 Buddy is destroyed!
 ```
@@ -2900,7 +2900,7 @@ Buddy is destroyed!
 
 - Properties là các biến thành viên (member variables) của class, lưu trữ dữ liệu hoặc trạng thái của đối tượng. Chúng có thể là public, private, hoặc protected.
 
-```
+```cpp
 class Animal {
 public:
     string name;
@@ -2917,7 +2917,7 @@ public:
 
 - Method là các hàm thành viên (member functions) của class, dùng để thực hiện các hành động hoặc thao tác trên các thuộc tính của đối tượng. Phương thức có thể được định nghĩa bên trong hoặc bên ngoài class.
 
-```
+```cpp
 class Animal {
 public:
     string name;
@@ -2947,7 +2947,7 @@ a. Public
 
 - Các thuộc tính và phương thức public có thể được truy cập từ bất kỳ đâu (bên trong hoặc bên ngoài class).
 
-```
+```cpp
 class Animal {
 public:
     string name;    // Public attribute
@@ -2957,7 +2957,7 @@ public:
 };
 ```
 Có thể truy cập từ bên ngoài class:
-```
+```cpp
 Animal dog;
 dog.name = "Buddy";
 dog.speak();
@@ -2967,7 +2967,7 @@ b. Private
 
 - Các thuộc tính và phương thức private chỉ có thể được truy cập từ bên trong class hoặc bởi các phương thức của class đó. Không thể truy cập trực tiếp từ bên ngoài class.
 
-```
+```cpp
 class Animal {
 private:
     string name;    // Private attribute
@@ -2982,7 +2982,7 @@ public:
 };
 ```
 dog.name sẽ không thể truy cập được thuộc tính private name
-```
+```cpp
 Animal dog("Buddy");
 // dog.name = "Charlie";  // Error: private attribute is not accessible
 dog.speak();              // Call public methods
@@ -2992,7 +2992,7 @@ c. Protected
 
 - Các thuộc tính và phương thức protected chỉ có thể được truy cập từ bên trong class hoặc từ các class dẫn xuất (class con). Không thể truy cập từ bên ngoài class.
 
-```
+```cpp
 class Animal {
 protected:
     string name;    // Protected attribute
@@ -3013,13 +3013,13 @@ public:
 
 - Inheritance là cơ chế cho phép một class (class con) kế thừa các thuộc tính và phương thức từ một class khác (class cha). Điều này giúp tái sử dụng mã và mở rộng tính năng của class cha.
 
-```
+```cpp
 class ChildClass : public ParentClass {
     // Methods và properties of child class
 };
 ```
 Example:
-```
+```cpp
 class Animal {
 protected:
     string name;
@@ -3043,7 +3043,7 @@ public:
     }
 };
 ```
-```
+```cpp
 Dog dog("Buddy");
 dog.speak();
 dog.bark();
@@ -3058,7 +3058,7 @@ dog.bark();
 
 - Các thành viên tĩnh (static members) thuộc về class chứ không thuộc về một đối tượng cụ thể. Điều này có nghĩa là tất cả các đối tượng của class sẽ chia sẻ cùng một bản sao của thành viên tĩnh.
 
-```
+```cpp
 class ClassName {
 public:
     static int staticVariable;  // Static Variable
@@ -3066,7 +3066,7 @@ public:
 };
 ```
 Example:
-```
+```cpp
 class Counter {
 public:
     static int count;  // Static Variable
@@ -3181,7 +3181,7 @@ Lập trình hướng đối tượng có 4 tính chất:<br>
 - Giảm sự phụ thuộc: Các chi tiết bên trong của lớp được ẩn đi, giúp giảm sự phụ thuộc giữa các phần của chương trình. Điều này làm cho mã dễ bảo trì và thay đổi hơn.
 
 Example:
-```
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -3237,7 +3237,7 @@ int main() {
 }
 ```
 Output
-```
+```cpp
 Name: John, Age: 30
 Name: John, Age: 25
 Age must be positive!
@@ -3246,7 +3246,7 @@ Name: John, Age: 25
 
 </details>
 
-## 2. Inheritance (Tính kế thừa)
+## 3. Inheritance (Tính kế thừa)
 
 <details>
 <summary> Details </summary>
@@ -3254,7 +3254,7 @@ Name: John, Age: 25
 **Tính kế thừa** cho phép một lớp con (subclass) kế thừa các thuộc tính và phương thức từ một lớp cha (superclass). Lớp con có thể sử dụng lại mã của lớp cha và có thể mở rộng hoặc thay đổi các hành vi của nó.<br>
 Trong C++, chúng ta sử dụng từ khóa class hoặc struct để định nghĩa lớp con và sử dụng dấu hai chấm : để chỉ ra lớp cha mà lớp con muốn kế thừa.
 
-```
+```cpp
 class Animal {
 public:
     void eat() {
@@ -3277,7 +3277,7 @@ Các thuộc tính và phương thức của lớp cha có thể được kế t
 - Nếu một thuộc tính hoặc phương thức của lớp cha được khai báo là protected, thì nó sẽ được kế thừa với phạm vi protected trong lớp con. Điều này có nghĩa là các thành viên của lớp con có thể truy cập vào chúng, nhưng bên ngoài lớp con không thể truy cập trực tiếp.
 
 Example 1:
-```
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -3322,7 +3322,7 @@ int main() {
 }
 ```
 Example 2:
-```
+```cpp
 #include <iostream>
 #include <string>
 
@@ -3382,6 +3382,263 @@ int main() {
 
 ```
 
+Trên là trường hợp kế thừa theo public DoiTuong (superclass), khi muốn kế thừa theo protected DoiTuong thì các method và đối tượng ở class cha sẽ chuyển qua class con ở chế độ protected, trường hợp còn lại thì muốn kế thừa theo private DoiTuong thì các method và đối tương ở class cha sẽ chuyển qua class con ở chế độ private.
+
+Câu hỏi đặt ra: Nếu chúng ta khai báo 1 class cha (superclass) với 1 con trỏ DoiTuong *ptr thì khi chúng ta trỏ đến địa chỉ 1 class con (subclass) ptr = &sv thì ở phần ptr->display() in ra gì?
+
+Nó ra sẽ trỏ ở class cha (superclass) nhưng vẫn sử dụng dữ liệu của class con.
+
+Vậy để có thể display của sv thì chúng ta sử dụng kĩ thuật overload hoặc override của tính đa hình.
+
+Ví dụ: Ta tạo class cha và class con mà trong class con không có phương thức display thì khi gọi display method thì nó sẽ gọi object hoặc method cùng cấp với nó, chẳng hạn như cả 2 cùng có function char *word nhưng ở đây nó sẽ gọi function ở class cha nếu display có chứa object word.
+
+</details>
+
+## 4. Polymorphism (Tính đa hình)
+
+<details>
+<summary> Details </summary>
+
+**Tính đa hình** cho phép các đối tượng thuộc các lớp khác nhau có thể được xử lý như là các đối tượng của cùng một lớp cha. Điều này giúp chương trình linh hoạt hơn trong việc xử lý các đối tượng khác nhau dựa trên cùng một giao diện hoặc phương thức.
+
+Có hai cách thực hiện tính đa hình:
+- Đa hình qua ghi đè phương thức (Method Overriding): Lớp con có thể ghi đè lại phương thức của lớp cha.
+- Đa hình qua nạp chồng phương thức (Method Overloading): Nhiều phương thức trong cùng một lớp có thể có cùng tên nhưng khác tham số.
+
+Example:<rbr>
+### 3.1. Đa hình qua kế thừa (Runtime Polymorphism)
+Đây là loại đa hình mà bạn thấy khi sử dụng phương thức ảo. Điều này cho phép bạn gọi phương thức của class con thông qua một con trỏ hoặc tham chiếu của class cha.
+```cpp
+#include <iostream>
+using namespace std;
+
+class Hinh {
+public:
+    virtual void draw() { // Phương thức ảo
+        cout << "Vẽ hình chung" << endl;
+    }
+};
+
+class HinhTron : public Hinh {
+public:
+    void draw() override { // Ghi đè phương thức
+        cout << "Vẽ hình tròn" << endl;
+    }
+};
+
+class HinhVuong : public Hinh {
+public:
+    void draw() override { // Ghi đè phương thức
+        cout << "Vẽ hình vuông" << endl;
+    }
+};
+
+int main() {
+    Hinh* ptr; // Con trỏ đến class cha
+    HinhTron h1; // Đối tượng của class con
+    HinhVuong h2; // Đối tượng của class con
+
+    ptr = &h1; // Gán địa chỉ của hình tròn
+    ptr->draw(); // Gọi phương thức draw, in ra "Vẽ hình tròn"
+
+    ptr = &h2; // Gán địa chỉ của hình vuông
+    ptr->draw(); // Gọi phương thức draw, in ra "Vẽ hình vuông"
+
+    return 0;
+}
+
+```
+
+### 3.2. Đa hình qua nạp chồng (Compile-time Polymorphism)
+Đây là loại đa hình mà bạn thấy khi sử dụng nạp chồng hàm (function overloading) hoặc nạp chồng toán tử (operator overloading).<br>
+Ví dụ về nạp chồng hàm: Khi chúng ta khai báo parameter thì chúng ta có thể khai báo khác nhau về kiểu và số lượng.
+```cpp
+#include <iostream>
+using namespace std;
+
+class ToanHoc {
+public:
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    double add(double a, double b) {
+        return a + b;
+    }
+};
+
+int main() {
+    ToanHoc th;
+    cout << "Tổng nguyên: " << th.add(5, 10) << endl; // Gọi hàm add(int, int)
+    cout << "Tổng thực: " << th.add(5.5, 10.5) << endl; // Gọi hàm add(double, double)
+    return 0;
+}
+```
+Ví dụ về nạp chồng toán tử:
+```cpp
+#include <iostream>
+using namespace std;
+
+class PHAN_SO {
+
+    int tuSo;
+    int mauSo;
+public:
+    PHAN_SO(){
+        
+    }
+    PHAN_SO(int tu, int mau)
+    {
+        tuSo = tu;
+        mauSo = mau;
+    }
+    
+    PHAN_SO operator+ (PHAN_SO ps)          //Nap chong toan tu +
+    {
+        PHAN_SO ketqua;
+        ketqua.tuSo = tuSo*ps.mauSo + mauSo*ps.tuSo;
+        ketqua.mauSo = mauSo*ps.mauSo;
+        return ketqua; 
+    }
+    void xuatThongTin()
+    {
+        cout << "Tu so: " << tuSo << endl;
+        cout << "Mau so: " << mauSo << endl;
+    }
+};
+
+
+int main()
+{
+    PHAN_SO ps1(2, 5);
+    PHAN_SO ps2(3, 4);
+    PHAN_SO tong = ps2 + ps1;                //Su dung toan tu + de tinh tong 2 phan so
+    tong.xuatThongTin();
+
+    return 0;
+}
+```
+Tóm tắt:
+- Đa hình qua kế thừa (Runtime Polymorphism) cho phép bạn gọi các phương thức của class con thông qua con trỏ hoặc tham chiếu của class cha bằng cách sử dụng phương thức ảo.
+- Đa hình qua nạp chồng (Compile-time Polymorphism) cho phép bạn sử dụng nhiều hàm hoặc toán tử với cùng một tên nhưng với các tham số khác nhau.
+
+</details>
+
+## 5. Abstraction (Tính trừu tượng)
+
+<details>
+<summary> Details </summary>
+
+Tính trừu tượng là quá trình ẩn đi các chi tiết phức tạp của hệ thống và chỉ cung cấp cho người dùng các chức năng chính. Điều này giúp đơn giản hóa việc sử dụng hệ thống và chỉ tập trung vào các khía cạnh cần thiết.
+
+Example:
+```cpp
+class phuongTrinhBacHai(){
+    private:
+        int X1;
+        int X2;
+        float tinhDelta(int a, int b, int c);
+        double KET_QUA;
+    public:
+        phuongTrinhBacHai(int a, int b, int c){
+            tinhDelta(int a, int b, int c) >= 0;
+
+            ...
+        }
+        double ketQua();
+}
+```
+Ở ví dụ trên thì, quá trình tính delta đã được ẩn đi khi nó nằm trong private và protected. Đây là cách sử dụng tính trừu tượng khác với tính đóng gói bởi vì mặc dù nó cùng nằm trong private và protected nhưng ý nghĩa khác nhau.
+
+Trong OOP, tính trừu tượng thường được thực hiện thông qua lớp trừu tượng (abstract class) hoặc giao diện (interface).
+
+### 5.1. Lớp Trừu Tượng (Abstract Class)
+Một lớp được coi là trừu tượng nếu nó có ít nhất một phương thức ảo thuần túy (pure virtual function). Lớp này không thể được khởi tạo và thường được sử dụng làm cơ sở cho các lớp khác.
+
+Example:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Hinh {
+public:
+    // Phương thức ảo thuần túy
+    virtual void draw() = 0; 
+};
+
+class HinhTron : public Hinh {
+public:
+    void draw() override { // Ghi đè phương thức
+        cout << "Vẽ hình tròn" << endl;
+    }
+};
+
+class HinhVuong : public Hinh {
+public:
+    void draw() override { // Ghi đè phương thức
+        cout << "Vẽ hình vuông" << endl;
+    }
+};
+
+int main() {
+    Hinh* hinh1 = new HinhTron();
+    Hinh* hinh2 = new HinhVuong();
+
+    hinh1->draw(); // In ra "Vẽ hình tròn"
+    hinh2->draw(); // In ra "Vẽ hình vuông"
+
+    delete hinh1;
+    delete hinh2;
+    return 0;
+}
+
+```
+### 5.2. Giao Diện (Interface)
+
+C++ không hỗ trợ giao diện theo cách như một số ngôn ngữ khác (như Java, Python), nhưng có thể mô phỏng giao diện bằng cách sử dụng lớp trừu tượng với các phương thức ảo thuần túy mà không có bất kỳ thuộc tính nào.
+
+Example:
+```cpp
+#include <iostream>
+using namespace std;
+
+class IAnimal {
+public:
+    virtual void speak() = 0; // Phương thức ảo thuần túy
+};
+
+class Dog : public IAnimal {
+public:
+    void speak() override {
+        cout << "Woof!" << endl;
+    }
+};
+
+class Cat : public IAnimal {
+public:
+    void speak() override {
+        cout << "Meow!" << endl;
+    }
+};
+
+int main() {
+    IAnimal* dog = new Dog();
+    IAnimal* cat = new Cat();
+
+    dog->speak(); // In ra "Woof!"
+    cat->speak(); // In ra "Meow!"
+
+    delete dog;
+    delete cat;
+    return 0;
+}
+
+```
+
+Tóm tắt:
+- Tính trừu tượng giúp giảm thiểu độ phức tạp bằng cách chỉ hiển thị các thuộc tính và phương thức thiết yếu, ẩn đi các chi tiết không cần thiết.
+- Lớp trừu tượng cho phép định nghĩa các phương thức mà các lớp con phải triển khai, tạo ra một giao diện chung cho các đối tượng khác nhau.
+- Giao diện mô phỏng qua lớp trừu tượng giúp định nghĩa các phương thức mà các lớp thực thi cần phải có mà không cần xác định cách thức thực hiện.
 
 </details>
 
