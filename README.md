@@ -3643,3 +3643,208 @@ Tóm tắt:
 </details>
 
 </details>
+
+# Bài 15 : Standard template library
+
+<details>
+<summary> Details </summary>
+
+**Standard template library** là một thư viện mẫu chuẩn của C++, cung cấp các thành phần lập trình tổng quát để xử lý các cấu trúc dữ liệu và thuật toán. Nó được phát triển với mục tiêu cung cấp các công cụ hiệu quả, tái sử dụng và có thể mở rộng, giúp lập trình viên giải quyết các bài toán về thao tác dữ liệu mà không cần tự viết lại các cấu trúc dữ liệu và thuật toán cơ bản.
+
+Standard template library bao gồm ba thành phần chính: container (cấu trúc dữ liệu), iterator (bộ lặp), và algorithm (thuật toán). Chúng kết hợp với nhau tạo nên một hệ thống linh hoạt và mạnh mẽ cho việc thao tác dữ liệu.
+
+# 1. Containers (Cấu trúc dữ liệu)
+
+<details>
+<summary> Details </summary>
+
+**Containers** là các cấu trúc dữ liệu tổng quát, cho phép lưu trữ và quản lý các đối tượng. STL cung cấp nhiều loại container khác nhau, mỗi loại có đặc điểm riêng để phục vụ các trường hợp sử dụng khác nhau. Dưới đây là một số container chính trong STL:
+
+**Sequence Containers** (Cấu trúc dữ liệu tuần tự)
+
+- **vector**: Một mảng động, có thể thay đổi kích thước. Truy cập phần tử nhanh (O(1)) nhưng việc chèn/xóa phần tử ở giữa có thể chậm (O(n)).
+- **deque**: Hàng đợi hai đầu, cho phép thêm và xóa phần tử ở cả hai đầu với độ phức tạp O(1).
+- **list**: Danh sách liên kết đôi, cho phép chèn/xóa phần tử ở bất kỳ đâu với độ phức tạp O(1), nhưng truy cập ngẫu nhiên chậm (O(n)).
+
+**Associative Containers** (Cấu trúc dữ liệu ánh xạ)
+
+- **set**: Tập hợp các phần tử duy nhất, được sắp xếp theo thứ tự. Chèn, xóa và tìm kiếm phần tử có độ phức tạp O(log n).
+- **map**: Ánh xạ khóa-giá trị (key-value), với các khóa được sắp xếp. Tương tự như set, chèn/xóa/tìm kiếm có độ phức tạp O(log n).
+- **multiset và multimap**: Tương tự như set và map, nhưng cho phép nhiều phần tử có giá trị khóa giống nhau.
+
+**Unordered Containers** (Cấu trúc dữ liệu không sắp xếp)
+
+- **unordered_set**: Tập hợp các phần tử duy nhất nhưng không đảm bảo thứ tự. Chèn/xóa/tìm kiếm có độ phức tạp trung bình O(1).
+- **unordered_map**: Ánh xạ khóa-giá trị, không đảm bảo thứ tự, nhưng có độ phức tạp trung bình O(1) cho các thao tác chèn/xóa/tìm kiếm.
+- **unordered_multiset và unordered_multimap**: Tương tự như unordered_set và unordered_map, nhưng cho phép các phần tử trùng lặp.
+
+**Container Adaptors** (Bộ điều hợp cấu trúc dữ liệu)
+
+- **stack**: Cấu trúc dữ liệu ngăn xếp (LIFO - Last In First Out), cho phép thêm và xóa phần tử ở đầu ngăn xếp.
+- **queue**: Cấu trúc dữ liệu hàng đợi (FIFO - First In First Out), cho phép thêm phần tử vào cuối và xóa phần tử ở đầu.
+- **priority_queue**: Hàng đợi ưu tiên, phần tử có độ ưu tiên cao nhất được xử lý trước.
+
+</details>
+
+## 2. Iterators (Bộ lặp)
+
+<details>
+<summary> Details </summary>
+
+**Iterators** là các đối tượng trỏ đến phần tử trong container và cho phép duyệt qua các phần tử này. Chúng hoạt động tương tự như con trỏ. STL cung cấp nhiều loại iterator:
+
+- **Input Iterator**: Cho phép đọc dữ liệu từ container.
+- **Output Iterator**: Cho phép ghi dữ liệu vào container.
+- **Forward Iterator**: Cho phép duyệt qua container theo hướng tiến.
+- **Bidirectional Iterator**: Cho phép duyệt qua container theo cả hướng tiến và lùi.
+- **Random Access Iterator**: Cho phép truy cập ngẫu nhiên vào các phần tử, tương tự như con trỏ mảng.
+
+</details>
+
+## 3. Algorithms (Thuật toán)
+
+<details>
+<summary> Details </summary>
+
+Standard template library cung cấp một tập hợp phong phú các thuật toán để thao tác trên containers, chẳng hạn như sắp xếp, tìm kiếm, và xử lý các phần tử. Các thuật toán này phần lớn dựa trên các iterator để hoạt động trên mọi loại container.
+
+Một số thuật toán phổ biến:
+
+- **sort**: Sắp xếp các phần tử trong phạm vi chỉ định theo thứ tự tăng dần.
+- **find**: Tìm kiếm phần tử trong phạm vi chỉ định.
+- **for_each**: Áp dụng một hàm lên mỗi phần tử trong phạm vi chỉ định.
+- **copy**: Sao chép các phần tử từ một phạm vi này sang phạm vi khác.
+- **transform**: Áp dụng một hàm lên các phần tử và lưu kết quả vào phạm vi khác.
+- **binary_search**: Tìm kiếm nhị phân trên một dãy đã sắp xếp.
+
+</details>
+
+## 4. Độ phức tạp của một thuật toán:
+
+<details>
+<summary> Details </summary>
+
+**Độ phức tạp của một thuật toán** là một cách để đánh giá hiệu suất của nó, đặc biệt là khi kích thước đầu vào của bài toán tăng lên. Độ phức tạp thường được biểu diễn bằng ký hiệu Big-O (O), dùng để mô tả tốc độ tăng của thời gian thực hiện hoặc không gian bộ nhớ mà một thuật toán yêu cầu khi kích thước đầu vào tăng lên.
+
+### 4.1. O(1) - Thời gian hằng số
+
+- O(1) có nghĩa là thời gian thực hiện của thuật toán không thay đổi dù cho kích thước đầu vào tăng lên.
+- Nói cách khác, thuật toán sẽ luôn thực hiện trong thời gian cố định hoặc thời gian hằng số, bất kể kích thước đầu vào là bao nhiêu.
+
+Ví dụ: Truy cập một phần tử trong mảng bằng chỉ số (index) là O(1) vì thời gian truy cập một phần tử không phụ thuộc vào kích thước của mảng.
+
+```cpp
+int arr[] = {1, 2, 3, 4, 5};
+int x = arr[2];  // Truy cập phần tử thứ 3 là O(1)
+```
+
+**Đặc điểm**:
+
+- Nhanh nhất trong tất cả các độ phức tạp.
+- Thường gặp trong các thao tác đơn giản như truy cập hoặc gán giá trị cho một biến.
+
+### 4.2. O(n) - Thời gian tỷ lệ với kích thước đầu vào
+
+- O(n) có nghĩa là thời gian thực hiện của thuật toán tăng tuyến tính theo kích thước đầu vào.
+- Nếu đầu vào tăng gấp đôi, thời gian thực hiện cũng tăng gấp đôi.
+
+Ví dụ: Duyệt qua tất cả các phần tử trong một mảng có n phần tử là O(n), vì thuật toán phải thực hiện một phép toán cho mỗi phần tử.
+
+```cpp
+int sum = 0;
+for (int i = 0; i < n; ++i) {
+    sum += arr[i];  // Tổng các phần tử của mảng có n phần tử
+}
+```
+**Đặc điểm**:
+- Tốc độ tuyến tính: Thời gian thực hiện tăng đều với kích thước đầu vào.
+- Thường gặp trong các vòng lặp đơn xử lý từng phần tử một.
+
+### 4.3. O(log n) - Thời gian tỷ lệ với logarit của kích thước đầu vào
+
+- O(log n) có nghĩa là thời gian thực hiện chỉ tăng theo logarit của kích thước đầu vào. Điều này xảy ra khi mỗi bước của thuật toán cắt giảm lượng công việc cần làm theo một tỷ lệ cố định (ví dụ như chia đôi).
+- Nếu đầu vào tăng lên gấp đôi, thì thời gian thực hiện chỉ tăng lên một lượng nhỏ (log₂(2n) - log₂(n) = 1).
+
+Ví dụ:Tìm kiếm nhị phân trong một mảng đã sắp xếp là O(log n), vì mỗi lần tìm kiếm sẽ chia đôi kích thước của mảng.
+
+```cpp
+int binarySearch(int arr[], int left, int right, int x) {
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == x)
+            return mid;
+        if (arr[mid] < x)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return -1;
+}
+```
+**Đặc điểm**:
+- Rất nhanh khi xử lý các bộ dữ liệu lớn.
+- Thường gặp trong các thuật toán chia để trị (divide and conquer).
+
+### 4.4. O(n²) - Thời gian tỷ lệ với bình phương kích thước đầu vào
+
+- O(n²) có nghĩa là thời gian thực hiện của thuật toán tăng theo bình phương của kích thước đầu vào.
+- Nếu đầu vào tăng gấp đôi, thời gian thực hiện sẽ tăng lên gấp bốn lần.
+
+Ví dụ:Thuật toán sắp xếp chèn (insertion sort) hoặc sắp xếp chọn (selection sort) có độ phức tạp O(n²) vì chúng phải thực hiện nhiều vòng lặp lồng nhau.
+
+```cpp
+for (int i = 0; i < n; ++i) {
+    for (int j = i + 1; j < n; ++j) {
+        if (arr[i] > arr[j]) {
+            std::swap(arr[i], arr[j]);
+        }
+    }
+}
+```
+**Đặc điểm**:
+
+- Chậm khi xử lý các bộ dữ liệu lớn.
+- Thường gặp trong các thuật toán sắp xếp đơn giản hoặc các thuật toán có vòng lặp lồng nhau.
+
+### 4.5. O(n log n) - Thời gian tỷ lệ với n log n
+
+- O(n log n) là độ phức tạp của các thuật toán tốt hơn O(n²) nhưng chậm hơn O(n). Đây là sự kết hợp của việc duyệt qua tất cả các phần tử (O(n)) và xử lý logarit với từng phần tử (O(log n)).
+
+Ví dụ:Thuật toán sắp xếp nhanh (quicksort) hoặc sắp xếp trộn (mergesort) có độ phức tạp O(n log n).
+
+```cpp
+void merge(int arr[], int l, int m, int r) {
+    // Merges two subarrays of arr[]
+    // Left subarray is arr[l..m]
+    // Right subarray is arr[m+1..r]
+}
+
+void mergeSort(int arr[], int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, r);
+    }
+}
+```
+**Đặc điểm**:
+- Nhanh và thường được sử dụng trong các thuật toán sắp xếp hiệu quả.
+- Thường gặp trong các thuật toán chia để trị với độ sâu đệ quy là logarit và xử lý mỗi bước là tuyến tính.
+
+### 4.6. Tóm tắt các độ phức tạp phổ biến
+
+| Độ phức tạp | Mô tả | Ví dụ |
+|-------------|-------|-------|
+| **O(1)**    | Thời gian hằng số, không phụ thuộc vào kích thước đầu vào. | Truy cập phần tử trong mảng. |
+| **O(n)**    | Thời gian tỷ lệ với kích thước đầu vào. | Duyệt qua mảng. |
+| **O(log n)**| Thời gian tỷ lệ với logarit của kích thước đầu vào. | Tìm kiếm nhị phân. |
+| **O(n²)**   | Thời gian tỷ lệ với bình phương kích thước đầu vào. | Sắp xếp chọn, sắp xếp chèn. |
+| **O(n log n)**| Thời gian tuyến tính nhân logarit. | Sắp xếp nhanh, sắp xếp trộn. |
+
+</details>
+
+</details>
+
+
+
