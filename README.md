@@ -3846,5 +3846,42 @@ void mergeSort(int arr[], int l, int r) {
 
 </details>
 
+# Bài 16 : OOP Assignment
+
+<details>
+<summary> Details </summary>
 
 
+</details>
+
+# Bài 17 : Template
+
+<details>
+<summary> Details </summary>
+
+
+</details>
+
+# Bài 18 : Lambda - Namespace - Pattern
+
+<details>
+<summary> Details </summary>
+
+
+</details>
+
+# Bài 18 : Makefile
+
+<details>
+<summary> Details </summary>
+
+
+</details>
+
+# Bài 20 : Smart pointer - Unique - Shared - Weak
+
+<details>
+<summary> Details </summary>
+
+
+</details>
