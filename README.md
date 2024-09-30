@@ -3859,6 +3859,166 @@ void mergeSort(int arr[], int l, int r) {
 <details>
 <summary> Details </summary>
 
+## 1. Khái niệm
+
+<details>
+<summary> Details </summary>
+
+**Template** là một tính năng cho phép viết các hàm và lớp mà không cần xác định trước kiểu dữ liệu cụ thể. Khi sử dụng template, có thể viết một hàm hay lớp có khả năng làm việc với nhiều kiểu dữ liệu khác nhau mà không cần phải viết lại code cho từng kiểu.
+
+Template giúp tăng tính linh hoạt và khả năng tái sử dụng của code, đồng thời giúp tránh việc trùng lặp code khi làm việc với các kiểu dữ liệu khác nhau.
+
+</details>
+
+## 2. Phân loại
+
+<details>
+<summary> Details </summary>
+
+Template có 2 loại:
+- Function template (Template hàm)
+- Class template (Template lớp)
+
+### 2.1. Function Template (Template hàm)
+
+**Function Template** cho phép chúng ta định nghĩa một hàm có thể hoạt động với nhiều kiểu dữ liệu khác nhau mà không cần phải viết lại cho từng kiểu dữ liệu cụ thể.
+
+Syntax:
+```cpp
+template <typename T>
+T functionName(T param) {
+    //Code
+}
+```
+Trong đó:
+- template <typename T> là cú pháp khai báo một template. T là một kiểu dữ liệu chưa biết (có thể là bất kỳ kiểu dữ liệu nào).
+- T functionName(T param) là một hàm sử dụng kiểu T vừa được định nghĩa.
+
+Example:
+```cpp
+#include <iostream>
+using namespace std;
+
+// Hàm template để tìm giá trị lớn hơn giữa hai số
+template <typename T>
+T findMax(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+int main() {
+    int a = 10, b = 20;
+    double x = 12.5, y = 9.3;
+
+    // Sử dụng template với kiểu int
+    cout << "Max giữa " << a << " và " << b << " là: " << findMax(a, b) << endl;
+
+    // Sử dụng template với kiểu double
+    cout << "Max giữa " << x << " và " << y << " là: " << findMax(x, y) << endl;
+
+    return 0;
+}
+```
+Output:
+```cpp
+Max giữa 10 và 20 là: 20
+Max giữa 12.5 và 9.3 là: 12.5
+```
+
+### 2.2. Class Template (Template lớp)
+
+Tương tự như function template, class template cho phép xây dựng các lớp có thể hoạt động với nhiều kiểu dữ liệu khác nhau mà không cần phải định nghĩa lại lớp cho từng kiểu dữ liệu.
+
+Syntax:
+```cpp
+template <typename T>
+class ClassName {
+    T memberVariable;
+public:
+    ClassName(T param) : memberVariable(param) {}
+    void display() {
+        cout << "Member Variable: " << memberVariable << endl;
+    }
+};
+```
+Example:
+```cpp
+#include <iostream>
+using namespace std;
+
+// Class template
+template <typename T>
+class Box {
+    T content;
+public:
+    Box(T c) : content(c) {}
+    
+    void showContent() {
+        cout << "Nội dung trong hộp: " << content << endl;
+    }
+};
+
+int main() {
+    // Sử dụng class template với kiểu int
+    Box<int> intBox(123);
+    intBox.showContent();
+
+    // Sử dụng class template với kiểu string
+    Box<string> stringBox("Chào C++");
+    stringBox.showContent();
+
+    return 0;
+}
+```
+Output
+```cpp
+Nội dung trong hộp: 123
+Nội dung trong hộp: Chào C++
+```
+
+### 2.3. Template với nhiều tham số
+
+Template cũng có thể chấp nhận nhiều tham số kiểu, điều này cho phép định nghĩa các hàm hoặc lớp có thể làm việc với nhiều kiểu dữ liệu khác nhau cùng một lúc.
+
+Example:
+```cpp
+#include <iostream>
+using namespace std;
+
+// Hàm template với hai tham số kiểu
+template <typename T1, typename T2>
+void showPair(T1 a, T2 b) {
+    cout << "First: " << a << ", Second: " << b << endl;
+}
+
+int main() {
+    showPair(10, 20.5);           // int, double
+    showPair("Hello", 100);        // const char*, int
+    showPair(3.14, "World");       // double, const char*
+
+    return 0;
+}
+```
+Output:
+```cpp
+First: 10, Second: 20.5
+First: Hello, Second: 100
+First: 3.14, Second: World
+```
+
+</details>
+
+## 3. Ứng dụng của Template trong thực tế
+
+<details>
+<summary> Details </summary>
+    
+**Tính tổng quát**:Template giúp giảm thiểu việc viết lại mã cho nhiều kiểu dữ liệu khác nhau. Ví dụ, thay vì viết nhiều hàm addInt, addFloat, addDouble, bạn chỉ cần một hàm template duy nhất.
+
+**Tính an toàn kiểu**:Template giúp đảm bảo tính an toàn kiểu trong quá trình biên dịch, vì nếu kiểu dữ liệu không khớp, chương trình sẽ báo lỗi ngay khi biên dịch.
+
+**Thư viện chuẩn C++ (STL)**: Các container như vector, list, map trong STL đều được xây dựng dựa trên template, nhờ đó chúng có thể chứa bất kỳ kiểu dữ liệu nào mà người dùng yêu cầu.
+
+</details>
 
 </details>
 
@@ -3870,7 +4030,7 @@ void mergeSort(int arr[], int l, int r) {
 
 </details>
 
-# Bài 18 : Makefile
+# Bài 19 : Makefile
 
 <details>
 <summary> Details </summary>
