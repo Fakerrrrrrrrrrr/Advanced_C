@@ -3596,6 +3596,7 @@ int main() {
 ### 5.2. Giao Diện (Interface)
 
 C++ không hỗ trợ giao diện theo cách như một số ngôn ngữ khác (như Java, Python), nhưng có thể mô phỏng giao diện bằng cách sử dụng lớp trừu tượng với các phương thức ảo thuần túy mà không có bất kỳ thuộc tính nào.
+Hàm thuần ảo không thể tạo đối tượng cho class đó. Khi một lớp kế thừa từ một lớp trừu tượng, nó phải triển khai tất cả các hàm ảo thuần ảo.
 
 Example:
 ```cpp
