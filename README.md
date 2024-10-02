@@ -4044,5 +4044,179 @@ First: 3.14, Second: World
 <details>
 <summary> Details </summary>
 
+## 1. Smart pointer
+
+<details>
+<summary> Details </summary>
+
+**Smart pointer** (con trỏ thông minh) là một cấu trúc dữ liệu được sử dụng để quản lý tài nguyên động, đặc biệt là bộ nhớ, một cách an toàn và tự động. Smart pointer không chỉ hoạt động như một con trỏ thông thường (để trỏ đến một vùng nhớ), mà còn có khả năng tự động giải phóng tài nguyên khi nó không còn được sử dụng, giúp tránh các vấn đề về quản lý bộ nhớ như rò rỉ bộ nhớ (memory leak).
+
+Smart pointer là các lớp (classes) trong đó đối tượng quản lý một con trỏ thô (raw pointer). Một số đặc trưng chính của smart pointer bao gồm:
+- Tự động quản lý vòng đời của đối tượng: Smart pointer sẽ tự động xóa đối tượng mà nó trỏ đến khi smart pointer không còn được sử dụng. Điều này giúp tránh việc quên giải phóng bộ nhớ, một lỗi phổ biến trong lập trình với con trỏ thô.
+- Chia sẻ hoặc độc quyền sở hữu tài nguyên: Tùy thuộc vào loại smart pointer, nó có thể chia sẻ quyền sở hữu (shared ownership) hoặc độc quyền sở hữu (exclusive ownership) đối với đối tượng mà nó trỏ đến.
+- Tích hợp với RAII (Resource Acquisition Is Initialization): Smart pointer tận dụng RAII, nghĩa là tài nguyên được cấp phát tại thời điểm khởi tạo và được giải phóng khi smart pointer bị hủy.
+
+Có ba loại smart pointer chính được cung cấp bởi thư viện chuẩn (STL) từ C++11 trở đi. Chúng bao gồm:
+- std::unique_ptr - Con trỏ thông minh sở hữu độc quyền đối tượng.
+- std::shared_ptr - Con trỏ thông minh sở hữu chia sẻ đối tượng.
+- std::weak_ptr - Con trỏ thông minh quan sát đối tượng mà không sở hữu nó.
+
+</details>
+
+## 2. Unique
+
+<details>
+<summary> Details </summary>
+
+**Khái niệm:**
+
+**std::unique_ptr** là một smart pointer sở hữu độc quyền đối tượng mà nó quản lý, có nghĩa là chỉ có một unique_ptr duy nhất có thể sở hữu một đối tượng nhất định tại một thời điểm. Khi unique_ptr bị hủy hoặc chuyển nhượng (move), đối tượng sẽ tự động bị giải phóng.
+
+**Đặc điểm:**
+
+- Sở hữu độc quyền: Tại một thời điểm, chỉ có một unique_ptr duy nhất sở hữu đối tượng. Không thể sao chép một unique_ptr (copy), nhưng có thể di chuyển (move) nó.
+- Quản lý tài nguyên: Khi unique_ptr bị hủy (ra khỏi phạm vi hoặc gọi reset()), nó sẽ tự động giải phóng tài nguyên mà nó quản lý (gọi delete cho con trỏ thô).
+- Hiệu suất tốt: Do không có bộ đếm tham chiếu, unique_ptr có chi phí thấp hơn so với shared_ptr.
+
+Example:
+```cpp
+#include <iostream>
+#include <memory>  // std::unique_ptr
+
+class MyClass {
+public:
+    MyClass() { std::cout << "MyClass created\n"; }
+    ~MyClass() { std::cout << "MyClass destroyed\n"; }
+};
+
+int main() {
+    std::unique_ptr<MyClass> ptr1 = std::make_unique<MyClass>();  // Tạo unique_ptr
+
+    // ptr1 sở hữu đối tượng, khi nó ra khỏi phạm vi, đối tượng sẽ bị hủy
+    return 0;
+}
+```
+Chuyển nhượng đối tượng giữa các unique_ptr
+```cpp
+std::unique_ptr<MyClass> ptr2 = std::move(ptr1);  // Chuyển quyền sở hữu từ ptr1 sang ptr2
+```
+Sau khi chuyển nhượng, ptr1 không còn sở hữu đối tượng nữa và trở thành nullptr.
+
+</details>
+
+## 3. Shared
+
+<details>
+<summary> Details </summary>
+
+**Khái niệm:**
+
+**std::shared_ptr** là một smart pointer cho phép chia sẻ quyền sở hữu một đối tượng giữa nhiều con trỏ. Nó sử dụng một bộ đếm tham chiếu (reference count) để theo dõi số lượng shared_ptr trỏ đến đối tượng. Khi bộ đếm tham chiếu giảm về 0 (tức là không còn shared_ptr nào trỏ đến), đối tượng sẽ tự động bị giải phóng.
+
+**Đặc điểm:**
+- Sở hữu chia sẻ: Nhiều shared_ptr có thể cùng sở hữu một đối tượng.
+- Bộ đếm tham chiếu: Mỗi khi một shared_ptr mới sao chép từ shared_ptr hiện có, bộ đếm tham chiếu tăng lên. Khi một shared_ptr bị hủy, bộ đếm giảm đi. Khi bộ đếm về 0, đối tượng được giải phóng.
+- Chi phí quản lý cao hơn: Do sử dụng bộ đếm tham chiếu, shared_ptr có chi phí quản lý cao hơn so với unique_ptr.
+
+Example:
+```cpp
+#include <iostream>
+#include <memory>  // std::shared_ptr
+
+class MyClass {
+public:
+    MyClass() { std::cout << "MyClass created\n"; }
+    ~MyClass() { std::cout << "MyClass destroyed\n"; }
+};
+
+int main() {
+    std::shared_ptr<MyClass> ptr1 = std::make_shared<MyClass>();  // Tạo shared_ptr
+    {
+        std::shared_ptr<MyClass> ptr2 = ptr1;  // ptr2 chia sẻ quyền sở hữu với ptr1
+        std::cout << "Use count: " << ptr1.use_count() << std::endl;  // Đếm số lượng shared_ptr
+    }
+    // Khi ptr2 ra khỏi phạm vi, bộ đếm tham chiếu giảm xuống
+
+    std::cout << "Use count: " << ptr1.use_count() << std::endl;  // ptr1 vẫn còn sở hữu
+    return 0;  // Khi ptr1 ra khỏi phạm vi, đối tượng bị hủy
+}
+```
+Output:
+```cpp
+MyClass created
+Use count: 2
+Use count: 1
+MyClass destroyed
+```
+
+</details>
+
+## 4. Weak
+
+<details>
+<summary> Details </summary>
+
+**Khái niệm:**
+
+**std::weak_ptr** là một smart pointer đặc biệt được sử dụng để quan sát đối tượng được quản lý bởi shared_ptr mà không sở hữu nó. Nó không tăng bộ đếm tham chiếu của đối tượng được quản lý. weak_ptr thường được sử dụng để tránh vòng tham chiếu (cyclic reference), nơi hai shared_ptr có thể trỏ lẫn nhau, gây ra rò rỉ bộ nhớ.
+
+**Đặc điểm:**
+- Quan sát không sở hữu: weak_ptr không sở hữu đối tượng mà nó trỏ đến và không làm tăng hoặc giảm bộ đếm tham chiếu.
+- Tránh vòng tham chiếu: Khi có hai hoặc nhiều shared_ptr trỏ lẫn nhau, weak_ptr có thể được sử dụng để phá vỡ vòng tham chiếu.
+- Kiểm tra hợp lệ: Để truy cập đối tượng mà weak_ptr trỏ đến, bạn cần sử dụng phương thức lock(), phương thức này trả về một shared_ptr. Nếu đối tượng đã bị hủy, lock() trả về một shared_ptr null.
+
+```cpp
+#include <iostream>
+#include <memory>  // std::shared_ptr, std::weak_ptr
+
+class MyClass {
+public:
+    MyClass() { std::cout << "MyClass created\n"; }
+    ~MyClass() { std::cout << "MyClass destroyed\n"; }
+};
+
+int main() {
+    std::shared_ptr<MyClass> sharedPtr = std::make_shared<MyClass>();
+    std::weak_ptr<MyClass> weakPtr = sharedPtr;  // weak_ptr quan sát sharedPtr
+
+    // Kiểm tra xem đối tượng còn tồn tại không
+    if (auto tempPtr = weakPtr.lock()) {  // Tạo shared_ptr tạm thời từ weak_ptr
+        std::cout << "Object is still alive\n";
+    } else {
+        std::cout << "Object has been destroyed\n";
+    }
+
+    return 0;
+}
+```
+Output:
+```
+MyClass created
+Object is still alive
+MyClass destroyed
+```
+
+</details>
+
+## 5. Conclude
+
+<details>
+<summary> Details </summary>
+
+So sánh các loại Smart Pointer:
+
+| Loại Smart Pointer | Sở hữu | Bộ đếm tham chiếu | Chuyển nhượng (Move) | Sao chép (Copy) | Ứng dụng chính |
+|--------------------|--------|-------------------|----------------------|-----------------|----------------|
+|std::unique_ptr|Độc quyền|Không|Có|Không|Quản lý tài nguyên với quyền sở hữu duy nhất|
+|std::shared_ptr|Chia sẻ|Có|Có|Có|Quản lý tài nguyên với quyền sở hữu chia sẻ|
+|std::weak_ptr|Quan sát|Không|Không|Không|Quan sát đối tượng, tránh vòng tham chiếu|
+
+**Kết luận:**
+- std::unique_ptr: Được sử dụng khi bạn muốn đảm bảo rằng chỉ có một con trỏ duy nhất sở hữu một đối tượng, và đối tượng đó sẽ được tự động giải phóng khi không cần thiết nữa.
+- std::shared_ptr: Được sử dụng khi bạn cần chia sẻ quyền sở hữu đối tượng giữa nhiều con trỏ và đối tượng sẽ chỉ bị giải phóng khi không còn con trỏ nào trỏ đến nó.
+- std::weak_ptr: Được sử dụng khi bạn muốn giữ một tham chiếu đến đối tượng được quản lý bởi shared_ptr mà không sở hữu nó, thường để tránh vòng tham chiếu.
+
+
+</details>
 
 </details>
