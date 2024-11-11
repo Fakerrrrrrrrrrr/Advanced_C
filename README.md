@@ -4319,6 +4319,47 @@ int main(){
 }
 ```
 
+Singeton:
+```cpp
+#include <iostream>
+
+void gpioInit();
+void gpioSetPin(int pin, bool value);
+void gpioReadPin(int pin);
+
+class GpioManager{
+    private:
+        GpioManager(); //Khi constructer ở Private thì không cho phép khởi tạo trực tiếp object ví dụ: GpioManager abc;
+        static GpioManager* instance;
+        void init(){
+            gpioInit;
+        }
+
+    public:
+        static GpioManager *getInstace(){
+            if(!instance){
+                instance = new GpioManager();
+                instance->init();
+            }
+            return instance;
+        }
+        void setPin(int pin, bool value){
+            gpioSetPin(pin,value);
+        }
+        void readPin(int pin){
+            gpioReadPin(pin);
+        }
+}
+
+GpioManager* GpioManager::instance = nullptr;
+int main(){
+    GpioManager* gpioManager = GpioManager::getInstance();
+
+    gpioManager->setPin(5,true);
+    gpioManager->readPin(5);
+    return 0;
+}
+```
 
 </details>
 
