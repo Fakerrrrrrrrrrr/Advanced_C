@@ -4279,7 +4279,25 @@ public:
     }
 };
 
+//Display component (an observer)
+class Display : public Observer {
+public:
+    void update(float temperature, float humidity, float light) override {
+        std::cout << "Display: Temperature: " << temperature
+                  << ", Humidity: " << humidity
+                  << ", Light: " << light << std::endl;
+    }
+}
 
+//Logger component (an observer)
+class Logger : public Observer {
+public:
+    void update(float temperature, float humidity, float light) override {
+        std::cout << "Logging data... Temp: " << temperature
+                  << ", Humidity: " << humidity
+                  << ", Light: " << light << std::endl;
+    }
+}
 
 ```
 
