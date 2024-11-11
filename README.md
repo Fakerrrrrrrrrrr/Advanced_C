@@ -4220,3 +4220,38 @@ So sánh các loại Smart Pointer:
 </details>
 
 </details>
+
+# Bài 21 : Design Pattern
+
+<details>
+<summary> Details </summary>
+
+# Là những khuôn mẫu
+# Các tính chất
+# - Tái sử dụng
+# - Linh hoạt
+# - Đã được kiểm chứng
+# - Dễ bảo trì
+# - Tăng khả năng mở rộng
+
+Ở Việt Nam có các nhóm chính như sau:
+- creational patterns:(Khởi tạo 1 cách linh hoạt)
++ Singeleton , Factory Method, ...
+- structural pattern:
++ Adapter, Composite
+- Behavioral pattern:
++ Observer, Stategy, Command, iterator
+
+Observer:
+```cpp
+class Observer {
+public:
+    virtual void update(float temerature, float humidity, float light) = 0;
+};
+
+
+
+```
+
+
+</details>
