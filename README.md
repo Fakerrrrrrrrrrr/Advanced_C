@@ -4244,9 +4244,39 @@ So sánh các loại Smart Pointer:
 
 Observer:
 ```cpp
+// Interface to observers (display, logger, etc.)
 class Observer {
 public:
     virtual void update(float temerature, float humidity, float light) = 0;
+};
+
+//Subject (SensorManager) holds the state and notifies observers
+class SensorManager {
+    float temperature;
+    float humidity;
+    float light;
+    std::vector<Observer*> observers;
+public:
+    void registerObserver(Observer* observer) {
+        observers.push_back(observer);
+    }
+
+    void removeObserver(Observer* observer) {
+        observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
+    }
+
+    void notifyObservers() {
+        for (auto observer : observers) {
+            observer->update(temperature, humidity, light);
+        }
+    }
+
+    void setMeasurements(float temp, float hum, float lightLvl) {
+        temperature = temp;
+        humidity = hum;
+        light = lightLvl;
+        notifyObservers();
+    }
 };
 
 
@@ -4255,3 +4285,20 @@ public:
 
 
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
