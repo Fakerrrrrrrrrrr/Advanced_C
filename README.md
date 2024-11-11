@@ -4244,6 +4244,11 @@ So sánh các loại Smart Pointer:
 
 Observer:
 ```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
 // Interface to observers (display, logger, etc.)
 class Observer {
 public:
@@ -4287,7 +4292,7 @@ public:
                   << ", Humidity: " << humidity
                   << ", Light: " << light << std::endl;
     }
-}
+};
 
 //Logger component (an observer)
 class Logger : public Observer {
@@ -4297,8 +4302,21 @@ public:
                   << ", Humidity: " << humidity
                   << ", Light: " << light << std::endl;
     }
-}
+};
 
+int main(){
+    SensorManager observerTemp;
+
+    Display display;
+    Logger logger;
+
+    observerTemp.registerObserver(&display);
+    observerTemp.registerObserver(&logger);
+
+    observerTemp.setMeasurements(25.0, 60.0, 700.0);
+    observerTemp.setMeasurements(26.0, 65.0, 600.0);
+    return 0;
+}
 ```
 
 
