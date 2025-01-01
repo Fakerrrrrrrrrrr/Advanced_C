@@ -4226,23 +4226,23 @@ So sánh các loại Smart Pointer:
 <details>
 <summary> Details </summary>
 
-# Là những khuôn mẫu
+# Là những khuôn mẫu (Form)
 # Các tính chất
 # - Tái sử dụng
-# - Linh hoạt
-# - Đã được kiểm chứng
-# - Dễ bảo trì
+# - Linh hoạt: Không ràng buộc theo 1 nguyên tắc duy nhất, trong quá trình code thì có thể thay đổi được.
+# - Đã được kiểm chứng: Trong quá trình làm việc sử dụng Design Pattern giải quyết vấn đề đơn giản hơn nên tính chất của nó đã được kiểm chứng.
+# - Dễ bảo trì: Khi thiết kế 1 Class, đưa hết tất cả vào trong Method, khi thay đổi gì đó rất khó để sửa Method, giả sử phương trình bậc 2 đưa hết tất cả vào trong 1 hàm nếu bị lỗi sẽ sửa rất mệt, vậy nên chia module nào sửa module đó.
 # - Tăng khả năng mở rộng
 
 Ở Việt Nam có các nhóm chính như sau:
-- creational patterns:(Khởi tạo 1 cách linh hoạt)
-+ Singeleton , Factory Method, ...
-- structural pattern:
-+ Adapter, Composite
-- Behavioral pattern:
-+ Observer, Stategy, Command, iterator
+- Creational patterns:(Khởi tạo 1 cách linh hoạt) Khi khai báo 1 object giả sử khai báo 1 object sv thuộc kiểu dữ liệu Class SinhVien thì có nó sẽ khởi tạo 1 object như 1 biến, có vùng nhớ tương ứng và vùng nhớ này có các đặc tính của SinhVien. Nhưng ở trong Creational Pattern sẽ khởi tạo 1 object và nó có thể thay đổi kiểu khởi tạo như thế nào.<br>
++ Singeleton , Factory Method,...<br>
+- Structural pattern: Giúp các Class các Object tạo ra cấu trúc lớn mà không thay đổi cách thức hoạt động của chúng <br>
++ Adapter, Composite<br>
+- Behavioral pattern:<br>
++ Observer, Stategy, Command, iterator<br>
 
-Observer:
+Observer: Ví dụ tạo ra 1 object sensorManager (observerTemp) khi tạo ra 1 method để thay đổi ở setMeasurements, ví dụ làm 1 hệ thống nhúng, nếu set tham số là nhiệt độ nào đó, lúc đó nhiệt độ có 2 luồng xử lý, luồng thứ nhất hiển thị lên màn hình, luồng thứ 2 chương trình lấy cảm biến nhiệt độ để lớn hơn bao nhiêu độ để bật điều hòa chẳng hạn, nói chung 2 luồng đều cần dùng tham số là nhiệt độ, khi set nhiệt độ sẽ có 2 method sử dụng thông số chạy 2 luồng. Thì Observer này nói khi mình tạo ra 1 đối tượng tức các object display, logger khi mà các object này thay đổi giá trị thì nó sẽ cập nhật thông tin cho các object khác. Chẳng hạn như nhiều object sử dụng sensorManager, ví dụ display sử dụng thông tin của sensorManager, logger cũng sử dụng thông tin của sensorManager. Khi sensorManager cập nhật bằng setMeasurements thì 2 object display và logger phải cập nhật 1 cách real-time lấy thông tin của sensorManager để cập nhật lên.
 ```cpp
 #include <iostream>
 #include <vector>
