@@ -4321,6 +4321,64 @@ int main(){
     return 0;
 }
 ```
+Ví dụ khác về Observer
+```cpp
+#include <iostream>
+#include <vector>
+
+//Observer interface
+class ButtonObserver{
+public:
+    virtual void update(int buttonID, bool state) = 0;
+}
+
+//Subject class - Button
+class Button {
+    int buttonID;
+    bool state;
+    std::vector<ButtonObserver*> observers;
+public:
+    Button (int id) : buttonID(id), state(false) {}
+
+    void pressButton() {
+        state = true;
+        notifyObserver();
+    }
+
+    void releaseButton(){
+        state = false;
+        notifyObserver();
+    }
+
+    void registerObserver(Button* observer) {
+        observers.push_back(observer);
+    }
+
+}
+
+int main(){
+    Button button1(1);
+    Button button2(2);
+
+    LED led;
+    Buzzer buzzer;
+
+    //Register observers
+    button1.registerObserver(&led);
+    button1.registerObserver(&buzzer);
+
+    button2.registerObserver(&led);
+
+    button1.pressButton();
+    button1.releaseButton();
+
+    button2.pressButton();
+    button2.realseButton();
+
+    return 0;
+}
+
+```
 
 Singeton:
 ```cpp
