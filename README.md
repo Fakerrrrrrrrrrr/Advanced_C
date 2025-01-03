@@ -4226,13 +4226,17 @@ So sánh các loại Smart Pointer:
 <details>
 <summary> Details </summary>
 
-# Là những khuôn mẫu (Form)
-# Các tính chất
-# - Tái sử dụng
-# - Linh hoạt: Không ràng buộc theo 1 nguyên tắc duy nhất, trong quá trình code thì có thể thay đổi được.
-# - Đã được kiểm chứng: Trong quá trình làm việc sử dụng Design Pattern giải quyết vấn đề đơn giản hơn nên tính chất của nó đã được kiểm chứng.
-# - Dễ bảo trì: Khi thiết kế 1 Class, đưa hết tất cả vào trong Method, khi thay đổi gì đó rất khó để sửa Method, giả sử phương trình bậc 2 đưa hết tất cả vào trong 1 hàm nếu bị lỗi sẽ sửa rất mệt, vậy nên chia module nào sửa module đó.
-# - Tăng khả năng mở rộng
+## Khái niệm
+
+- Là những khuôn mẫu (Form)
+- Các tính chất
++ Tái sử dụng
++ Linh hoạt: Không ràng buộc theo 1 nguyên tắc duy nhất, trong quá trình code thì có thể thay đổi được.
++ Đã được kiểm chứng: Trong quá trình làm việc sử dụng Design Pattern giải quyết vấn đề đơn giản hơn nên tính chất của nó đã được kiểm chứng.
++ Dễ bảo trì: Khi thiết kế 1 Class, đưa hết tất cả vào trong Method, khi thay đổi gì đó rất khó để sửa Method, giả sử phương trình bậc 2 đưa hết tất cả vào trong 1 hàm nếu bị lỗi sẽ sửa rất mệt, vậy nên chia module nào sửa module đó.
++ Tăng khả năng mở rộng
+
+## Ứng dụng
 
 Ở Việt Nam có các nhóm chính như sau:
 - Creational patterns:(Khởi tạo 1 cách linh hoạt) Khi khai báo 1 object giả sử khai báo 1 object sv thuộc kiểu dữ liệu Class SinhVien thì có nó sẽ khởi tạo 1 object như 1 biến, có vùng nhớ tương ứng và vùng nhớ này có các đặc tính của SinhVien. Nhưng ở trong Creational Pattern sẽ khởi tạo 1 object và nó có thể thay đổi kiểu khởi tạo như thế nào.<br>
@@ -4354,6 +4358,25 @@ public:
         observers.push_back(observer);
     }
 
+    void notifyObserver(){
+        for (auto observer : observers) {
+            observer->update(buttonID, state);
+        }
+    }
+}
+
+class LED : public ButtonObserver {
+public:
+    void update(int buttonID, bool state) override {
+        std::cout << "LED reacts to Button " << buttonID << " being " << (state ? "pressed" : "release") << "\n";
+    }
+}
+
+class Buzzer : public ButtonObserver {
+public:
+    void update(int buttonID, bool state) override {
+        std::cout << "Buzzer reacts to Button " << buttonID << " being " << (state ? "pressed" : "release") << "\n";
+    }
 }
 
 int main(){
@@ -4377,10 +4400,10 @@ int main(){
 
     return 0;
 }
-
 ```
 
-Singeton:
+Singeton: Giả sử có 1 Class SinhVien chỉ cần khởi tạo 1 object duy nhất chứ không được khởi tạo nhiều object, về ứng dụng trong lập trình nhúng thì GPIO chỉ có 1 thanh ghi để set up, không thể tạo 2 cái object để chứa cùng 1 GPIO được hoặc truyền data như truyền UART thì khi truyền cũng được khởi tạo 1 object để dùng UART thôi khởi tạo 1 object chỉ có 1 địa chỉ trên RAM bản chất của UART hoặc GPIO nó sẽ có địa chỉ để điều khiển và địa chỉ này là cố định ví dụ như 0xc8 (có 8 bit) để điều khiển PortC thì ghi giá trị tại địa chỉ 0xc8 0xc9 0xd0 0xd1,... (8bit) thì vi điều khiển mới sáng đèn ở GPIO này. Giả sử có 1 class GPIOA; khởi tạo với GIPOA* portA; 0x01 và các thuộc phải trỏ đến a,b,c,... trỏ đến các địa chỉ cụ thể theo thứ tự sau đó tạo tiếp GPIO portAp; thì nó cũng sẽ tạo 0xa3; thì lúc đó nó cũng truy cập vào địa chỉ 0xc8 để thay đổi những giá trị đó. Có nghĩa 1 class ta có thể khởi tạo nhiều object và những object chỉ được phép truy cập những địa chỉ cố định tại 0xc8 thì lúc đó sẽ lãng phí RAM vì không cần thiết phải khởi tạo nhiều trong khi chỉ cần khởi tạo portA duy nhất và làm việc với portA thôi, vậy nên Singleton chỉ khởi tạo 1 object với class duy nhất thôi.<br>
+Giả sử có 3 hàm gpioInit, gpioSetPin, gpioReadPin để quản lý 3 hàm tạo ra 1 class GpioManager
 ```cpp
 #include <iostream>
 
@@ -4397,7 +4420,7 @@ class GpioManager{
         }
 
     public:
-        static GpioManager *getInstace(){
+        static GpioManager *getInstance(){
             if(!instance){
                 instance = new GpioManager();
                 instance->init();
