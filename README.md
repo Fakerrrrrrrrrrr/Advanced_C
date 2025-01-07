@@ -4446,6 +4446,151 @@ int main(){
 }
 ```
 
+Factory: Trong lập trình nhúng ví dụ có 3 cái cảm biến nhiệt độ, độ ẩm và áp suất, object sử dụng thông tin cảm biến nào thì ở Class cha sẽ lấy thông tin của Class con. Factory Pattern có thể được sử dụng để quản lý các module khác nhau như hệ thống giải trí, điều khiển động cơ, v.v. Nó sẽ có những lợi ích như:
+- Tăng tính linh hoạt: Cho phép dễ dàng thêm các đối tượng mới mà không cần thay đổi code hiện có.
+- Quản lý bộ nhớ: Trong lập trình nhúng, quản lý bộ nhớ rất quan trọng. Pattern này giúp khởi tạo và hủy các đối tượng một cách hợp lý.
+- Giảm sự phụ thuộc giữa các lớp: Làm cho code dễ bảo trì và mở rộng hơn.
+- Đồng nhất: Đảm bảo rằng tất cả các đối tượng được tạo ra theo một cách thức thống nhất.
+
+Tóm tắt: Thì Factory Pattern sẽ tách quá trình khởi tạo object khỏi class mà lớp Class con sẽ quyết định object sẽ thuộc class nào
+
+```cpp
+#include <iostream>
+#include <string>
+
+class Sensor{
+public:
+    virtual void readData() = 0;
+};
+
+//Cảm biến nhiệt độ
+class TemperatureSensor : public Sensor{
+public:
+    void ReadData() override {
+        std::cout << "reading temperature data :<< "\n";
+    }
+};
+
+//Cảm biến độ ẩm
+class HumiditySensor : public Sensor{
+public:
+    void ReadData() override {
+        std::cout << "reading humidity data :<< "\n";
+    }
+};
+
+//Cảm biến áp suất
+class PressureSensor : public Sensor{
+public:
+    void ReadData() override {
+        std::cout << "reading pressure data :<< "\n";
+    }
+};
+
+class SensorFactory{
+public:
+    static Sensor* createSensor(const string& sensorType){
+        if (sensorType == "temperature") {
+            return new TemperatureSensor();
+        } else if (sensorType == "humidity"){
+            return new HumiditySensor();
+        } else if (sensorType == "pressure"){
+            return new HumiditySensor();
+        } else {
+            return nullptr;
+        }
+    }
+}
+
+int main() {
+    Sensor* sensor = SensorFactory::createSensor("temperature");
+    return 0;
+}
+```
+
+Decorator: Giả sử có một class temperature đã được định nghĩa chỉ đọc giá trị nhiệt độ nhưng bây giờ muốn đọc nhiệt độ đó ghi vào, xử lý, phân tích,... có nhiều tính năng mở rộng thêm thì thường code sẽ vào class temperature thêm tính năng vào thì Decorator sẽ có kỹ thuật đọc nhiệt độ đó thì bổ sung thêm chứ không can thiệp vào class nhiệt độ đó.<br>
+Decorator là một mẫu thiết kế cấu trúc trong lập trình hướng đối tượng cho phép thêm các tính năng mới vào đối tượng hiện có mà không làm thay đổi cấu trúc của đối tượng đó.<br>
+Đặc điểm chính:
+- Mở rộng chức năng: Thêm các tính năng mới mà không cần kế thừa hoặc thay đổi lớp gốc.
+- Linh hoạt: Có thể thêm hoặc loại bỏ các tính năng của đối tượng một cách linh hoạt.
+- Kết hợp động: Các decorator có thể kết hợp với nhau theo nhiều cách để tạo ra đối tượng với các tính năng khác nhau.
+
+Ứng dụng:
+- Lập trình giao diện người dùng: Ví dụ, một đối tượng cửa sổ có thể được trang bị thêm thanh cuộn, viền, tiêu đề bằng cách sử dụng các decorator.
+- Quản lý logging: Thêm các tính năng logging vào các phương thức mà không thay đổi mã gốc.
+- Lập trình nhúng: Trong hệ thống nhúng, có thể thêm tính năng kiểm tra lỗi, ghi log hoặc điều khiển truy cập vào các module phần cứng.
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Sensor{
+public:
+    virtual void readData() = 0;
+}
+
+//Cảm biến nhiệt độ
+class TemperatureSensor : public Sensor{
+public:
+    void ReadData() override {
+        std::cout << "reading temperature data :<< "\n";
+    }
+};
+
+//Cảm biến độ ẩm
+class HumiditySensor : public Sensor{
+public:
+    void ReadData() override {
+        std::cout << "reading humidity data :<< "\n";
+    }
+};
+
+//Cảm biến áp suất
+class PressureSensor : public Sensor{
+public:
+    void ReadData() override {
+        std::cout << "reading pressure data :<< "\n";
+    }
+};
+
+//Decorator Pattern
+class SensorDecorator : public Sensor{
+protected:
+    Sensor* wrappedSensor;
+public:
+    SensorDecorator(Sensor* sensor) : wrappedSensor(sensor){}
+    virtual void readData() override {
+        wrappedSensor->readData();
+    }
+}
+
+//Thêm tính năng
+class LoggingSensor : public SensorDecorator{
+public:
+    LoggingSensor(Sensor* sensor) : SensorDecorator(sensor){}
+    void readData() override {
+        std::cout << "LOG:sensor data" << "\n";
+        SensorDecorator::readData();
+    }
+}
+
+int main(){
+    Sensor* sensor = new TemperatureSensor();
+    Sensor* log = new LoggingSensor(sensor);
+
+    log->readData();
+    return 0;
+}
+```
+
+Tóm tắt:
+
+1. Singleton: Một lớp chỉ có 1 đối tượng duy nhất được tạo
+2. Observer: Một đối tượng thay đổi sẽ thông báo cho các đối tượng khác
+3. Factory: Khởi tạo một object mà lớp con quyết định loạt đối tượng nào
+4. Decorator: Thêm tính năng mới vào object mà không làm thay đổi cấu trúc của class
+
 </details>
 
 
